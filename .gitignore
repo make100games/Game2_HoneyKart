@@ -97,3 +97,35 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+
+# Cache for asset import (can be GBs)
+**/[Aa]sset[Ss]tore/
+
+# Lighting data & baked GI (regenerates automatically)
+**/[Ll]ightmap-*
+**/[Ll]ightmapSnapshot*
+**/[Rr]eflectionProbe-*
+**/[Ll]ightingData.asset
+**/[Ll]ightingData.asset.meta
+
+# Local build artifacts from specific platforms
+/[Bb]uilds/
+/[Bb]in/
+/[Oo]ut/
+
+# Local cache for Package Manager
+/[Pp]ackages/packages-lock.json
+
+# Auto-generated light probe data
+**/LightProbes.asset
+**/LightProbes.asset.meta
+
+# Local scene backups
+/[Aa]ssets/**/*.unity.backup
+
+# Unity Collaborate cache
+/[Uu]nityPackageManager/
+
+# Local StreamingAssets cache for Addressables
+/[Aa]ssets/StreamingAssets/aa/*
+
