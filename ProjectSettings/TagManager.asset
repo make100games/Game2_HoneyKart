@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - CrashMode
+  - RotationController
   layers:
   - Default
   - TransparentFX
@@ -21,9 +22,9 @@ TagManager:
   - CrashObject
   - Kart
   - TrainingCheckpoints
-  - 
-  - 
-  - 
+  - Fence
+  - Coin
+  - Sparkles
   - 
   - 
   - 
