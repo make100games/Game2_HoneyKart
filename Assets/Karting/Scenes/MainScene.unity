@@ -49808,6 +49808,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TotalLaps: 3
+  StartCheckpointIndex: 12
 --- !u!1001 &1440285506
 PrefabInstance:
   m_ObjectHideFlags: 0

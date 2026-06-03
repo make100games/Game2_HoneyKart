@@ -10,6 +10,11 @@ public class RaceManager : MonoBehaviour
     [Tooltip("Total number of laps required to finish the race.")]
     public int TotalLaps = 3;
 
+    [Tooltip("Index into the checkpoints array that acts as the start/finish line. " +
+             "Set this to the first checkpoint the karts cross after the starting grid. " +
+             "A lap is counted each time a kart passes this checkpoint after completing a full circuit.")]
+    public int StartCheckpointIndex = 0;
+
     /// <summary>Singleton accessor set in Awake.</summary>
     public static RaceManager Instance => s_Instance;
 

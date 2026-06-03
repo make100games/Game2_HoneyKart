@@ -56,6 +56,7 @@ public class LapTracker : MonoBehaviour
             Debug.LogWarning($"[LapTracker] '{racerName}': No checkpoints assigned and KartAgent auto-population failed.", this);
         }
 
+        // Will be overridden in Start() once RaceManager.Instance is available.
         m_NextExpectedCheckpointIndex = 0;
         m_RaceStarted = false;
         m_LapsCompleted = 0;
@@ -65,8 +66,16 @@ public class LapTracker : MonoBehaviour
 
     void Start()
     {
-        Debug.LogWarning($"[LapTracker] START — '{racerName}', checkpoints={checkpoints?.Length ?? 0}, RaceManager={(RaceManager.Instance != null ? "found" : "NULL")}", this);
         RaceManager.Register(this);
+
+        // Read the authoritative start checkpoint from RaceManager now that all Awake() calls are done.
+        m_NextExpectedCheckpointIndex = RaceManager.Instance != null
+            ? RaceManager.Instance.StartCheckpointIndex
+            : 0;
+
+        Debug.LogWarning($"[LapTracker] START — '{racerName}', checkpoints={checkpoints?.Length ?? 0}, " +
+                         $"startCheckpoint={m_NextExpectedCheckpointIndex}, " +
+                         $"RaceManager={(RaceManager.Instance != null ? "found" : "NULL")}", this);
     }
 
     void FixedUpdate()
@@ -98,7 +107,8 @@ public class LapTracker : MonoBehaviour
         // Reset so the (now different) next checkpoint starts fresh.
         m_InsideNextCheckpoint = false;
 
-        if (index == 0)
+        int startIndex = RaceManager.Instance != null ? RaceManager.Instance.StartCheckpointIndex : 0;
+        if (index == startIndex)
         {
             if (m_RaceStarted)
             {
