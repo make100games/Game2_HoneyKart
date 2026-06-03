@@ -13402,7 +13402,11 @@ PrefabInstance:
         type: 3}
       insertIndex: 0
       addedObject: {fileID: 317667224}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5209091469959198663, guid: 5f7c5784d4776074089b56351be94b74,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 386978796}
   m_SourcePrefab: {fileID: 100100000, guid: 5f7c5784d4776074089b56351be94b74, type: 3}
 --- !u!4 &386978793 stripped
 Transform:
@@ -13416,6 +13420,29 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 386978792}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &386978795 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5209091469959198663, guid: 5f7c5784d4776074089b56351be94b74,
+    type: 3}
+  m_PrefabInstance: {fileID: 386978792}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &386978796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386978795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc39933eb2ae5402a8c7574341769439, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  racerName: Brutus
+  checkpoints: []
+  checkpointMask:
+    serializedVersion: 2
+    m_Bits: 16384
 --- !u!1 &387807599
 GameObject:
   m_ObjectHideFlags: 0
@@ -23255,8 +23282,40 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1315839542190839943, guid: b26c4a65cf4c6475a92bfd03c2c3282b,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 695900667}
   m_SourcePrefab: {fileID: 100100000, guid: b26c4a65cf4c6475a92bfd03c2c3282b, type: 3}
+--- !u!1 &695900666 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1315839542190839943, guid: b26c4a65cf4c6475a92bfd03c2c3282b,
+    type: 3}
+  m_PrefabInstance: {fileID: 695900665}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &695900667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695900666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c691418147fd04b7fb91e906ebc9fa76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameMode: 2
+  targetName: 
+  title: 
+  description: 
+  isOptional: 0
+  delayVisible: 0
+  isTimed: 0
+  totalTimeInSecs: 0
+  displayMessage: {fileID: 0}
+  playerTracker: {fileID: 2012990391}
 --- !u!1 &697303796
 GameObject:
   m_ObjectHideFlags: 0
@@ -34200,6 +34259,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2012990390}
+    - targetCorrespondingSourceObject: {fileID: 4810912518991602691, guid: 19954de30401f73428254541a9ad156e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2012990391}
   m_SourcePrefab: {fileID: 100100000, guid: 19954de30401f73428254541a9ad156e, type: 3}
 --- !u!4 &1018964395 stripped
 Transform:
@@ -38044,7 +38107,11 @@ PrefabInstance:
         type: 3}
       insertIndex: 0
       addedObject: {fileID: 1572642351}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5209091469959198663, guid: 5f7c5784d4776074089b56351be94b74,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1110531344}
   m_SourcePrefab: {fileID: 100100000, guid: 5f7c5784d4776074089b56351be94b74, type: 3}
 --- !u!4 &1110531342 stripped
 Transform:
@@ -38052,6 +38119,29 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1110531341}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1110531343 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5209091469959198663, guid: 5f7c5784d4776074089b56351be94b74,
+    type: 3}
+  m_PrefabInstance: {fileID: 1110531341}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1110531344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110531343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc39933eb2ae5402a8c7574341769439, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  racerName: Squirrel
+  checkpoints: []
+  checkpointMask:
+    serializedVersion: 2
+    m_Bits: 16384
 --- !u!1001 &1121399280
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45958,7 +46048,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1341635051}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &1341635055
 Camera:
   m_ObjectHideFlags: 0
@@ -49673,6 +49763,51 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1437101206}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1438132497
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1438132498}
+  - component: {fileID: 1438132499}
+  m_Layer: 0
+  m_Name: RaceManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1438132498
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438132497}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1438132499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438132497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f261440be2854c3582bcf63638c670e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TotalLaps: 3
 --- !u!1001 &1440285506
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -52826,11 +52961,21 @@ PrefabInstance:
         type: 3}
       insertIndex: 0
       addedObject: {fileID: 682921460}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5209091469959198663, guid: 5f7c5784d4776074089b56351be94b74,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1880314077}
   m_SourcePrefab: {fileID: 100100000, guid: 5f7c5784d4776074089b56351be94b74, type: 3}
 --- !u!4 &1532557836 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6248761228363786331, guid: 5f7c5784d4776074089b56351be94b74,
+    type: 3}
+  m_PrefabInstance: {fileID: 1532557835}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1532557837 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5209091469959198663, guid: 5f7c5784d4776074089b56351be94b74,
     type: 3}
   m_PrefabInstance: {fileID: 1532557835}
   m_PrefabAsset: {fileID: 0}
@@ -55413,11 +55558,21 @@ PrefabInstance:
         type: 3}
       insertIndex: 0
       addedObject: {fileID: 425628841}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5209091469959198663, guid: 5f7c5784d4776074089b56351be94b74,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1644180223}
   m_SourcePrefab: {fileID: 100100000, guid: 5f7c5784d4776074089b56351be94b74, type: 3}
 --- !u!4 &1632530459 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6248761228363786331, guid: 5f7c5784d4776074089b56351be94b74,
+    type: 3}
+  m_PrefabInstance: {fileID: 1632530458}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1632530460 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5209091469959198663, guid: 5f7c5784d4776074089b56351be94b74,
     type: 3}
   m_PrefabInstance: {fileID: 1632530458}
   m_PrefabAsset: {fileID: 0}
@@ -55820,6 +55975,23 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1632530458}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1644180223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1632530460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc39933eb2ae5402a8c7574341769439, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  racerName: HoneyBee
+  checkpoints: []
+  checkpointMask:
+    serializedVersion: 2
+    m_Bits: 16384
 --- !u!1 &1644360664
 GameObject:
   m_ObjectHideFlags: 0
@@ -62427,6 +62599,23 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1532557835}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1880314077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1532557837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc39933eb2ae5402a8c7574341769439, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  racerName: Elvis
+  checkpoints: []
+  checkpointMask:
+    serializedVersion: 2
+    m_Bits: 16384
 --- !u!1001 &1881064431
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -66774,6 +66963,48 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 65536
   systemToManuallyEmit: {fileID: 1897907982}
+--- !u!114 &2012990391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2012990384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc39933eb2ae5402a8c7574341769439, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  racerName: Player
+  checkpoints:
+  - {fileID: 1017992086}
+  - {fileID: 1135574904}
+  - {fileID: 878696234}
+  - {fileID: 2132564331}
+  - {fileID: 581127113}
+  - {fileID: 835242494}
+  - {fileID: 1703264701}
+  - {fileID: 1833305232}
+  - {fileID: 1797197056}
+  - {fileID: 1181900156}
+  - {fileID: 869753744}
+  - {fileID: 1783464539}
+  - {fileID: 1573781973}
+  - {fileID: 1259849976}
+  - {fileID: 142223155}
+  - {fileID: 898651297}
+  - {fileID: 405917642}
+  - {fileID: 925794314}
+  - {fileID: 792875712}
+  - {fileID: 1550728263}
+  - {fileID: 2080020830}
+  - {fileID: 36027310}
+  - {fileID: 1428622531}
+  - {fileID: 712013245}
+  - {fileID: 1292885860}
+  checkpointMask:
+    serializedVersion: 2
+    m_Bits: 16384
 --- !u!1 &2014540837
 GameObject:
   m_ObjectHideFlags: 0
@@ -71364,3 +71595,4 @@ SceneRoots:
   - {fileID: 698745945}
   - {fileID: 1018964394}
   - {fileID: 1832945630}
+  - {fileID: 1438132498}
