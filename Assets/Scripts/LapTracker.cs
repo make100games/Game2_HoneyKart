@@ -12,8 +12,11 @@ public class LapTracker : MonoBehaviour
     [Tooltip("Display name used in race results logging.")]
     public string racerName;
 
-    [Tooltip("Ordered checkpoint Colliders. Leave empty to auto-populate from KartAgent.Colliders at Awake.")]
-    public Collider[] checkpoints;
+    [Tooltip("Checkpoint halfway through the lap. Used to detect when a lap is completed")]
+    public Collider halfwayCheckpoint;
+
+    [Tooltip("Checkpoint right before finish line. Used to detect when a lap is completed")]
+    public Collider finishLineCheckpoint;
 
     [Tooltip("Layer mask for checkpoint colliders. Must include the layer the checkpoints are on.")]
     public LayerMask checkpointMask;
@@ -32,20 +35,11 @@ public class LapTracker : MonoBehaviour
 
     private int m_LapsCompleted;
     private bool m_HasFinished;
-    private bool m_RaceStarted;
-    private int m_NextExpectedCheckpointIndex;
+    private string m_tagOfNextCheckpoint;
 
     void Awake()
     {
-        if (checkpoints == null || checkpoints.Length == 0)
-        {
-            var agent = GetComponent<KartAgent>();
-            if (agent != null)
-                checkpoints = agent.Colliders;
-        }
-
-        m_NextExpectedCheckpointIndex = 0;
-        m_RaceStarted = false;
+        m_tagOfNextCheckpoint = Tags.CheckpointHalfwayPoint;
         m_LapsCompleted = 0;
         m_HasFinished = false;
     }
@@ -53,31 +47,22 @@ public class LapTracker : MonoBehaviour
     void Start()
     {
         RaceManager.Register(this);
-
-        m_NextExpectedCheckpointIndex = RaceManager.Instance != null
-            ? RaceManager.Instance.StartCheckpointIndex
-            : 0;
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (m_HasFinished) return;
         if (RaceManager.Instance == null) return;
-        if (checkpoints == null || checkpoints.Length == 0) return;
         if (((1 << other.gameObject.layer) & checkpointMask.value) == 0) return;
 
-        int index = FindCheckpointIndex(other);
-        if (index < 0 || index != m_NextExpectedCheckpointIndex) return;
-
-        m_NextExpectedCheckpointIndex = (index + 1) % checkpoints.Length;
-
-        int startIndex = RaceManager.Instance.StartCheckpointIndex;
-        if (index == startIndex)
-        {
-            if (m_RaceStarted)
-                CompleteLap();
-
-            m_RaceStarted = true;
+        var collidedCheckpointTag = other.gameObject.tag;
+        Debug.Log("Player collided with checkpoint: " + collidedCheckpointTag);
+        if(collidedCheckpointTag != m_tagOfNextCheckpoint) return;
+        if(collidedCheckpointTag == Tags.CheckpointHalfwayPoint) {
+            m_tagOfNextCheckpoint = Tags.CheckpointFinishLine;
+        } else {
+            m_tagOfNextCheckpoint = Tags.CheckpointHalfwayPoint;
+            CompleteLap();
         }
     }
 
@@ -93,20 +78,5 @@ public class LapTracker : MonoBehaviour
             OnRaceFinished?.Invoke();
             RaceManager.Instance.OnRaceFinished(this);
         }
-    }
-
-    /// <summary>
-    /// Searches the checkpoints array for the given collider by instance ID.
-    /// Returns the index or -1 if not found.
-    /// </summary>
-    private int FindCheckpointIndex(Collider other)
-    {
-        int id = other.GetInstanceID();
-        for (int i = 0; i < checkpoints.Length; i++)
-        {
-            if (checkpoints[i] != null && checkpoints[i].GetInstanceID() == id)
-                return i;
-        }
-        return -1;
     }
 }

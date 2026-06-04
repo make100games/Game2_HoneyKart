@@ -6,6 +6,8 @@ TagManager:
   tags:
   - CrashMode
   - RotationController
+  - Checkpoint-FinishLine
+  - Checkpoint-HalfwayPoint
   layers:
   - Default
   - TransparentFX
@@ -25,7 +27,7 @@ TagManager:
   - Fence
   - Coin
   - Sparkles
-  - 
+  - TrackCheckpoints
   - 
   - 
   - 

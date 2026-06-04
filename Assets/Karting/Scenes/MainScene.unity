@@ -13459,7 +13459,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   racerName: Brutus
-  checkpoints: []
+  halfwayCheckpoint: {fileID: 0}
+  finishLineCheckpoint: {fileID: 0}
   checkpointMask:
     serializedVersion: 2
     m_Bits: 16384
@@ -17005,6 +17006,114 @@ Transform:
   - {fileID: 1818641235}
   m_Father: {fileID: 1460738614}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &499345135
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 499345139}
+  - component: {fileID: 499345138}
+  - component: {fileID: 499345137}
+  - component: {fileID: 499345136}
+  m_Layer: 18
+  m_Name: Checkpoint-FinishLine
+  m_TagString: Checkpoint-FinishLine
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &499345136
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 499345135}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &499345137
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 499345135}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &499345138
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 499345135}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &499345139
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 499345135}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.39306056, z: -0, w: 0.9195126}
+  m_LocalPosition: {x: 408.8, y: 2.35, z: 525.1}
+  m_LocalScale: {x: 44.76499, y: 17.452198, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 46.29, z: 0}
 --- !u!1 &504292688
 GameObject:
   m_ObjectHideFlags: 0
@@ -38258,7 +38367,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   racerName: Squirrel
-  checkpoints: []
+  halfwayCheckpoint: {fileID: 0}
+  finishLineCheckpoint: {fileID: 0}
   checkpointMask:
     serializedVersion: 2
     m_Bits: 16384
@@ -39068,6 +39178,114 @@ Transform:
   - {fileID: 315435066}
   m_Father: {fileID: 343583191}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1140350296
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1140350300}
+  - component: {fileID: 1140350299}
+  - component: {fileID: 1140350298}
+  - component: {fileID: 1140350297}
+  m_Layer: 18
+  m_Name: Checkpoint-HalfwayPoint
+  m_TagString: Checkpoint-HalfwayPoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1140350297
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1140350296}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1140350298
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1140350296}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1140350299
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1140350296}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1140350300
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1140350296}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.31178814, z: -0, w: 0.9501517}
+  m_LocalPosition: {x: 530.82, y: 2.35, z: 541.18}
+  m_LocalScale: {x: 44.76499, y: 17.452198, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 36.334, z: 0}
 --- !u!1 &1140579185
 GameObject:
   m_ObjectHideFlags: 0
@@ -56179,7 +56397,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   racerName: HoneyBee
-  checkpoints: []
+  halfwayCheckpoint: {fileID: 0}
+  finishLineCheckpoint: {fileID: 0}
   checkpointMask:
     serializedVersion: 2
     m_Bits: 16384
@@ -62134,7 +62353,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1832945630
 Transform:
   m_ObjectHideFlags: 0
@@ -62853,7 +63072,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   racerName: Elvis
-  checkpoints: []
+  halfwayCheckpoint: {fileID: 0}
+  finishLineCheckpoint: {fileID: 0}
   checkpointMask:
     serializedVersion: 2
     m_Bits: 16384
@@ -67217,35 +67437,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   racerName: Player
-  checkpoints:
-  - {fileID: 1017992086}
-  - {fileID: 1135574904}
-  - {fileID: 878696234}
-  - {fileID: 2132564331}
-  - {fileID: 581127113}
-  - {fileID: 835242494}
-  - {fileID: 1703264701}
-  - {fileID: 1833305232}
-  - {fileID: 1797197056}
-  - {fileID: 1181900156}
-  - {fileID: 869753744}
-  - {fileID: 1783464539}
-  - {fileID: 1573781973}
-  - {fileID: 1259849976}
-  - {fileID: 142223155}
-  - {fileID: 898651297}
-  - {fileID: 405917642}
-  - {fileID: 925794314}
-  - {fileID: 792875712}
-  - {fileID: 1550728263}
-  - {fileID: 2080020830}
-  - {fileID: 36027310}
-  - {fileID: 1428622531}
-  - {fileID: 712013245}
-  - {fileID: 1292885860}
+  halfwayCheckpoint: {fileID: 0}
+  finishLineCheckpoint: {fileID: 0}
   checkpointMask:
     serializedVersion: 2
-    m_Bits: 16384
+    m_Bits: 262144
 --- !u!1 &2014540837
 GameObject:
   m_ObjectHideFlags: 0
@@ -71872,3 +72068,5 @@ SceneRoots:
   - {fileID: 1018964394}
   - {fileID: 1832945630}
   - {fileID: 1438132498}
+  - {fileID: 499345139}
+  - {fileID: 1140350300}
