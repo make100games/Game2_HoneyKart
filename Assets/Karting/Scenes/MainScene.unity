@@ -13459,11 +13459,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   racerName: Brutus
-  halfwayCheckpoint: {fileID: 0}
-  finishLineCheckpoint: {fileID: 0}
   checkpointMask:
     serializedVersion: 2
-    m_Bits: 16384
+    m_Bits: 262144
 --- !u!1 &387807599
 GameObject:
   m_ObjectHideFlags: 0
@@ -38367,11 +38365,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   racerName: Squirrel
-  halfwayCheckpoint: {fileID: 0}
-  finishLineCheckpoint: {fileID: 0}
   checkpointMask:
     serializedVersion: 2
-    m_Bits: 16384
+    m_Bits: 262144
 --- !u!1001 &1121399280
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -56397,11 +56393,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   racerName: HoneyBee
-  halfwayCheckpoint: {fileID: 0}
-  finishLineCheckpoint: {fileID: 0}
   checkpointMask:
     serializedVersion: 2
-    m_Bits: 16384
+    m_Bits: 262144
 --- !u!1 &1644360664
 GameObject:
   m_ObjectHideFlags: 0
@@ -62353,7 +62347,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1832945630
 Transform:
   m_ObjectHideFlags: 0
@@ -63072,11 +63066,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   racerName: Elvis
-  halfwayCheckpoint: {fileID: 0}
-  finishLineCheckpoint: {fileID: 0}
   checkpointMask:
     serializedVersion: 2
-    m_Bits: 16384
+    m_Bits: 262144
 --- !u!1001 &1881064431
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -67437,8 +67429,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   racerName: Player
-  halfwayCheckpoint: {fileID: 0}
-  finishLineCheckpoint: {fileID: 0}
   checkpointMask:
     serializedVersion: 2
     m_Bits: 262144

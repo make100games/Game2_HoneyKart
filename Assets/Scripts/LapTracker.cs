@@ -12,12 +12,6 @@ public class LapTracker : MonoBehaviour
     [Tooltip("Display name used in race results logging.")]
     public string racerName;
 
-    [Tooltip("Checkpoint halfway through the lap. Used to detect when a lap is completed")]
-    public Collider halfwayCheckpoint;
-
-    [Tooltip("Checkpoint right before finish line. Used to detect when a lap is completed")]
-    public Collider finishLineCheckpoint;
-
     [Tooltip("Layer mask for checkpoint colliders. Must include the layer the checkpoints are on.")]
     public LayerMask checkpointMask;
 
