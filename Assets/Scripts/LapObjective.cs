@@ -30,7 +30,7 @@ public class LapObjective : Objective
             title = $"Complete {RaceManager.Instance.TotalLaps} laps";
         }
 
-        TimeDisplay.OnSetLaps(RaceManager.Instance.TotalLaps);
+        //TimeDisplay.OnSetLaps(RaceManager.Instance.TotalLaps);
 
         // One-frame delay required before Register() so ObjectiveManager and HUD managers are ready.
         yield return new WaitForEndOfFrame();
@@ -49,7 +49,7 @@ public class LapObjective : Objective
 
     private void HandleLapCompleted(int lapCount)
     {
-        TimeDisplay.OnUpdateLap();
+        //TimeDisplay.OnUpdateLap();
         ReachCheckpoint(0);
     }
 
