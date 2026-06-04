@@ -63,7 +63,7 @@ public class CoinCollector : MonoBehaviour
     
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log($"OnCollisionEnter with {collision.gameObject.name}, layer: {collision.gameObject.layer}");
+        //Debug.Log($"OnCollisionEnter with {collision.gameObject.name}, layer: {collision.gameObject.layer}");
         if (IsCoinLayer(collision.gameObject.layer))
         {
             Debug.Log("Coin collision detected!");
@@ -73,7 +73,7 @@ public class CoinCollector : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"OnTriggerEnter with {other.gameObject.name}, layer: {other.gameObject.layer}");
+        //Debug.Log($"OnTriggerEnter with {other.gameObject.name}, layer: {other.gameObject.layer}");
         if (IsCoinLayer(other.gameObject.layer))
         {
             Debug.Log("Coin trigger detected!");
