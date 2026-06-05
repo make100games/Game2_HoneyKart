@@ -33,6 +33,7 @@ public class RaceFinishSequence : MonoBehaviour
 
     void HandleRaceFinished(ArcadeKart kart)
     {
+        Debug.Log("Race finished");
         if (m_Triggered) return;
         m_Triggered = true;
 

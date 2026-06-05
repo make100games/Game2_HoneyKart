@@ -752,7 +752,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Follow
       value: 
-      objectReference: {fileID: 1511400381}
+      objectReference: {fileID: 0}
     - target: {fileID: 6691645748356329552, guid: 4366ba6a4d5213d4f9fc7bba3e778799,
         type: 3}
       propertyPath: m_LookAt
@@ -766,37 +766,37 @@ PrefabInstance:
     - target: {fileID: 6691645748356329553, guid: 4366ba6a4d5213d4f9fc7bba3e778799,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 166.9
+      value: 412.44748
       objectReference: {fileID: 0}
     - target: {fileID: 6691645748356329553, guid: 4366ba6a4d5213d4f9fc7bba3e778799,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.81
+      value: 1.52
       objectReference: {fileID: 0}
     - target: {fileID: 6691645748356329553, guid: 4366ba6a4d5213d4f9fc7bba3e778799,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -69.5
+      value: 531.30896
       objectReference: {fileID: 0}
     - target: {fileID: 6691645748356329553, guid: 4366ba6a4d5213d4f9fc7bba3e778799,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9986116
+      value: 0.9084258
       objectReference: {fileID: 0}
     - target: {fileID: 6691645748356329553, guid: 4366ba6a4d5213d4f9fc7bba3e778799,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.05267745
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6691645748356329553, guid: 4366ba6a4d5213d4f9fc7bba3e778799,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000021963555
+      value: 0.41804624
       objectReference: {fileID: 0}
     - target: {fileID: 6691645748356329553, guid: 4366ba6a4d5213d4f9fc7bba3e778799,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.00000045696822
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6691645748356329553, guid: 4366ba6a4d5213d4f9fc7bba3e778799,
         type: 3}
@@ -818,10 +818,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: VictoryCinemachineCamera
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6691645747818288876, guid: 4366ba6a4d5213d4f9fc7bba3e778799, type: 3}
+    - {fileID: 6691645747818288874, guid: 4366ba6a4d5213d4f9fc7bba3e778799, type: 3}
+    - {fileID: 6691645747818288877, guid: 4366ba6a4d5213d4f9fc7bba3e778799, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6691645748356329554, guid: 4366ba6a4d5213d4f9fc7bba3e778799,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1050567600}
   m_SourcePrefab: {fileID: 100100000, guid: 4366ba6a4d5213d4f9fc7bba3e778799, type: 3}
 --- !u!114 &12321754 stripped
 MonoBehaviour:
@@ -829,7 +836,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 12321753}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1050567597}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
@@ -23595,7 +23602,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   followCamera: {fileID: 867987757}
   orbitCamera: {fileID: 12321754}
-  orbitPivot: {fileID: 1511400382}
+  orbitPivot: {fileID: 1050567600}
   staticCameraDelay: 3
   coastingLinearDamping: 3
   coastingAngularDamping: 5
@@ -36229,6 +36236,27 @@ Transform:
   - {fileID: 2685051}
   m_Father: {fileID: 911094215}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1050567597 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6691645748356329554, guid: 4366ba6a4d5213d4f9fc7bba3e778799,
+    type: 3}
+  m_PrefabInstance: {fileID: 12321753}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1050567600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1050567597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d99280efb9a834b1ebe5f3f908cf2881, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 8
+  height: 3
+  orbitSpeed: 25
 --- !u!1 &1051106629
 GameObject:
   m_ObjectHideFlags: 0
@@ -50335,7 +50363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f261440be2854c3582bcf63638c670e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TotalLaps: 3
+  TotalLaps: 1
   StartCheckpointIndex: 12
 --- !u!1001 &1440285506
 PrefabInstance:
@@ -52926,53 +52954,6 @@ Transform:
   - {fileID: 1334187757}
   m_Father: {fileID: 911094215}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1511400380
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1511400381}
-  - component: {fileID: 1511400382}
-  m_Layer: 0
-  m_Name: VictoryOrbitPivot
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1511400381
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1511400380}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1511400382
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1511400380}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d99280efb9a834b1ebe5f3f908cf2881, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  orbitSpeed: 25
-  orbitRadius: 4
-  orbitHeight: 0
 --- !u!1 &1511434872
 GameObject:
   m_ObjectHideFlags: 0
@@ -72167,5 +72148,4 @@ SceneRoots:
   - {fileID: 1438132498}
   - {fileID: 499345139}
   - {fileID: 1140350300}
-  - {fileID: 1511400381}
   - {fileID: 12321753}
