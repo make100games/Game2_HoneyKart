@@ -36,6 +36,9 @@ public class GameFlowManager : MonoBehaviour
     public DisplayMessage loseDisplayMessage;
 
 
+    /// <summary>Fired once when all laps are completed. Carries the player kart for observers.</summary>
+    public static event System.Action<ArcadeKart> OnRaceFinished;
+
     public GameState gameState { get; private set; }
 
     public bool autoFindKarts = true;
@@ -47,6 +50,7 @@ public class GameFlowManager : MonoBehaviour
     float m_TimeLoadEndGameScene;
     string m_SceneToLoad;
     float elapsedTimeBeforeEndScene = 0;
+    private bool m_RaceFinished = false;
 
     void Start()
     {
@@ -139,8 +143,11 @@ public class GameFlowManager : MonoBehaviour
         }
         else
         {
-            if (m_ObjectiveManager.AreAllObjectivesCompleted())
-                EndGame(true);
+            if (!m_RaceFinished && m_ObjectiveManager.AreAllObjectivesCompleted())
+            {
+                m_RaceFinished = true;
+                OnRaceFinished?.Invoke(playerKart);
+            }
 
             if (m_TimeManager.IsFinite && m_TimeManager.IsOver)
                 EndGame(false);
