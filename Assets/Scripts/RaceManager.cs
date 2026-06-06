@@ -69,6 +69,22 @@ public class RaceManager : MonoBehaviour
         Debug.Log($"[RaceManager] {tracker.racerName} completed lap {lapCount}/{TotalLaps}");
     }
 
+    /// <summary>
+    /// Returns the 1-based finishing position of the given tracker.
+    /// Returns 1 as a safe fallback if the singleton is not yet available or the tracker is not in the finish order.
+    /// </summary>
+    public static int GetFinishPosition(LapTracker tracker)
+    {
+        if (s_Instance == null)
+        {
+            Debug.LogWarning("[RaceManager] GetFinishPosition called but no RaceManager instance exists.");
+            return 1;
+        }
+
+        int index = s_Instance.m_FinishOrder.IndexOf(tracker);
+        return index >= 0 ? index + 1 : 1;
+    }
+
     /// <summary>Called by LapTracker when a racer finishes the race. Records finish order and logs results.</summary>
     public void OnRaceFinished(LapTracker tracker)
     {
