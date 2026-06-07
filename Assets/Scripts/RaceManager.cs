@@ -82,6 +82,7 @@ public class RaceManager : MonoBehaviour
         }
 
         int index = s_Instance.m_FinishOrder.IndexOf(tracker);
+        Debug.Log("Finish position (index) of " + tracker.racerName + ": " + index);
         return index >= 0 ? index + 1 : 1;
     }
 
@@ -91,6 +92,12 @@ public class RaceManager : MonoBehaviour
         if (m_FinishOrder.Contains(tracker)) return;
 
         m_FinishOrder.Add(tracker);
+
+        for(int i = 0; i < m_FinishOrder.Count; i++) {
+            var t = m_FinishOrder[i];
+            Debug.Log("Racer at position " + i + ": " + t.racerName);
+        }
+
         int position = m_FinishOrder.Count;
 
         if (position == 1)

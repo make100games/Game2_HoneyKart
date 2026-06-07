@@ -45,6 +45,9 @@ public class FinishPositionUI : MonoBehaviour
 
     void HandleRaceFinished(ArcadeKart kart)
     {
+        // TODO the kart here is sometimes the incorrect instance. Suggestion: expose the kart property
+        // and automatically populate it with the player. Maybe the player can have a specific tag so that
+        // it cane be resolved here.
         if (m_Triggered) return;
         m_Triggered = true;
 
