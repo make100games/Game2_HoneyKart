@@ -11601,6 +11601,7 @@ MonoBehaviour:
   gameManager: {fileID: 695900666}
   raceRoot: {fileID: 1080333647}
   attractVCam: {fileID: 641733461}
+  attractCanvas: {fileID: 1576139911}
   titleLabel: {fileID: 707567128}
   menuPanel: {fileID: 1791793160}
   startGameButton: {fileID: 71090356}

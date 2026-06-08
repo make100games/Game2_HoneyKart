@@ -24,6 +24,9 @@ public class AttractModeManager : MonoBehaviour
     public CinemachineVirtualCamera attractVCam;
 
     [Header("Attract UI")]
+    [Tooltip("Root canvas for all attract UI — deactivated on StartGame().")]
+    public GameObject attractCanvas;
+
     [Tooltip("TMP label that shows the game title — starts at alpha 0.")]
     public TMP_Text titleLabel;
 
@@ -102,6 +105,8 @@ public class AttractModeManager : MonoBehaviour
             raceRoot.SetActive(true);
         if (attractVCam != null)
             attractVCam.gameObject.SetActive(false);
+        if (attractCanvas != null)
+            attractCanvas.SetActive(false);
 
         // Self-deactivate: stops Update and all running coroutines without needing StopAllCoroutines().
         gameObject.SetActive(false);
