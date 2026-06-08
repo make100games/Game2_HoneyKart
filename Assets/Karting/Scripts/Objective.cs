@@ -77,10 +77,10 @@ public abstract class Objective : MonoBehaviour
     protected void Register()
     {
         // add this objective to the list contained in the objective manager
-        ObjectiveManager.RegisterObjective(this);
+        ObjectiveManager.RegisterObjective?.Invoke(this);
 
         // register this objective in the ObjectiveHUDManger
-        m_ObjectiveHUDManger = FindObjectOfType<ObjectiveHUDManger>();
+        m_ObjectiveHUDManger = FindFirstObjectByType<ObjectiveHUDManger>(FindObjectsInactive.Include);
         DebugUtility.HandleErrorIfNullFindObject<ObjectiveHUDManger, Objective>(m_ObjectiveHUDManger, this);
         m_ObjectiveHUDManger.RegisterObjective(this);
 
