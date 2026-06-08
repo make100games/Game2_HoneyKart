@@ -7,29 +7,33 @@ using UnityEngine.UI;
 
 /// <summary>
 /// Central orchestrator for attract mode. Runs before all other scripts via DefaultExecutionOrder(-100).
-/// In attract mode: hides the player kart, disables race managers, flies the dolly camera, fades in the
-/// title, and waits for any key to reveal the main menu. Pressing Start Game reloads into race mode.
+/// In attract mode: deactivates the entire race subsystem via a single RaceRoot.SetActive(false) call,
+/// suppressing all descendant lifecycles cleanly. Also disables prefab-bound components that cannot be
+/// moved to RaceRoot. Flies the dolly camera, fades in the title, and waits for any key to reveal the
+/// main menu. Pressing Start Game reloads the scene into race mode.
 /// </summary>
 [DefaultExecutionOrder(-100)]
 public class AttractModeManager : MonoBehaviour
 {
-    [Header("Race Objects")]
-    [Tooltip("The player's ArcadeKart — hidden in attract mode.")]
-    public ArcadeKart playerKart;
+    [Header("Race Systems")]
+    [Tooltip("Parent of all race-only scene objects. SetActive(false) in attract mode suppresses the entire subsystem lifecycle — no partial initialization, no null delegates.")]
+    public GameObject raceRoot;
 
-    [Tooltip("The GameFlowManager component — disabled in attract mode.")]
+    [Header("GameManager Race Components")]
+    [Tooltip("Disabled in attract mode. Lives on the GameManager prefab and cannot be moved to RaceRoot.")]
     public GameFlowManager gameFlowManager;
 
-    [Tooltip("The ObjectiveManager component — disabled in attract mode.")]
+    [Tooltip("Disabled in attract mode. Lives on the GameManager prefab and cannot be moved to RaceRoot.")]
     public ObjectiveManager objectiveManager;
 
-    [Tooltip("The GameHUD root GameObject — deactivated in attract mode.")]
+    [Header("GameManager HUD Children")]
+    [Tooltip("Deactivated in attract mode. Child of the GameManager prefab.")]
     public GameObject gameHUD;
 
-    [Tooltip("The InGameMenu root GameObject — deactivated in attract mode.")]
+    [Tooltip("Deactivated in attract mode. Child of the GameManager prefab.")]
     public GameObject inGameMenu;
 
-    [Tooltip("The FinishPositionOverlay root GameObject — deactivated in attract mode.")]
+    [Tooltip("Deactivated in attract mode. Child of the GameManager prefab.")]
     public GameObject finishPositionOverlay;
 
     [Header("Attract Camera")]
@@ -68,62 +72,59 @@ public class AttractModeManager : MonoBehaviour
     {
         if (GameModeState.IsAttractMode)
         {
-            // Suppress normal race flow
-            if (playerKart != null)
-                playerKart.gameObject.SetActive(false);
+            // One call deactivates the entire race subsystem — player kart, checkpoints, race triggers,
+            // victory camera. All descendants have their Awake/OnEnable/Start suppressed completely.
+            if (raceRoot != null)
+                raceRoot.SetActive(false);
 
+            // Disable race-only components that live on the GameManager prefab and cannot be moved to RaceRoot.
             if (gameFlowManager != null)
                 gameFlowManager.enabled = false;
-
             if (objectiveManager != null)
                 objectiveManager.enabled = false;
 
+            // Disable all Objective subcomponents on this same GameObject (e.g. LapObjective).
+            // Prevents their Start() from running and invoking the unsubscribed static RegisterObjective delegate.
+            foreach (Objective obj in GetComponents<Objective>())
+                obj.enabled = false;
+
+            // Deactivate HUD children of the GameManager prefab.
             if (gameHUD != null)
                 gameHUD.SetActive(false);
-
             if (inGameMenu != null)
                 inGameMenu.SetActive(false);
-
             if (finishPositionOverlay != null)
                 finishPositionOverlay.SetActive(false);
 
-            // Elevate attract VCam priority above the follow VCam (priority 10)
+            // Elevate attract VCam priority above the follow VCam (priority 10).
             if (attractVCam != null)
                 attractVCam.Priority = AttractVCamPriority;
 
-            // Allow all AI karts to move immediately (GameFlowManager is disabled so won't call SetCanMove)
-            ArcadeKart[] allKarts = FindObjectsByType<ArcadeKart>(FindObjectsSortMode.None);
-            foreach (ArcadeKart kart in allKarts)
-            {
+            // RaceRoot is now inactive, so FindObjectsByType returns only the AI karts.
+            foreach (ArcadeKart kart in FindObjectsByType<ArcadeKart>(FindObjectsSortMode.None))
                 kart.SetCanMove(true);
-            }
         }
         else
         {
-            // Normal race mode — disable the attract camera so it never interferes
+            // Normal race mode — deactivate the attract camera so it never interferes.
             if (attractVCam != null)
                 attractVCam.gameObject.SetActive(false);
 
-            // Also disable this manager — it has no work to do in race mode
             enabled = false;
         }
     }
 
     void Start()
     {
-        // Wire button listeners
         if (startGameButton != null)
             startGameButton.onClick.AddListener(GameModeState.StartGame);
-
         if (controlsButton != null)
             controlsButton.onClick.AddListener(OnControlsClicked);
-
         if (creditsButton != null)
             creditsButton.onClick.AddListener(OnCreditsClicked);
 
         if (GameModeState.IsAttractMode)
         {
-            // Ensure title is fully transparent at start
             if (titleLabel != null)
             {
                 Color c = titleLabel.color;
@@ -144,7 +145,7 @@ public class AttractModeManager : MonoBehaviour
             ShowMenu();
     }
 
-    /// <summary>Waits for titleDelay seconds then fades the title label in over titleFadeDuration.</summary>
+    /// <summary>Waits titleDelay seconds then fades the title label in over titleFadeDuration.</summary>
     private IEnumerator TitleSequenceCoroutine()
     {
         yield return new WaitForSeconds(titleDelay);
@@ -153,17 +154,15 @@ public class AttractModeManager : MonoBehaviour
         while (elapsed < titleFadeDuration)
         {
             elapsed += Time.deltaTime;
-            float alpha = Mathf.Clamp01(elapsed / titleFadeDuration);
             if (titleLabel != null)
             {
                 Color c = titleLabel.color;
-                c.a = alpha;
+                c.a = Mathf.Clamp01(elapsed / titleFadeDuration);
                 titleLabel.color = c;
             }
             yield return null;
         }
 
-        // Ensure fully opaque
         if (titleLabel != null)
         {
             Color final = titleLabel.color;
@@ -184,13 +183,11 @@ public class AttractModeManager : MonoBehaviour
 
     private void OnControlsClicked()
     {
-        // Stub — reserved for future controls screen
         Debug.Log("[AttractModeManager] Controls button clicked (stub).");
     }
 
     private void OnCreditsClicked()
     {
-        // Stub — reserved for future credits screen
         Debug.Log("[AttractModeManager] Credits button clicked (stub).");
     }
 }
