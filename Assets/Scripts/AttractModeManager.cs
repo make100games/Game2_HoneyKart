@@ -19,6 +19,9 @@ public class AttractModeManager : MonoBehaviour
     [Tooltip("The RaceRoot GameObject — starts inactive, activated on StartGame().")]
     public GameObject raceRoot;
 
+    [Tooltip("Resets AI opponent karts to their spawn positions before the race begins.")]
+    public OpponentSpawnManager opponentSpawnManager;
+
     [Header("Attract Camera")]
     [Tooltip("The CinemachineVirtualCamera used for the attract dolly flythrough.")]
     public CinemachineVirtualCamera attractVCam;
@@ -98,6 +101,9 @@ public class AttractModeManager : MonoBehaviour
     public void StartGame()
     {
         GameModeState.IsAttractMode = false;
+
+        if (opponentSpawnManager != null)
+            opponentSpawnManager.ResetToSpawn();
 
         if (gameManager != null)
             gameManager.SetActive(true);
