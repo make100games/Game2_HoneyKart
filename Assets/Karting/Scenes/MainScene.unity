@@ -12998,6 +12998,7 @@ MonoBehaviour:
   orbitCamera: {fileID: 1640947177}
   orbitPivot: {fileID: 1640947178}
   finishPositionOverlay: {fileID: 568476553}
+  finishPositionUI: {fileID: 568476558}
   staticCameraDelay: 3
   coastingLinearDamping: 3
   coastingAngularDamping: 5

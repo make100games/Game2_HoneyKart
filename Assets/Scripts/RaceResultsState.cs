@@ -22,6 +22,9 @@ public class RaceResultsState : GameStateBase
     [Tooltip("Overlay showing the player's finish position.")]
     public GameObject finishPositionOverlay;
 
+    [Tooltip("UI component on the overlay that animates the position label.")]
+    public FinishPositionUI finishPositionUI;
+
     [Tooltip("Seconds the frozen follow camera is held before the orbit camera blends in.")]
     public float staticCameraDelay = 3f;
 
@@ -68,9 +71,12 @@ public class RaceResultsState : GameStateBase
             followCamera.LookAt = null;
         }
 
-        // Show the finish position overlay.
+        // Show the finish position overlay and trigger the slide-in animation.
         if (finishPositionOverlay != null)
             finishPositionOverlay.SetActive(true);
+
+        if (finishPositionUI != null)
+            finishPositionUI.TriggerSlideIn(m_Kart);
 
         StartCoroutine(ActivateOrbitCameraRoutine());
     }

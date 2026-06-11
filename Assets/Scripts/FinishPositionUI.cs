@@ -40,13 +40,17 @@ public class FinishPositionUI : MonoBehaviour
             positionLabel.gameObject.SetActive(false);
     }
 
-    void OnEnable()  => GameFlowManager.OnRaceFinished += HandleRaceFinished;
-    void OnDisable() => GameFlowManager.OnRaceFinished -= HandleRaceFinished;
-
-    void HandleRaceFinished(ArcadeKart kart)
+    void OnDisable()
     {
-        // TODO the kart here is sometimes the incorrect instance. Suggestion: expose the kart property
-        // and automatically populate it with the human player.
+        m_Triggered = false;
+    }
+
+    /// <summary>
+    /// Called directly by RaceResultsState.Enter() with the finishing kart.
+    /// Starts the delayed slide-in sequence for the position label.
+    /// </summary>
+    public void TriggerSlideIn(ArcadeKart kart)
+    {
         if (m_Triggered) return;
         m_Triggered = true;
 
