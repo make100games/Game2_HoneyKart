@@ -24381,7 +24381,7 @@ PrefabInstance:
     - target: {fileID: 1315839542190839943, guid: b26c4a65cf4c6475a92bfd03c2c3282b,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2048078414116197827, guid: b26c4a65cf4c6475a92bfd03c2c3282b,
         type: 3}
@@ -35689,7 +35689,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1080333648}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4810912518991602691, guid: 19954de30401f73428254541a9ad156e,
         type: 3}
@@ -38179,7 +38179,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1080333648
 Transform:
   m_ObjectHideFlags: 0
@@ -38193,7 +38193,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1018964396}
   - {fileID: 1822671576}
   - {fileID: 1438132498}
   - {fileID: 499345139}
@@ -74168,3 +74167,4 @@ SceneRoots:
   - {fileID: 38802465}
   - {fileID: 966583796}
   - {fileID: 346559484}
+  - {fileID: 1018964394}
