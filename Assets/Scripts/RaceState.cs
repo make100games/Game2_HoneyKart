@@ -8,12 +8,17 @@ using UnityEngine;
 /// </summary>
 public class RaceState : GameStateBase
 {
+    [Tooltip("Manages AI kart spawn positions; ResetToSpawn() is called on every race entry.")]
+    [SerializeField] private OpponentSpawnManager opponentSpawnManager;
+
     /// <summary>
-    /// Activates the race hierarchy (triggering deferred Awake/Start on GameFlowManager, etc.)
-    /// and subscribes to the race finished event.
+    /// Resets all AI karts to their starting-line transforms, activates the race hierarchy
+    /// (triggering deferred Awake/Start on GameFlowManager, etc.), and subscribes to the
+    /// race finished event.
     /// </summary>
     public override void Enter()
     {
+        opponentSpawnManager.ResetToSpawn();
         gameObject.SetActive(true);
         GameFlowManager.OnRaceFinished += HandleRaceFinished;
     }
