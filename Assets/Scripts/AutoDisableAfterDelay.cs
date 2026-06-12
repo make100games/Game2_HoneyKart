@@ -3,7 +3,7 @@ using UnityEngine;
 public class AutoDisableAfterDelay : MonoBehaviour
 {
     [Tooltip("Duration after which this object will disable itself")]
-    private float disableAfterSeconds = 5f;
+    public float disableAfterSeconds = 5f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
