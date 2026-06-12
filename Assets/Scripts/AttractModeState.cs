@@ -20,7 +20,7 @@ public class AttractModeState : GameStateBase
     public GameObject attractCanvas;
 
     [Tooltip("TMP label that shows the game title — starts at alpha 0.")]
-    public TMP_Text titleLabel;
+    public Image titleLabel;
 
     [Tooltip("Menu panel containing the Start Game / Controls / Credits buttons — initially inactive.")]
     public GameObject menuPanel;
