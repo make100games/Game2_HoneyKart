@@ -14583,7 +14583,7 @@ MonoBehaviour:
   m_XDamping: 0
   m_YDamping: 0
   m_ZDamping: 1
-  m_CameraUp: 0
+  m_CameraUp: 1
   m_PitchDamping: 0
   m_YawDamping: 0
   m_RollDamping: 0
@@ -21979,7 +21979,7 @@ MonoBehaviour:
   vcam: {fileID: 641733461}
   path: {fileID: 1608812190}
   lookTarget: {fileID: 276972619}
-  maxSpeed: 8
+  maxSpeed: 2
   accelerationDuration: 8
   speedCurve:
     serializedVersion: 2
