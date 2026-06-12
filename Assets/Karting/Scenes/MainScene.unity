@@ -16265,7 +16265,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mat: {fileID: 2100000, guid: 5371e9ac9451b40348ef176fb1489839, type: 2}
-  speed: 1
+  duration: 2
+  waitTime: 3
 --- !u!1 &459956343
 GameObject:
   m_ObjectHideFlags: 0
