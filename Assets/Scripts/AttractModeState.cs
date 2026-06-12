@@ -19,8 +19,11 @@ public class AttractModeState : GameStateBase
     [Tooltip("Root canvas for all attract UI — deactivated via hierarchy on Exit().")]
     public GameObject attractCanvas;
 
-    [Tooltip("TMP label that shows the game title — starts at alpha 0.")]
+    [Tooltip("Game title — starts at alpha 0.")]
     public Image titleLabel;
+
+    [Tooltip("Make100GamesLogo")]
+    public Image make100gamesLogo;
 
     [Tooltip("Menu panel containing the Start Game / Controls / Credits buttons — initially inactive.")]
     public GameObject menuPanel;
@@ -63,11 +66,12 @@ public class AttractModeState : GameStateBase
         if (attractVCam != null)
             attractVCam.Priority = AttractVCamPriority;
 
-        if (titleLabel != null)
+        if (titleLabel != null && make100gamesLogo != null)
         {
             Color c = titleLabel.color;
             c.a = 0f;
             titleLabel.color = c;
+            make100gamesLogo.color = c;
         }
 
         m_TitleVisible = false;
@@ -112,20 +116,22 @@ public class AttractModeState : GameStateBase
         while (elapsed < titleFadeDuration)
         {
             elapsed += Time.deltaTime;
-            if (titleLabel != null)
+            if (titleLabel != null && make100gamesLogo != null)
             {
                 Color c = titleLabel.color;
                 c.a = Mathf.Clamp01(elapsed / titleFadeDuration);
                 titleLabel.color = c;
+                make100gamesLogo.color = c;
             }
             yield return null;
         }
 
-        if (titleLabel != null)
+        if (titleLabel != null && make100gamesLogo != null)
         {
             Color final = titleLabel.color;
             final.a = 1f;
             titleLabel.color = final;
+            make100gamesLogo.color = final;
         }
 
         m_TitleVisible = true;
