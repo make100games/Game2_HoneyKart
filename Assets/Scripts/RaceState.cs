@@ -27,6 +27,8 @@ public class RaceState : GameStateBase
     [Tooltip("LapObjective on GameManager — playerTracker is assigned before the race hierarchy activates.")]
     [SerializeField] private LapObjective lapObjective;
 
+    private ArcadeKart m_SelectedKart;
+
     /// <summary>
     /// Activates the selected player kart, assigns it to GameFlowManager before Start() fires,
     /// resets AI karts to spawn, activates the race hierarchy, and subscribes to the race finished event.
@@ -55,8 +57,9 @@ public class RaceState : GameStateBase
             {
                 gameFlowManager.autoFindKarts = false;
                 gameFlowManager.playerKart = playerKartOptions[selectedIndex];
+                m_SelectedKart = playerKartOptions[selectedIndex];
 
-                Transform selectedTransform = playerKartOptions[selectedIndex].transform;
+                Transform selectedTransform = m_SelectedKart.transform;
 
                 if (raceCamera != null)
                 {
@@ -71,7 +74,6 @@ public class RaceState : GameStateBase
                     lapObjective.playerTracker = playerKartOptions[selectedIndex].GetComponent<LapTracker>();
             }
         }
-
         opponentSpawnManager.ResetToSpawn();
         gameObject.SetActive(true);
         GameFlowManager.OnRaceFinished += HandleRaceFinished;
