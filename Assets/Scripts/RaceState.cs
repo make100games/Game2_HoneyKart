@@ -24,6 +24,9 @@ public class RaceState : GameStateBase
     [Tooltip("Victory VCam inside RaceRoot — LookAt is pointed at the selected kart on entry.")]
     [SerializeField] private CinemachineVirtualCamera victoryCamera;
 
+    [Tooltip("LapObjective on GameManager — playerTracker is assigned before the race hierarchy activates.")]
+    [SerializeField] private LapObjective lapObjective;
+
     /// <summary>
     /// Activates the selected player kart, assigns it to GameFlowManager before Start() fires,
     /// resets AI karts to spawn, activates the race hierarchy, and subscribes to the race finished event.
@@ -63,6 +66,9 @@ public class RaceState : GameStateBase
 
                 if (victoryCamera != null)
                     victoryCamera.LookAt = selectedTransform;
+
+                if (lapObjective != null)
+                    lapObjective.playerTracker = playerKartOptions[selectedIndex].GetComponent<LapTracker>();
             }
         }
 

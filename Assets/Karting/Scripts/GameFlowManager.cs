@@ -65,8 +65,9 @@ public class GameFlowManager : MonoBehaviour
         }
         else
         {
-            // autoFindKarts is false — use the explicitly assigned playerKart.
-            karts = playerKart != null ? new ArcadeKart[] { playerKart } : System.Array.Empty<ArcadeKart>();
+            // autoFindKarts is false — playerKart is explicitly assigned.
+            // Still find all karts so SetCanMove is applied to opponents as well.
+            karts = FindObjectsOfType<ArcadeKart>();
             if (playerKart == null)
                 Debug.LogWarning("[GameFlowManager] autoFindKarts is false but playerKart is not assigned.");
         }

@@ -3910,6 +3910,12 @@ Transform:
   - {fileID: 1635033167}
   m_Father: {fileID: 1102380850}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &78443875 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 933447234378679080, guid: 435ff0a96b6894d20ba63520b8f9a4f6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1135877159}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &79051391
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16254,6 +16260,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 836360396}
     m_Modifications:
+    - target: {fileID: 691606637546363976, guid: eeee6358623a7456e9bd7419f3af644f,
+        type: 3}
+      propertyPath: PlayerAnimator
+      value: 
+      objectReference: {fileID: 1095008000}
     - target: {fileID: 691606637546363986, guid: eeee6358623a7456e9bd7419f3af644f,
         type: 3}
       propertyPath: m_Name
@@ -34136,6 +34147,7 @@ MonoBehaviour:
   - {fileID: 478339340}
   raceCamera: {fileID: 867987757}
   victoryCamera: {fileID: 1050567604}
+  lapObjective: {fileID: 695900667}
 --- !u!1 &966808263
 GameObject:
   m_ObjectHideFlags: 0
@@ -38694,6 +38706,12 @@ Transform:
   - {fileID: 48806297}
   m_Father: {fileID: 1999707317}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1095008000 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2079396996360747997, guid: eeee6358623a7456e9bd7419f3af644f,
+    type: 3}
+  m_PrefabInstance: {fileID: 478339338}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1096016262
 GameObject:
   m_ObjectHideFlags: 0
@@ -40268,6 +40286,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3483693247462894715, guid: 435ff0a96b6894d20ba63520b8f9a4f6,
+        type: 3}
+      propertyPath: PlayerAnimator
+      value: 
+      objectReference: {fileID: 78443875}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -56275,6 +56298,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 836360396}
     m_Modifications:
+    - target: {fileID: 9015355615857688293, guid: fcf82a01e83174de285c0824bbd37529,
+        type: 3}
+      propertyPath: PlayerAnimator
+      value: 
+      objectReference: {fileID: 2085618737}
     - target: {fileID: 9015355615857688312, guid: fcf82a01e83174de285c0824bbd37529,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -71113,6 +71141,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 942762337184432749, guid: b9c7a183a7a2e004cb24435cb080a708,
     type: 3}
   m_PrefabInstance: {fileID: 2084860067}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &2085618737 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3933457524040203536, guid: fcf82a01e83174de285c0824bbd37529,
+    type: 3}
+  m_PrefabInstance: {fileID: 1626036187}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2088069316
 PrefabInstance:
