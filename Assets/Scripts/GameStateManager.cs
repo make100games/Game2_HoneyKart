@@ -12,6 +12,7 @@ public class GameStateManager : MonoBehaviour
     public static GameStateManager Instance { get; private set; }
 
     [SerializeField] AttractModeState attractModeState;
+    [SerializeField] CharacterSelectState characterSelectState;
     [SerializeField] RaceState raceState;
     [SerializeField] RaceResultsState raceResultsState;
 
@@ -44,10 +45,16 @@ public class GameStateManager : MonoBehaviour
         currentState.Enter();
     }
 
-    /// <summary>Called by AttractModeState when the player chooses to start the race.</summary>
+    /// <summary>Called by AttractModeState when the player chooses to start the race. Routes to character selection first.</summary>
     public void StartGame()
     {
         GameModeState.IsAttractMode = false;
+        TransitionTo(characterSelectState);
+    }
+
+    /// <summary>Called by CharacterSelectState once a character is chosen. Transitions directly to the race.</summary>
+    public void EnterRace()
+    {
         TransitionTo(raceState);
     }
 

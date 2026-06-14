@@ -63,6 +63,13 @@ public class GameFlowManager : MonoBehaviour
             }
             DebugUtility.HandleErrorIfNullFindObject<ArcadeKart, GameFlowManager>(playerKart, this);
         }
+        else
+        {
+            // autoFindKarts is false — use the explicitly assigned playerKart.
+            karts = playerKart != null ? new ArcadeKart[] { playerKart } : System.Array.Empty<ArcadeKart>();
+            if (playerKart == null)
+                Debug.LogWarning("[GameFlowManager] autoFindKarts is false but playerKart is not assigned.");
+        }
 
         m_ObjectiveManager = FindObjectOfType<ObjectiveManager>();
 		DebugUtility.HandleErrorIfNullFindObject<ObjectiveManager, GameFlowManager>(m_ObjectiveManager, this);
