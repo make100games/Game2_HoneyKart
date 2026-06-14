@@ -96,6 +96,9 @@ public class RaceResultsState : GameStateBase
             orbitPivot.StartOrbiting(m_Kart.transform);
 
         if (orbitCamera != null)
+        {
+            orbitCamera.LookAt = m_Kart.transform;
             orbitCamera.Priority = orbitCameraPriority;
+        }
     }
 }

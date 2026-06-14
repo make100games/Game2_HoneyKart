@@ -1,4 +1,5 @@
 using System.Collections;
+using Cinemachine;
 using KartGame.KartSystems;
 using UnityEngine;
 
@@ -16,6 +17,12 @@ public class RaceState : GameStateBase
 
     [Tooltip("One player kart per character (Brutus=0, Elvis=1, HoneyBee=2, Squirrel=3). All must start inactive in the Editor.")]
     [SerializeField] private ArcadeKart[] playerKartOptions;
+
+    [Tooltip("Main follow VCam at scene root — Follow and LookAt are pointed at the selected kart on entry.")]
+    [SerializeField] private CinemachineVirtualCamera raceCamera;
+
+    [Tooltip("Victory VCam inside RaceRoot — LookAt is pointed at the selected kart on entry.")]
+    [SerializeField] private CinemachineVirtualCamera victoryCamera;
 
     /// <summary>
     /// Activates the selected player kart, assigns it to GameFlowManager before Start() fires,
@@ -45,6 +52,17 @@ public class RaceState : GameStateBase
             {
                 gameFlowManager.autoFindKarts = false;
                 gameFlowManager.playerKart = playerKartOptions[selectedIndex];
+
+                Transform selectedTransform = playerKartOptions[selectedIndex].transform;
+
+                if (raceCamera != null)
+                {
+                    raceCamera.Follow = selectedTransform;
+                    raceCamera.LookAt = selectedTransform;
+                }
+
+                if (victoryCamera != null)
+                    victoryCamera.LookAt = selectedTransform;
             }
         }
 

@@ -13,20 +13,17 @@ public class OrbitPivot : MonoBehaviour
 
     private float angle;
 
-    public void StartOrbiting(Transform target)
+    /// <summary>Assigns the orbit target and enables the orbiting behaviour.</summary>
+    public void StartOrbiting(Transform orbitTarget)
     {
+        target = orbitTarget;
         enabled = true;
     }
 
     private void Awake()
     {
         virtualCamera = GetComponent<CinemachineVirtualCamera>();
-        target = virtualCamera.LookAt;
-
-        if (target == null)
-        {
-            Debug.LogError("Virtual Camera does not have a Look At target assigned.", this);
-        }
+        // target is assigned at runtime via StartOrbiting() once the selected kart is known.
     }
 
     private void LateUpdate()
