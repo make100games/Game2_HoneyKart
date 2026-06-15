@@ -13028,6 +13028,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3483693247462894695, guid: 435ff0a96b6894d20ba63520b8f9a4f6,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3483693247462894715, guid: 435ff0a96b6894d20ba63520b8f9a4f6,
         type: 3}
       propertyPath: PlayerAnimator
@@ -13926,6 +13931,11 @@ PrefabInstance:
     - target: {fileID: 9015355615857688312, guid: fcf82a01e83174de285c0824bbd37529,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9015355615857688313, guid: fcf82a01e83174de285c0824bbd37529,
+        type: 3}
+      propertyPath: m_UseGravity
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9015355615857688319, guid: fcf82a01e83174de285c0824bbd37529,
@@ -39402,6 +39412,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Squirrel
+      objectReference: {fileID: 0}
+    - target: {fileID: 691606637546363988, guid: eeee6358623a7456e9bd7419f3af644f,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 691606637546363989, guid: eeee6358623a7456e9bd7419f3af644f,
         type: 3}
@@ -68525,6 +68540,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1582454291}
     m_Modifications:
+    - target: {fileID: 5512546689472429202, guid: b15b4be8637964b32a8eae3afe616805,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5512546689472429203, guid: b15b4be8637964b32a8eae3afe616805,
         type: 3}
       propertyPath: m_LocalPosition.x
