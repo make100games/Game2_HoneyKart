@@ -37,6 +37,10 @@ public class AttractModeState : GameStateBase
     [Tooltip("Button that shows credits (stub).")]
     public Button creditsButton;
 
+    [Header("Effects")]
+    [Tooltip("Particle system played when the player presses any key to reveal the menu.")]
+    public ParticleSystem selectedEffect;
+
     [Header("Title Fade")]
     [Tooltip("Seconds after activation before the title begins to fade in.")]
     public float titleDelay = 5f;
@@ -137,12 +141,14 @@ public class AttractModeState : GameStateBase
         m_TitleVisible = true;
     }
 
-    /// <summary>Reveals the main menu panel.</summary>
+    /// <summary>Reveals the main menu panel and plays the selected effect particle system.</summary>
     private void ShowMenu()
     {
         m_MenuShown = true;
         if (menuPanel != null)
             menuPanel.SetActive(true);
+        if (selectedEffect != null)
+            selectedEffect.Play();
     }
 
     private void OnControlsClicked()
