@@ -5232,37 +5232,37 @@ PrefabInstance:
     - target: {fileID: 5253273560380579750, guid: c383ff337ca0d4fc19148deeb01a940d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.8981767
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5253273560380579750, guid: c383ff337ca0d4fc19148deeb01a940d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.78999996
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5253273560380579750, guid: c383ff337ca0d4fc19148deeb01a940d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.0990734
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5253273560380579750, guid: c383ff337ca0d4fc19148deeb01a940d,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.97589886
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5253273560380579750, guid: c383ff337ca0d4fc19148deeb01a940d,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5253273560380579750, guid: c383ff337ca0d4fc19148deeb01a940d,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.21822341
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5253273560380579750, guid: c383ff337ca0d4fc19148deeb01a940d,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5253273560380579750, guid: c383ff337ca0d4fc19148deeb01a940d,
         type: 3}
@@ -22189,6 +22189,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 637171543}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &637493949 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1289528189571547519, guid: c383ff337ca0d4fc19148deeb01a940d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1563311025468148798}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &637493950 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5253273560380579750, guid: c383ff337ca0d4fc19148deeb01a940d,
@@ -30295,7 +30301,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -34634,6 +34641,12 @@ Transform:
 --- !u!4 &954350127 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5253273560380579750, guid: c383ff337ca0d4fc19148deeb01a940d,
+    type: 3}
+  m_PrefabInstance: {fileID: 100382281}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &954350129 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1289528189571547519, guid: c383ff337ca0d4fc19148deeb01a940d,
     type: 3}
   m_PrefabInstance: {fileID: 100382281}
   m_PrefabAsset: {fileID: 0}
@@ -45183,6 +45196,21 @@ MonoBehaviour:
   - {fileID: 2013972932}
   - {fileID: 659599152}
   - {fileID: 1661369401}
+  bottomPanel: {fileID: 446147926}
+  characterNameElement: {fileID: 1099050978}
+  startGameButtonRect: {fileID: 1671417502}
+  startGameButton: {fileID: 1671417504}
+  characterNameImage: {fileID: 1099050979}
+  characterNameSprites:
+  - {fileID: 21300000, guid: 428b756b070474b908f8db7ff38e743c, type: 3}
+  - {fileID: 21300000, guid: ae801bd3d58064fd198fde0773e67210, type: 3}
+  - {fileID: 21300000, guid: 4185526e7088345d19530239d1677c0c, type: 3}
+  - {fileID: 21300000, guid: 40995461bfd7f4c8e91b07f8f4686294, type: 3}
+  selectedEffects:
+  - {fileID: 637493949}
+  - {fileID: 954350129}
+  - {fileID: 1968334249}
+  - {fileID: 1976660161}
 --- !u!1001 &1265552377
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -68614,6 +68642,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 869385144}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &1968334249 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1289528189571547519, guid: c383ff337ca0d4fc19148deeb01a940d,
+    type: 3}
+  m_PrefabInstance: {fileID: 869385144}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1969594460 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9044534630011674315, guid: 0eed8f5e8db30406892a1c03cba4cab0,
@@ -68688,6 +68722,12 @@ Transform:
 --- !u!4 &1976660159 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5253273560380579750, guid: c383ff337ca0d4fc19148deeb01a940d,
+    type: 3}
+  m_PrefabInstance: {fileID: 119745510}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1976660161 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1289528189571547519, guid: c383ff337ca0d4fc19148deeb01a940d,
     type: 3}
   m_PrefabInstance: {fileID: 119745510}
   m_PrefabAsset: {fileID: 0}
