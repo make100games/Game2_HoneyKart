@@ -39402,7 +39402,7 @@ GameObject:
   - component: {fileID: 1099050980}
   - component: {fileID: 1099050979}
   m_Layer: 0
-  m_Name: Element-Elvis
+  m_Name: Element-CharacterName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39447,7 +39447,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ae801bd3d58064fd198fde0773e67210, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4185526e7088345d19530239d1677c0c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -42728,7 +42728,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 60
+  field of view: 60.000004
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -42754,8 +42754,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1207105314}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.12218166, y: 0.4142483, z: -0.056226548, w: 0.90017146}
-  m_LocalPosition: {x: 413.84283, y: 4.52, z: 531.52716}
+  m_LocalRotation: {x: -0.00025708505, y: -0.30723462, z: -0.0011677312, w: 0.95163304}
+  m_LocalPosition: {x: 452.55502, y: 6.9534073, z: 555.21655}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -44917,7 +44917,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1262560431
 Transform:
   m_ObjectHideFlags: 0

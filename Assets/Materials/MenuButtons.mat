@@ -29,7 +29,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _ShinePosition: 1.1827158
+    - _ShinePosition: 0.50206214
     - _ShineWidth: 0.253
     m_Colors:
     - _ShineColor: {r: 0.94509804, g: 0.52566653, b: 0, a: 0.5803922}
