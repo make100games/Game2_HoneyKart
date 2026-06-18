@@ -1,5 +1,6 @@
 using KartGame.KartSystems;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Singleton that owns the active game state and drives all transitions.
@@ -65,10 +66,9 @@ public class GameStateManager : MonoBehaviour
         TransitionTo(raceResultsState);
     }
 
-    /// <summary>Called by RaceResultsState when the player quits. Resets attract mode flag and returns to the title screen.</summary>
+    /// <summary>Called by RaceResultsState when the player quits. Reloads the active scene from scratch.</summary>
     public void RestartGame()
     {
-        GameModeState.IsAttractMode = true;
-        TransitionTo(attractModeState);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
