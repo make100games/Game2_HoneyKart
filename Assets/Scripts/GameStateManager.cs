@@ -64,4 +64,11 @@ public class GameStateManager : MonoBehaviour
         raceResultsState.PrepareEntry(kart);
         TransitionTo(raceResultsState);
     }
+
+    /// <summary>Called by RaceResultsState when the player quits. Resets attract mode flag and returns to the title screen.</summary>
+    public void RestartGame()
+    {
+        GameModeState.IsAttractMode = true;
+        TransitionTo(attractModeState);
+    }
 }

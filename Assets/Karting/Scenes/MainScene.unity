@@ -13157,6 +13157,13 @@ MonoBehaviour:
   coastingLinearDamping: 3
   coastingAngularDamping: 5
   orbitCameraPriority: 20
+  bottomPanel: {fileID: 998781380}
+  buttonRestartRect: {fileID: 242321703}
+  buttonChangeCharacterRect: {fileID: 529438323}
+  buttonQuitRect: {fileID: 151987873}
+  buttonRestart: {fileID: 242321704}
+  buttonChangeCharacter: {fileID: 529438325}
+  buttonQuit: {fileID: 151987875}
 --- !u!1001 &358231289
 PrefabInstance:
   m_ObjectHideFlags: 0
