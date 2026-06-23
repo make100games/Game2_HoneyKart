@@ -24745,6 +24745,7 @@ GameObject:
   m_Component:
   - component: {fileID: 698745945}
   - component: {fileID: 698745944}
+  - component: {fileID: 698745946}
   m_Layer: 0
   m_Name: FinishLine
   m_TagString: Untagged
@@ -24791,6 +24792,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 128.072}
+--- !u!114 &698745946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 698745943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24f933e11787e4efba6eed4c5fff5a3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &699342171
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -71416,6 +71429,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2062532452}
+  - component: {fileID: 2062532453}
   m_Layer: 0
   m_Name: Track-Details
   m_TagString: Untagged
@@ -71443,6 +71457,18 @@ Transform:
   - {fileID: 1089243652}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2062532453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2062532451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24f933e11787e4efba6eed4c5fff5a3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2063623671
 GameObject:
   m_ObjectHideFlags: 0
