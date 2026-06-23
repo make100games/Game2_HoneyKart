@@ -42,6 +42,24 @@ Shader "Universal Render Pipeline/Terrain/Toon"
         [HideInInspector] _TerrainHolesTexture("Holes Map (RGB)", 2D) = "white" {}
 
         [ToggleUI] _EnableInstancedPerPixelNormal("Enable Instanced per-pixel normal", Float) = 1.0
+
+        // Terrain Decal System (managed at runtime by TerrainDecalManager)
+        [HideInInspector] _TerrainDecalTex0("Decal Albedo 0", 2D) = "black" {}
+        [HideInInspector] _TerrainDecalTex1("Decal Albedo 1", 2D) = "black" {}
+        [HideInInspector] _TerrainDecalTex2("Decal Albedo 2", 2D) = "black" {}
+        [HideInInspector] _TerrainDecalTex3("Decal Albedo 3", 2D) = "black" {}
+        [HideInInspector] _TerrainDecalTex4("Decal Albedo 4", 2D) = "black" {}
+        [HideInInspector] _TerrainDecalTex5("Decal Albedo 5", 2D) = "black" {}
+        [HideInInspector] _TerrainDecalTex6("Decal Albedo 6", 2D) = "black" {}
+        [HideInInspector] _TerrainDecalTex7("Decal Albedo 7", 2D) = "black" {}
+        [HideInInspector] _TerrainDecalNorm0("Decal Normal 0", 2D) = "bump" {}
+        [HideInInspector] _TerrainDecalNorm1("Decal Normal 1", 2D) = "bump" {}
+        [HideInInspector] _TerrainDecalNorm2("Decal Normal 2", 2D) = "bump" {}
+        [HideInInspector] _TerrainDecalNorm3("Decal Normal 3", 2D) = "bump" {}
+        [HideInInspector] _TerrainDecalNorm4("Decal Normal 4", 2D) = "bump" {}
+        [HideInInspector] _TerrainDecalNorm5("Decal Normal 5", 2D) = "bump" {}
+        [HideInInspector] _TerrainDecalNorm6("Decal Normal 6", 2D) = "bump" {}
+        [HideInInspector] _TerrainDecalNorm7("Decal Normal 7", 2D) = "bump" {}
     }
 
     HLSLINCLUDE

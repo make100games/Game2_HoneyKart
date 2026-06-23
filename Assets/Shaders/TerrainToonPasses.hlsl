@@ -12,6 +12,34 @@ CBUFFER_START(UnityPerMaterial)
     float _FresnelStrength;
 CBUFFER_END
 
+// --- Terrain Decal System (set globally by TerrainDecalManager) ---
+TEXTURE2D(_TerrainDecalTex0);
+TEXTURE2D(_TerrainDecalTex1);
+TEXTURE2D(_TerrainDecalTex2);
+TEXTURE2D(_TerrainDecalTex3);
+TEXTURE2D(_TerrainDecalTex4);
+TEXTURE2D(_TerrainDecalTex5);
+TEXTURE2D(_TerrainDecalTex6);
+TEXTURE2D(_TerrainDecalTex7);
+TEXTURE2D(_TerrainDecalNorm0);
+TEXTURE2D(_TerrainDecalNorm1);
+TEXTURE2D(_TerrainDecalNorm2);
+TEXTURE2D(_TerrainDecalNorm3);
+TEXTURE2D(_TerrainDecalNorm4);
+TEXTURE2D(_TerrainDecalNorm5);
+TEXTURE2D(_TerrainDecalNorm6);
+TEXTURE2D(_TerrainDecalNorm7);
+SAMPLER(sampler_TerrainDecalTex0); // single shared sampler for all decal textures
+float4 _TerrainDecalA0, _TerrainDecalA1, _TerrainDecalA2, _TerrainDecalA3;
+float4 _TerrainDecalA4, _TerrainDecalA5, _TerrainDecalA6, _TerrainDecalA7;
+float4 _TerrainDecalB0, _TerrainDecalB1, _TerrainDecalB2, _TerrainDecalB3;
+float4 _TerrainDecalB4, _TerrainDecalB5, _TerrainDecalB6, _TerrainDecalB7;
+float4 _TerrainDecalOpacities;        // x=slot0, y=slot1, z=slot2, w=slot3
+float4 _TerrainDecalOpacities2;       // x=slot4, y=slot5, z=slot6, w=slot7
+float4 _TerrainDecalNormalStrengths;  // x=slot0, y=slot1, z=slot2, w=slot3
+float4 _TerrainDecalNormalStrengths2; // x=slot4, y=slot5, z=slot6, w=slot7
+float  _TerrainDecalCount;
+
 struct Attributes
 {
     float4 positionOS : POSITION;
@@ -311,6 +339,43 @@ void SetupTerrainDebugTextureData(inout InputData inputData, float2 uv)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
+//                  Terrain Decal Helper                                     //
+///////////////////////////////////////////////////////////////////////////////
+
+// Blends a single decal slot onto albedo and normalWS.
+// Uses TEXTURE2D_PARAM / TEXTURE2D_ARGS for GLES3/WebGL sampler compatibility.
+void ApplyTerrainDecal(float2 worldXZ, float4 dataA, float4 dataB,
+                       float opacity, float normalStrength, float slotActive,
+                       TEXTURE2D_PARAM(albedoTex, albedoSamp),
+                       TEXTURE2D_PARAM(normalTex,  normSamp),
+                       inout half3 albedo, inout float3 normalWS)
+{
+    float2 center = dataA.xy;
+    float2 uAxis  = dataA.zw;
+    float2 vAxis  = dataB.xy;
+    float2 size   = dataB.zw;
+
+    float2 offset = worldXZ - center;
+    float2 uv = float2(dot(offset, uAxis), dot(offset, vAxis)) / max(size, 0.001) + 0.5;
+
+    float2 bounds = step(0.0, uv) * step(uv, 1.0);
+    float mask = bounds.x * bounds.y * slotActive;
+
+    half4 decalColor = SAMPLE_TEXTURE2D(albedoTex, albedoSamp, uv);
+    float blendWeight = decalColor.a * mask * opacity;
+    albedo = lerp(albedo, decalColor.rgb, blendWeight);
+
+    // Normal map: reconstruct decal TBN in world space using U/V axes + world up.
+    float3 decalT = normalize(float3(uAxis.x, 0.0, uAxis.y));
+    float3 decalB = normalize(float3(vAxis.x, 0.0, vAxis.y));
+    float3 decalN = float3(0.0, 1.0, 0.0);
+    half4  normSample  = SAMPLE_TEXTURE2D(normalTex, normSamp, uv);
+    float3 decalNormTS = float3(UnpackNormal(normSample));
+    float3 decalNormWS = decalNormTS.x * decalT + decalNormTS.y * decalB + decalNormTS.z * decalN;
+    normalWS = lerp(normalWS, normalize(decalNormWS), blendWeight * normalStrength);
+}
+
+///////////////////////////////////////////////////////////////////////////////
 //                  Vertex and Fragment functions                            //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -518,6 +583,19 @@ void SplatmapFragment(
     InputData inputData;
     InitializeInputData(IN, normalTS, inputData);
     SetupTerrainDebugTextureData(inputData, IN.uvMainAndLM.xy);
+
+    // --- Apply terrain decals ---
+    {
+        float2 _wXZ = IN.positionWS.xz;
+        ApplyTerrainDecal(_wXZ, _TerrainDecalA0, _TerrainDecalB0, _TerrainDecalOpacities.x,  _TerrainDecalNormalStrengths.x,  step(1.0, _TerrainDecalCount), TEXTURE2D_ARGS(_TerrainDecalTex0, sampler_TerrainDecalTex0), TEXTURE2D_ARGS(_TerrainDecalNorm0, sampler_TerrainDecalTex0), albedo, inputData.normalWS);
+        ApplyTerrainDecal(_wXZ, _TerrainDecalA1, _TerrainDecalB1, _TerrainDecalOpacities.y,  _TerrainDecalNormalStrengths.y,  step(2.0, _TerrainDecalCount), TEXTURE2D_ARGS(_TerrainDecalTex1, sampler_TerrainDecalTex0), TEXTURE2D_ARGS(_TerrainDecalNorm1, sampler_TerrainDecalTex0), albedo, inputData.normalWS);
+        ApplyTerrainDecal(_wXZ, _TerrainDecalA2, _TerrainDecalB2, _TerrainDecalOpacities.z,  _TerrainDecalNormalStrengths.z,  step(3.0, _TerrainDecalCount), TEXTURE2D_ARGS(_TerrainDecalTex2, sampler_TerrainDecalTex0), TEXTURE2D_ARGS(_TerrainDecalNorm2, sampler_TerrainDecalTex0), albedo, inputData.normalWS);
+        ApplyTerrainDecal(_wXZ, _TerrainDecalA3, _TerrainDecalB3, _TerrainDecalOpacities.w,  _TerrainDecalNormalStrengths.w,  step(4.0, _TerrainDecalCount), TEXTURE2D_ARGS(_TerrainDecalTex3, sampler_TerrainDecalTex0), TEXTURE2D_ARGS(_TerrainDecalNorm3, sampler_TerrainDecalTex0), albedo, inputData.normalWS);
+        ApplyTerrainDecal(_wXZ, _TerrainDecalA4, _TerrainDecalB4, _TerrainDecalOpacities2.x, _TerrainDecalNormalStrengths2.x, step(5.0, _TerrainDecalCount), TEXTURE2D_ARGS(_TerrainDecalTex4, sampler_TerrainDecalTex0), TEXTURE2D_ARGS(_TerrainDecalNorm4, sampler_TerrainDecalTex0), albedo, inputData.normalWS);
+        ApplyTerrainDecal(_wXZ, _TerrainDecalA5, _TerrainDecalB5, _TerrainDecalOpacities2.y, _TerrainDecalNormalStrengths2.y, step(6.0, _TerrainDecalCount), TEXTURE2D_ARGS(_TerrainDecalTex5, sampler_TerrainDecalTex0), TEXTURE2D_ARGS(_TerrainDecalNorm5, sampler_TerrainDecalTex0), albedo, inputData.normalWS);
+        ApplyTerrainDecal(_wXZ, _TerrainDecalA6, _TerrainDecalB6, _TerrainDecalOpacities2.z, _TerrainDecalNormalStrengths2.z, step(7.0, _TerrainDecalCount), TEXTURE2D_ARGS(_TerrainDecalTex6, sampler_TerrainDecalTex0), TEXTURE2D_ARGS(_TerrainDecalNorm6, sampler_TerrainDecalTex0), albedo, inputData.normalWS);
+        ApplyTerrainDecal(_wXZ, _TerrainDecalA7, _TerrainDecalB7, _TerrainDecalOpacities2.w, _TerrainDecalNormalStrengths2.w, step(8.0, _TerrainDecalCount), TEXTURE2D_ARGS(_TerrainDecalTex7, sampler_TerrainDecalTex0), TEXTURE2D_ARGS(_TerrainDecalNorm7, sampler_TerrainDecalTex0), albedo, inputData.normalWS);
+    }
 
 #if defined(_DBUFFER)
     half3 specular = half3(0.0h, 0.0h, 0.0h);
