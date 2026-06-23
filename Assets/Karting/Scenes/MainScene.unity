@@ -17601,50 +17601,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 494620502}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &495365414
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 495365415}
-  - component: {fileID: 495365416}
-  m_Layer: 0
-  m_Name: TerrainDecalManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &495365415
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 495365414}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 966583796}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &495365416
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 495365414}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 969acb831755a4d958300958a928cb06, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &496728294
 GameObject:
   m_ObjectHideFlags: 0
@@ -17827,7 +17783,6 @@ GameObject:
   m_Component:
   - component: {fileID: 504292690}
   - component: {fileID: 504292689}
-  - component: {fileID: 504292691}
   m_Layer: 0
   m_Name: Track-Decal
   m_TagString: Untagged
@@ -17842,7 +17797,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 504292688}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0777d029ed3dffa4692f417d4aba19ca, type: 3}
   m_Name: 
@@ -17874,23 +17829,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2062532452}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &504292691
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 504292688}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: deac6c2169bfd47848400b690517f888, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DecalTexture: {fileID: 2800000, guid: 6eed57856ed6943acb1ae051d1b04c15, type: 3}
-  NormalMap: {fileID: 2800000, guid: 5abcd1492d510493e8d5b3bbdf3b4cb3, type: 3}
-  Size: {x: 200, y: 200}
-  Opacity: 0.065
-  NormalStrength: 1
 --- !u!1001 &504659327
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20494,7 +20432,6 @@ GameObject:
   m_Component:
   - component: {fileID: 571438501}
   - component: {fileID: 571438502}
-  - component: {fileID: 571438503}
   m_Layer: 0
   m_Name: Tire-Treads (1)
   m_TagString: Untagged
@@ -20541,23 +20478,6 @@ MonoBehaviour:
   m_Offset: {x: 0, y: 0, z: 9.56}
   m_Size: {x: 20, y: 10, z: 19.12}
   m_FadeFactor: 0.197
---- !u!114 &571438503
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 571438500}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: deac6c2169bfd47848400b690517f888, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DecalTexture: {fileID: 2800000, guid: 5662a0a99d6954769bed94f2b5c7b93c, type: 3}
-  NormalMap: {fileID: 2800000, guid: 3804f1b7b6aa946fbb95e5c60f9ff4c2, type: 3}
-  Size: {x: 20, y: 10}
-  Opacity: 0.197
-  NormalStrength: 1
 --- !u!1 &571766551
 GameObject:
   m_ObjectHideFlags: 0
@@ -24825,7 +24745,6 @@ GameObject:
   m_Component:
   - component: {fileID: 698745945}
   - component: {fileID: 698745944}
-  - component: {fileID: 698745946}
   m_Layer: 0
   m_Name: FinishLine
   m_TagString: Untagged
@@ -24872,23 +24791,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 128.072}
---- !u!114 &698745946
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 698745943}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: deac6c2169bfd47848400b690517f888, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DecalTexture: {fileID: 2800000, guid: bb5d4fcea6b454a229ba64f402af7f3c, type: 3}
-  NormalMap: {fileID: 0}
-  Size: {x: 16, y: 4}
-  Opacity: 0.349
-  NormalStrength: 0
 --- !u!1001 &699342171
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35118,7 +35020,6 @@ Transform:
   m_Children:
   - {fileID: 695900675}
   - {fileID: 1080333648}
-  - {fileID: 495365415}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &966583797
@@ -36576,7 +36477,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1011657291}
   - component: {fileID: 1011657290}
-  - component: {fileID: 1011657292}
   m_Layer: 0
   m_Name: Tire-Treads
   m_TagString: Untagged
@@ -36623,23 +36523,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2062532452}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 37.543}
---- !u!114 &1011657292
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1011657289}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: deac6c2169bfd47848400b690517f888, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DecalTexture: {fileID: 2800000, guid: 5662a0a99d6954769bed94f2b5c7b93c, type: 3}
-  NormalMap: {fileID: 2800000, guid: 3804f1b7b6aa946fbb95e5c60f9ff4c2, type: 3}
-  Size: {x: 20, y: 10}
-  Opacity: 0.197
-  NormalStrength: 1
 --- !u!1 &1013068547
 GameObject:
   m_ObjectHideFlags: 0
@@ -39499,7 +39382,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1089243652}
   - component: {fileID: 1089243653}
-  - component: {fileID: 1089243654}
   m_Layer: 0
   m_Name: Tire-Treads2 (1)
   m_TagString: Untagged
@@ -39546,23 +39428,6 @@ MonoBehaviour:
   m_Offset: {x: 0, y: 0, z: 9.56}
   m_Size: {x: 20, y: 10, z: 19.12}
   m_FadeFactor: 0.107
---- !u!114 &1089243654
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1089243651}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: deac6c2169bfd47848400b690517f888, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DecalTexture: {fileID: 2800000, guid: 5662a0a99d6954769bed94f2b5c7b93c, type: 3}
-  NormalMap: {fileID: 2800000, guid: 3804f1b7b6aa946fbb95e5c60f9ff4c2, type: 3}
-  Size: {x: 20, y: 10}
-  Opacity: 0.107
-  NormalStrength: 1
 --- !u!1 &1091791953
 GameObject:
   m_ObjectHideFlags: 0
@@ -53034,7 +52899,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1446786789}
   - component: {fileID: 1446786788}
-  - component: {fileID: 1446786790}
   m_Layer: 0
   m_Name: Tire-Treads2
   m_TagString: Untagged
@@ -53081,23 +52945,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2062532452}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 39.909}
---- !u!114 &1446786790
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1446786787}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: deac6c2169bfd47848400b690517f888, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DecalTexture: {fileID: 2800000, guid: 5662a0a99d6954769bed94f2b5c7b93c, type: 3}
-  NormalMap: {fileID: 2800000, guid: 3804f1b7b6aa946fbb95e5c60f9ff4c2, type: 3}
-  Size: {x: 20, y: 10}
-  Opacity: 0.115
-  NormalStrength: 1
 --- !u!1 &1447846602
 GameObject:
   m_ObjectHideFlags: 0
