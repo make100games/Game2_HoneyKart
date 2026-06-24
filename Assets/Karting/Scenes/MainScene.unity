@@ -57486,6 +57486,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 836360396}
     m_Modifications:
+    - target: {fileID: 556197059625714132, guid: fcf82a01e83174de285c0824bbd37529,
+        type: 3}
+      propertyPath: maxBombs
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 9015355615857688293, guid: fcf82a01e83174de285c0824bbd37529,
         type: 3}
       propertyPath: PlayerAnimator

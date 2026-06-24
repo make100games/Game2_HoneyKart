@@ -36,8 +36,10 @@ public class BombProjectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("Bomb collided with something: " + collision.gameObject);
         if ((explodeLayers.value & (1 << collision.gameObject.layer)) != 0)
         {
+            Debug.Log("Expode!");
             Explode();
         }
     }
