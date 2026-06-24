@@ -153,3 +153,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 11777
   maxLifetime: 6
+  blastRadius: 5
+  kartLayers:
+    serializedVersion: 2
+    m_Bits: 8192

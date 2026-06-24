@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -9,6 +10,8 @@ public class BombProjectile : MonoBehaviour
 {
     [SerializeField] private LayerMask explodeLayers;
     [SerializeField] private float maxLifetime = 6f;
+    [SerializeField] private float blastRadius = 5f;
+    [SerializeField] private LayerMask kartLayers;
 
     private bool hasExploded;
 
@@ -52,7 +55,19 @@ public class BombProjectile : MonoBehaviour
         hasExploded = true;
         CancelInvoke(nameof(Explode));
 
-        // Hook: spawn VFX and deal area damage here before destroying.
+        // Notify all karts within blast radius.
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, blastRadius, kartLayers);
+        HashSet<KartCombatHandler> notifiedHandlers = new HashSet<KartCombatHandler>();
+
+        foreach (Collider hitCollider in hitColliders)
+        {
+            KartCombatHandler handler = hitCollider.GetComponentInParent<KartCombatHandler>();
+            if (handler == null || !notifiedHandlers.Add(handler))
+                continue;
+
+            handler.OnHitByExplosion(transform.position);
+        }
+
         Destroy(gameObject);
     }
 }
