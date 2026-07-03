@@ -2,21 +2,40 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Attached to the bomb prefab. Explodes on contact with matching layers,
-/// or after a fallback lifetime. Ignores the kart that fired it to prevent
-/// self-detonation on launch.
+/// Attached to the bomb prefab. Hitting the ground starts a fuse timer while
+/// the bomb keeps rolling under physics; hitting a player kart detonates
+/// immediately. On detonation the mesh is hidden, the explosion effect plays,
+/// nearby karts are notified, and the GameObject is destroyed after a delay.
+/// Ignores the kart that fired it to prevent self-detonation on launch.
 /// </summary>
 public class BombProjectile : MonoBehaviour
 {
-    [SerializeField] private LayerMask explodeLayers;
+    private const float DefaultGroundFuseSeconds = 2f;
+    private const float DefaultDestroyDelaySeconds = 3f;
+
+    [SerializeField] private LayerMask groundLayers;
+    [SerializeField] private LayerMask playerLayers;
+    [SerializeField] private float groundFuseSeconds = DefaultGroundFuseSeconds;
+    [SerializeField] private float destroyDelaySeconds = DefaultDestroyDelaySeconds;
     [SerializeField] private float maxLifetime = 6f;
     [SerializeField] private float blastRadius = 5f;
     [SerializeField] private LayerMask kartLayers;
+    [SerializeField] private MeshRenderer bombMeshRenderer;
+    [SerializeField] private GameObject explosionEffect;
+    [SerializeField] private GameObject[] fuseEffects;
 
+    private Rigidbody rb;
     private bool hasExploded;
+    private bool fuseStarted;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
 
     private void Start()
     {
+        // Safety fallback for bombs that fly off the map and never touch ground.
         Invoke(nameof(Explode), maxLifetime);
     }
 
@@ -39,12 +58,30 @@ public class BombProjectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Bomb collided with something: " + collision.gameObject);
-        if ((explodeLayers.value & (1 << collision.gameObject.layer)) != 0)
+        if (hasExploded)
+            return;
+
+        int layer = collision.gameObject.layer;
+
+        if ((playerLayers.value & (1 << layer)) != 0)
         {
-            Debug.Log("Expode!");
+            // Direct hit or rolled into a player kart - detonate now.
             Explode();
         }
+        else if ((groundLayers.value & (1 << layer)) != 0)
+        {
+            // Touched ground - keep rolling, start the fuse.
+            StartFuse();
+        }
+    }
+
+    private void StartFuse()
+    {
+        if (fuseStarted)
+            return;
+
+        fuseStarted = true;
+        Invoke(nameof(Explode), groundFuseSeconds);
     }
 
     private void Explode()
@@ -53,9 +90,41 @@ public class BombProjectile : MonoBehaviour
             return;
 
         hasExploded = true;
-        CancelInvoke(nameof(Explode));
+        CancelInvoke();
 
-        // Notify all karts within blast radius.
+        // Hide the bomb mesh but leave explosion child renderers visible.
+        if (bombMeshRenderer != null)
+            bombMeshRenderer.enabled = false;
+
+        // Freeze in place during the destroy delay (kinematic prevents gravity re-accelerating).
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            rb.isKinematic = true;
+        }
+
+        // Stop fuse visuals.
+        if (fuseEffects != null)
+        {
+            foreach (GameObject fuseEffect in fuseEffects)
+            {
+                if (fuseEffect != null)
+                    fuseEffect.SetActive(false);
+            }
+        }
+
+        // Play explosion visual.
+        if (explosionEffect != null)
+        {
+            explosionEffect.SetActive(true);
+            foreach (ParticleSystem ps in explosionEffect.GetComponentsInChildren<ParticleSystem>())
+            {
+                ps.Play();
+            }
+        }
+
+        // Notify all karts within blast radius immediately.
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, blastRadius, kartLayers);
         HashSet<KartCombatHandler> notifiedHandlers = new HashSet<KartCombatHandler>();
 
@@ -68,6 +137,18 @@ public class BombProjectile : MonoBehaviour
             handler.OnHitByExplosion(transform.position);
         }
 
-        Destroy(gameObject);
+        Destroy(gameObject, destroyDelaySeconds);
+    }
+
+    private void OnValidate()
+    {
+        groundFuseSeconds = Mathf.Max(0f, groundFuseSeconds);
+        destroyDelaySeconds = Mathf.Max(0f, destroyDelaySeconds);
+
+        if (bombMeshRenderer == null)
+            Debug.LogWarning("BombProjectile: bombMeshRenderer is not assigned.", this);
+
+        if (explosionEffect == null)
+            Debug.LogWarning("BombProjectile: explosionEffect is not assigned.", this);
     }
 }

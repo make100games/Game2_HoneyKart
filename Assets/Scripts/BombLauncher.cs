@@ -3,22 +3,31 @@ using UnityEngine;
 /// <summary>
 /// Attached to the player kart. Listens for Space input, calculates a
 /// physics-based launch velocity, and fires bomb projectiles from a
-/// configurable LaunchPoint transform.
+/// configurable LaunchPoint transform. The bomb inherits the kart's
+/// current velocity and is given a random spin on launch.
 /// </summary>
 public class BombLauncher : MonoBehaviour
 {
+    private const float DefaultMinSpinDegreesPerSecond = 90f;
+    private const float DefaultMaxSpinDegreesPerSecond = 720f;
+
     [SerializeField] private GameObject bombPrefab;
     [SerializeField] private Transform launchPoint;
     [SerializeField] private int maxBombs = 10;
     [SerializeField] private float targetRange = 30f;
     [SerializeField] [Range(5f, 85f)] private float launchAngle = 35f;
+    [SerializeField] private float minSpinDegreesPerSecond = DefaultMinSpinDegreesPerSecond;
+    [SerializeField] private float maxSpinDegreesPerSecond = DefaultMaxSpinDegreesPerSecond;
 
     /// <summary>Current number of bombs available to fire.</summary>
     public int RemainingBombs { get; private set; }
 
+    private Rigidbody kartRigidbody;
+
     private void Awake()
     {
         RemainingBombs = maxBombs;
+        kartRigidbody = GetComponent<Rigidbody>();
     }
 
     private void Update()
@@ -46,16 +55,29 @@ public class BombLauncher : MonoBehaviour
         float speed = Mathf.Sqrt(targetRange * gravity / Mathf.Sin(2f * angleRad));
         Vector3 velocity = (transform.forward * Mathf.Cos(angleRad) + Vector3.up * Mathf.Sin(angleRad)) * speed;
 
+        // Inherit the firing kart's momentum so the bomb travels with the kart.
+        if (kartRigidbody != null)
+        {
+            velocity += kartRigidbody.linearVelocity;
+        }
+
         Rigidbody rb = instance.GetComponent<Rigidbody>();
         if (rb != null)
         {
             rb.linearVelocity = velocity;
+
+            // Random tumble. angularVelocity is radians/second, so convert from the
+            // designer-facing degrees/second range.
+            float spinDegreesPerSecond = Random.Range(minSpinDegreesPerSecond, maxSpinDegreesPerSecond);
+            rb.angularVelocity = Random.onUnitSphere * (spinDegreesPerSecond * Mathf.Deg2Rad);
         }
     }
 
     private void OnValidate()
     {
         launchAngle = Mathf.Clamp(launchAngle, 5f, 85f);
+        minSpinDegreesPerSecond = Mathf.Max(0f, minSpinDegreesPerSecond);
+        maxSpinDegreesPerSecond = Mathf.Max(minSpinDegreesPerSecond, maxSpinDegreesPerSecond);
 
         if (bombPrefab == null)
             Debug.LogWarning("BombLauncher: bombPrefab is not assigned.", this);

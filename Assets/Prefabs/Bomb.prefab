@@ -152,14 +152,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47d9e3aa4d3af4b389f49e5e5993165f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explodeLayers:
+  groundLayers:
     serializedVersion: 2
-    m_Bits: 11777
+    m_Bits: 3584
+  playerLayers:
+    serializedVersion: 2
+    m_Bits: 8192
+  groundFuseSeconds: 2
+  destroyDelaySeconds: 3
   maxLifetime: 6
   blastRadius: 5
   kartLayers:
     serializedVersion: 2
     m_Bits: 8192
+  bombMeshRenderer: {fileID: 401434912278790274}
+  explosionEffect: {fileID: 2510298483771775231}
+  fuseEffects:
+  - {fileID: 2099506071543071981}
+  - {fileID: 6863063397752287940}
 --- !u!1001 &42919772017873389
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -244,6 +254,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 42919772017873389}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2099506071543071981 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2142177318363108608, guid: 8e0ae5f1e38c8460bb1474c8cd6f1f44,
+    type: 3}
+  m_PrefabInstance: {fileID: 42919772017873389}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3907447441930755647
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -312,6 +328,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fda85c8c3d5d94f0dafd712ec3698d49, type: 3}
+--- !u!1 &6863063397752287940 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7567302409140579579, guid: fda85c8c3d5d94f0dafd712ec3698d49,
+    type: 3}
+  m_PrefabInstance: {fileID: 3907447441930755647}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6948172612326205519 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6221393665114748528, guid: fda85c8c3d5d94f0dafd712ec3698d49,
@@ -391,6 +413,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Explosion
       objectReference: {fileID: 0}
+    - target: {fileID: 5001811442211834478, guid: 4f26171fb5c6e47d0b4d4e9a90d00892,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7355999087026010013, guid: 4f26171fb5c6e47d0b4d4e9a90d00892,
         type: 3}
       propertyPath: playOnAwake
@@ -411,6 +438,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f26171fb5c6e47d0b4d4e9a90d00892, type: 3}
+--- !u!1 &2510298483771775231 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5001811442211834478, guid: 4f26171fb5c6e47d0b4d4e9a90d00892,
+    type: 3}
+  m_PrefabInstance: {fileID: 7474953017015292561}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &9185553254963873777 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1785107905219941728, guid: 4f26171fb5c6e47d0b4d4e9a90d00892,
