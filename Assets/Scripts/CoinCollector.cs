@@ -88,6 +88,14 @@ public class CoinCollector : MonoBehaviour
     
     private void CollectCoin(GameObject coin)
     {
+        // Coins scattered by an explosion can't be picked up while still
+        // airborne — they only become collectable once they land.
+        ExplosionCoin explosionCoin = coin.GetComponent<ExplosionCoin>();
+        if (explosionCoin != null && !explosionCoin.IsCollectable)
+        {
+            return;
+        }
+
         ApplySpeedBoost();
         PlaySparkles();
         Destroy(coin);

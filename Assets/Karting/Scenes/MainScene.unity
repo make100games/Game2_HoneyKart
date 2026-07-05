@@ -16886,7 +16886,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 691606637546363986, guid: eeee6358623a7456e9bd7419f3af644f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 478339342}
   m_SourcePrefab: {fileID: 100100000, guid: eeee6358623a7456e9bd7419f3af644f, type: 3}
 --- !u!4 &478339339 stripped
 Transform:
@@ -16900,12 +16904,42 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 478339338}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 478339341}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b2e8893a3093437d9d101b53db56941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &478339341 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 691606637546363986, guid: eeee6358623a7456e9bd7419f3af644f,
+    type: 3}
+  m_PrefabInstance: {fileID: 478339338}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &478339342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478339341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 784ab286ddc2c47e2b3c7a4476e82988, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockbackVelocity: 8
+  flipCount: 1
+  maxAirborneSeconds: 3
+  coinPrefab: {fileID: 9034766387885013105, guid: f07b644ca58ca42d5963f242a0d00871,
+    type: 3}
+  coinCount: 5
+  coinRingRadius: 1
+  coinUpwardVelocity: 4
+  coinOutwardVelocity: 3
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 3584
 --- !u!1 &479138810
 GameObject:
   m_ObjectHideFlags: 0
@@ -26709,7 +26743,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5512546689472429204, guid: b15b4be8637964b32a8eae3afe616805,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 765074590}
   m_SourcePrefab: {fileID: 100100000, guid: b15b4be8637964b32a8eae3afe616805, type: 3}
 --- !u!4 &765074587 stripped
 Transform:
@@ -26723,12 +26761,42 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 765074586}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 765074589}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b2e8893a3093437d9d101b53db56941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &765074589 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5512546689472429204, guid: b15b4be8637964b32a8eae3afe616805,
+    type: 3}
+  m_PrefabInstance: {fileID: 765074586}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &765074590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765074589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 784ab286ddc2c47e2b3c7a4476e82988, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockbackVelocity: 8
+  flipCount: 1
+  maxAirborneSeconds: 3
+  coinPrefab: {fileID: 9034766387885013105, guid: f07b644ca58ca42d5963f242a0d00871,
+    type: 3}
+  coinCount: 5
+  coinRingRadius: 1
+  coinUpwardVelocity: 4
+  coinOutwardVelocity: 3
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 3584
 --- !u!1 &769757330
 GameObject:
   m_ObjectHideFlags: 0
@@ -41454,7 +41522,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3483693247462894689, guid: 435ff0a96b6894d20ba63520b8f9a4f6,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1135877163}
   m_SourcePrefab: {fileID: 100100000, guid: 435ff0a96b6894d20ba63520b8f9a4f6, type: 3}
 --- !u!4 &1135877160 stripped
 Transform:
@@ -41468,12 +41540,42 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1135877159}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1135877162}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b2e8893a3093437d9d101b53db56941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1135877162 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3483693247462894689, guid: 435ff0a96b6894d20ba63520b8f9a4f6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1135877159}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1135877163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135877162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 784ab286ddc2c47e2b3c7a4476e82988, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockbackVelocity: 8
+  flipCount: 1
+  maxAirborneSeconds: 3
+  coinPrefab: {fileID: 9034766387885013105, guid: f07b644ca58ca42d5963f242a0d00871,
+    type: 3}
+  coinCount: 5
+  coinRingRadius: 1
+  coinUpwardVelocity: 4
+  coinOutwardVelocity: 3
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 3584
 --- !u!1 &1138808110
 GameObject:
   m_ObjectHideFlags: 0
@@ -57559,7 +57661,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9015355615857688319, guid: fcf82a01e83174de285c0824bbd37529,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1626036191}
   m_SourcePrefab: {fileID: 100100000, guid: fcf82a01e83174de285c0824bbd37529, type: 3}
 --- !u!4 &1626036188 stripped
 Transform:
@@ -57573,12 +57679,42 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1626036187}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1626036190}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b2e8893a3093437d9d101b53db56941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1626036190 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9015355615857688319, guid: fcf82a01e83174de285c0824bbd37529,
+    type: 3}
+  m_PrefabInstance: {fileID: 1626036187}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1626036191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1626036190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 784ab286ddc2c47e2b3c7a4476e82988, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockbackVelocity: 8
+  flipCount: 1
+  maxAirborneSeconds: 3
+  coinPrefab: {fileID: 9034766387885013105, guid: f07b644ca58ca42d5963f242a0d00871,
+    type: 3}
+  coinCount: 5
+  coinRingRadius: 1
+  coinUpwardVelocity: 4
+  coinOutwardVelocity: 3
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 3584
 --- !u!1 &1627802543
 GameObject:
   m_ObjectHideFlags: 0
@@ -74570,6 +74706,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1832945630}
     m_Modifications:
+    - target: {fileID: -3871717492896771540, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
+      propertyPath: coinPrefab
+      value: 
+      objectReference: {fileID: 9034766387885013105, guid: f07b644ca58ca42d5963f242a0d00871,
+        type: 3}
+    - target: {fileID: -3871717492896771540, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
+      propertyPath: groundLayers.m_Bits
+      value: 3584
+      objectReference: {fileID: 0}
     - target: {fileID: 2172650618388516011, guid: 107bdee8671f44bba805456dc720d2c3,
         type: 3}
       propertyPath: m_Name
@@ -74831,6 +74978,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1832945630}
     m_Modifications:
+    - target: {fileID: -4633733646640369909, guid: 7e996ba2074e740a6954d841b0bb5125,
+        type: 3}
+      propertyPath: coinPrefab
+      value: 
+      objectReference: {fileID: 9034766387885013105, guid: f07b644ca58ca42d5963f242a0d00871,
+        type: 3}
+    - target: {fileID: -4633733646640369909, guid: 7e996ba2074e740a6954d841b0bb5125,
+        type: 3}
+      propertyPath: groundLayers.m_Bits
+      value: 3584
+      objectReference: {fileID: 0}
     - target: {fileID: 349531164268695766, guid: 7e996ba2074e740a6954d841b0bb5125,
         type: 3}
       propertyPath: 'Colliders.Array.data[0]'
@@ -75024,6 +75182,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1832945630}
     m_Modifications:
+    - target: {fileID: 2887302532712413785, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
+      propertyPath: coinPrefab
+      value: 
+      objectReference: {fileID: 9034766387885013105, guid: f07b644ca58ca42d5963f242a0d00871,
+        type: 3}
+    - target: {fileID: 2887302532712413785, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
+      propertyPath: groundLayers.m_Bits
+      value: 3584
+      objectReference: {fileID: 0}
     - target: {fileID: 3305684839085820075, guid: de2fbfc409b64499aaf1cae144d80e19,
         type: 3}
       propertyPath: m_Name
@@ -75217,6 +75386,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1832945630}
     m_Modifications:
+    - target: {fileID: -99864275615779752, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
+      propertyPath: coinPrefab
+      value: 
+      objectReference: {fileID: 9034766387885013105, guid: f07b644ca58ca42d5963f242a0d00871,
+        type: 3}
+    - target: {fileID: -99864275615779752, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
+      propertyPath: groundLayers.m_Bits
+      value: 3584
+      objectReference: {fileID: 0}
     - target: {fileID: 8683912622688117118, guid: ca62c9e2da62a496386485954479e8dd,
         type: 3}
       propertyPath: 'Colliders.Array.data[0]'
