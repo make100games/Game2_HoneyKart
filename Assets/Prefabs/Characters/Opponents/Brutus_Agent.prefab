@@ -1059,6 +1059,7 @@ MonoBehaviour:
   coinUpwardVelocity: 10
   coinOutwardVelocity: 5
   coinSpawnHeight: 0.5
+  coinSurfaceHoverDistance: 1
   groundLayers:
     serializedVersion: 2
     m_Bits: 0

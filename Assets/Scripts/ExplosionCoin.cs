@@ -18,6 +18,7 @@ public class ExplosionCoin : MonoBehaviour
     private Collider coinCollider;
     private LayerMask groundLayers;
     private float restingHalfHeight;
+    private float hoverDistance;
     private bool landed;
 
     /// <summary>True once the coin has landed and may be picked up by a kart.</summary>
@@ -30,14 +31,17 @@ public class ExplosionCoin : MonoBehaviour
     /// </summary>
     /// <param name="velocity">Initial world-space velocity for the coin.</param>
     /// <param name="groundLayerMask">Layers treated as ground for landing detection.</param>
-    public void Launch(Vector3 velocity, LayerMask groundLayerMask)
+    /// <param name="surfaceHoverDistance">Height above the ground surface the coin rests at, matching the spawner's hover.</param>
+    public void Launch(Vector3 velocity, LayerMask groundLayerMask, float surfaceHoverDistance)
     {
         coinRigidbody = GetComponent<Rigidbody>();
         coinCollider = GetComponent<Collider>();
         groundLayers = groundLayerMask;
+        hoverDistance = surfaceHoverDistance;
 
-        // World-space half-height of the collider so we can rest the coin on top
-        // of the ground rather than sinking its center into the surface.
+        // Collider half-height, used only to detect the landing (whether the coin
+        // physically rests on the ground or falls through when the layer matrix
+        // ignores Coin-vs-Ground collisions).
         restingHalfHeight = coinCollider.bounds.extents.y;
 
         // Enter the physical projectile state.
@@ -57,14 +61,13 @@ public class ExplosionCoin : MonoBehaviour
         if (coinRigidbody.linearVelocity.y > 0f)
             return;
 
-        // Probe the ground directly beneath the coin. Landing is detected when
-        // the bottom of the coin reaches the surface. A raycast keeps this correct
-        // on uneven terrain and independent of the layer collision matrix, and
-        // resting at hit.point + halfHeight seats the coin on top of the ground.
+        // Probe the ground beneath the coin. Detect the landing once the coin is
+        // at ground level, then rest its pivot a small distance above the surface
+        // so it hovers exactly like coins placed by the spawner.
         if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, GroundProbeDistance, groundLayers)
             && hit.distance <= restingHalfHeight + GroundContactOffset)
         {
-            Land(hit.point.y + restingHalfHeight);
+            Land(hit.point.y + hoverDistance);
         }
     }
 

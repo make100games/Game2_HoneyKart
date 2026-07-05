@@ -18,6 +18,7 @@ public class KartCombatHandler : MonoBehaviour
     private const float DefaultCoinUpwardVelocity = 4f;
     private const float DefaultCoinOutwardVelocity = 3f;
     private const float DefaultCoinSpawnHeight = 0.5f;
+    private const float DefaultCoinSurfaceHoverDistance = 0.1f;
     private const float GravityMagnitude = 9.81f;
 
     [Header("Knockback")]
@@ -48,6 +49,9 @@ public class KartCombatHandler : MonoBehaviour
 
     [Tooltip("Height above the kart at which coins spawn so they don't start embedded in the ground.")]
     [SerializeField] private float coinSpawnHeight = DefaultCoinSpawnHeight;
+
+    [Tooltip("Height above the ground surface that landed coins hover at, matching the spawner's Min Distance From Surface.")]
+    [SerializeField] private float coinSurfaceHoverDistance = DefaultCoinSurfaceHoverDistance;
 
     [Tooltip("Layers treated as ground for the flip landing and coin landing.")]
     [SerializeField] private LayerMask groundLayers;
@@ -181,7 +185,7 @@ public class KartCombatHandler : MonoBehaviour
                 explosionCoin = coin.AddComponent<ExplosionCoin>();
 
             Vector3 launchVelocity = outwardDir * coinOutwardVelocity + Vector3.up * coinUpwardVelocity;
-            explosionCoin.Launch(launchVelocity, groundLayers);
+            explosionCoin.Launch(launchVelocity, groundLayers, coinSurfaceHoverDistance);
         }
     }
 
