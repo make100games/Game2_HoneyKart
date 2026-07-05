@@ -1066,3 +1066,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 784ab286ddc2c47e2b3c7a4476e82988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  knockbackVelocity: 8
+  flipCount: 1
+  maxAirborneSeconds: 3
+  coinPrefab: {fileID: 0}
+  coinCount: 5
+  coinRingRadius: 1
+  coinUpwardVelocity: 10
+  coinOutwardVelocity: 5
+  coinSpawnHeight: 0.5
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 0

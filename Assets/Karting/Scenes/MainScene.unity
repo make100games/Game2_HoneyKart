@@ -16937,6 +16937,7 @@ MonoBehaviour:
   coinRingRadius: 1
   coinUpwardVelocity: 4
   coinOutwardVelocity: 3
+  coinSpawnHeight: 0.5
   groundLayers:
     serializedVersion: 2
     m_Bits: 3584
@@ -26794,6 +26795,7 @@ MonoBehaviour:
   coinRingRadius: 1
   coinUpwardVelocity: 4
   coinOutwardVelocity: 3
+  coinSpawnHeight: 0.5
   groundLayers:
     serializedVersion: 2
     m_Bits: 3584
@@ -41573,6 +41575,7 @@ MonoBehaviour:
   coinRingRadius: 1
   coinUpwardVelocity: 4
   coinOutwardVelocity: 3
+  coinSpawnHeight: 0.5
   groundLayers:
     serializedVersion: 2
     m_Bits: 3584
@@ -52796,7 +52799,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f261440be2854c3582bcf63638c670e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TotalLaps: 1
+  TotalLaps: 5
   StartCheckpointIndex: 12
 --- !u!1001 &1440285506
 PrefabInstance:
@@ -57712,6 +57715,7 @@ MonoBehaviour:
   coinRingRadius: 1
   coinUpwardVelocity: 4
   coinOutwardVelocity: 3
+  coinSpawnHeight: 0.5
   groundLayers:
     serializedVersion: 2
     m_Bits: 3584

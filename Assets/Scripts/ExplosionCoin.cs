@@ -17,8 +17,7 @@ public class ExplosionCoin : MonoBehaviour
     private Rigidbody coinRigidbody;
     private Collider coinCollider;
     private LayerMask groundLayers;
-    private float groundHeight;
-    private bool hasGroundHeight;
+    private float restingHalfHeight;
     private bool landed;
 
     /// <summary>True once the coin has landed and may be picked up by a kart.</summary>
@@ -37,44 +36,35 @@ public class ExplosionCoin : MonoBehaviour
         coinCollider = GetComponent<Collider>();
         groundLayers = groundLayerMask;
 
+        // World-space half-height of the collider so we can rest the coin on top
+        // of the ground rather than sinking its center into the surface.
+        restingHalfHeight = coinCollider.bounds.extents.y;
+
         // Enter the physical projectile state.
         coinCollider.isTrigger = false;
         coinRigidbody.isKinematic = false;
         coinRigidbody.useGravity = true;
         coinRigidbody.constraints = RigidbodyConstraints.None;
         coinRigidbody.linearVelocity = velocity;
-
-        // Record the ground height directly below so landing is guaranteed even
-        // if the physics layer matrix ignores Coin-vs-Ground collisions.
-        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, GroundProbeDistance, groundLayers))
-        {
-            groundHeight = hit.point.y;
-            hasGroundHeight = true;
-        }
     }
 
     private void FixedUpdate()
     {
-        if (landed || !hasGroundHeight)
-            return;
-
-        // Fallback landing detection: the coin has descended to ground level.
-        bool descending = coinRigidbody.linearVelocity.y <= 0f;
-        if (descending && transform.position.y <= groundHeight + GroundContactOffset)
-        {
-            Land(groundHeight + GroundContactOffset);
-        }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
         if (landed)
             return;
 
-        // Primary landing detection: physical contact with the ground.
-        if ((groundLayers.value & (1 << collision.gameObject.layer)) != 0)
+        // Only test for a landing once the coin is falling (or at its apex).
+        if (coinRigidbody.linearVelocity.y > 0f)
+            return;
+
+        // Probe the ground directly beneath the coin. Landing is detected when
+        // the bottom of the coin reaches the surface. A raycast keeps this correct
+        // on uneven terrain and independent of the layer collision matrix, and
+        // resting at hit.point + halfHeight seats the coin on top of the ground.
+        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, GroundProbeDistance, groundLayers)
+            && hit.distance <= restingHalfHeight + GroundContactOffset)
         {
-            Land(transform.position.y);
+            Land(hit.point.y + restingHalfHeight);
         }
     }
 

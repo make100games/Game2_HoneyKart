@@ -17,6 +17,7 @@ public class KartCombatHandler : MonoBehaviour
     private const float DefaultCoinRingRadius = 1f;
     private const float DefaultCoinUpwardVelocity = 4f;
     private const float DefaultCoinOutwardVelocity = 3f;
+    private const float DefaultCoinSpawnHeight = 0.5f;
     private const float GravityMagnitude = 9.81f;
 
     [Header("Knockback")]
@@ -44,6 +45,9 @@ public class KartCombatHandler : MonoBehaviour
 
     [Tooltip("Outward (away from the kart) velocity applied to each spawned coin.")]
     [SerializeField] private float coinOutwardVelocity = DefaultCoinOutwardVelocity;
+
+    [Tooltip("Height above the kart at which coins spawn so they don't start embedded in the ground.")]
+    [SerializeField] private float coinSpawnHeight = DefaultCoinSpawnHeight;
 
     [Tooltip("Layers treated as ground for the flip landing and coin landing.")]
     [SerializeField] private LayerMask groundLayers;
@@ -168,7 +172,7 @@ public class KartCombatHandler : MonoBehaviour
         {
             float angleRadians = angleStep * i * Mathf.Deg2Rad;
             Vector3 outwardDir = new Vector3(Mathf.Cos(angleRadians), 0f, Mathf.Sin(angleRadians));
-            Vector3 spawnPosition = transform.position + outwardDir * coinRingRadius;
+            Vector3 spawnPosition = transform.position + outwardDir * coinRingRadius + Vector3.up * coinSpawnHeight;
 
             GameObject coin = Instantiate(coinPrefab, spawnPosition, coinPrefab.transform.rotation);
 
