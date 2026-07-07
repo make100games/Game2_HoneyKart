@@ -1,8 +1,11 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 public class TerrainObjectSpawner : MonoBehaviour
 {
+    private const float DefaultRespawnDelaySeconds = 3f;
+
     [Header("Prefab Settings")]
     [Tooltip("Prefab to spawn on the terrain")]
     public GameObject prefab;
@@ -34,12 +37,29 @@ public class TerrainObjectSpawner : MonoBehaviour
     [Tooltip("Layer mask for raycasting (select terrain layers)")]
     public LayerMask terrainLayer = -1;
     
-    private List<GameObject> spawnedObjects = new List<GameObject>();
+    [Header("Respawn Settings")]
+    [Tooltip("Delay in seconds before a collected object respawns at its slot")]
+    [SerializeField] private float respawnDelay = DefaultRespawnDelaySeconds;
+    
+    private readonly List<SpawnSlot> slots = new();
+    private bool hasAdoptedChildren;
     
     public enum SpawnMode
     {
         Grid,
         Line
+    }
+    
+    /// <summary>
+    /// Tracks a single spawn location so a collected object can be respawned
+    /// at its recorded transform without re-raycasting the terrain.
+    /// </summary>
+    private class SpawnSlot
+    {
+        public Vector3 worldPosition;
+        public Quaternion rotation;
+        public GameObject currentInstance;
+        public bool respawnPending;
     }
     
     public void SpawnObjects()
@@ -111,9 +131,20 @@ public class TerrainObjectSpawner : MonoBehaviour
         if (Physics.Raycast(rayOrigin, rayDirection, out RaycastHit hit, raycastDistance, terrainLayer))
         {
             Vector3 spawnPosition = hit.point + Vector3.up * minDistanceFromSurface;
-            GameObject spawnedObject = Instantiate(prefab, spawnPosition, Quaternion.identity, transform);
-            spawnedObject.name = $"{prefab.name}_{spawnedObjects.Count}";
-            spawnedObjects.Add(spawnedObject);
+            int slotIndex = slots.Count;
+            
+            SpawnSlot slot = new SpawnSlot
+            {
+                worldPosition = spawnPosition,
+                rotation = Quaternion.identity
+            };
+            
+            GameObject spawnedObject = Instantiate(prefab, spawnPosition, slot.rotation, transform);
+            spawnedObject.name = $"{prefab.name}_{slotIndex}";
+            slot.currentInstance = spawnedObject;
+            slots.Add(slot);
+            
+            AttachRespawnable(spawnedObject, slotIndex);
         }
         else
         {
@@ -123,14 +154,100 @@ public class TerrainObjectSpawner : MonoBehaviour
     
     public void ClearObjects()
     {
-        foreach (GameObject obj in spawnedObjects)
+        foreach (SpawnSlot slot in slots)
         {
-            if (obj != null)
+            if (slot.currentInstance != null)
             {
-                DestroyImmediate(obj);
+                DestroyImmediate(slot.currentInstance);
             }
         }
-        spawnedObjects.Clear();
+        slots.Clear();
+    }
+    
+    /// <summary>
+    /// Ensures the given instance carries a <see cref="RespawnableItem"/> wired
+    /// back to this spawner and its slot.
+    /// </summary>
+    private void AttachRespawnable(GameObject instance, int slotIndex)
+    {
+        RespawnableItem respawnable = instance.GetComponent<RespawnableItem>();
+        if (respawnable == null)
+        {
+            respawnable = instance.AddComponent<RespawnableItem>();
+        }
+        respawnable.Initialize(this, slotIndex);
+    }
+    
+    private void Awake()
+    {
+        AdoptExistingChildren();
+    }
+    
+    /// <summary>
+    /// Runtime-only: rebuilds respawn slots from editor-placed children so
+    /// objects spawned at edit time participate in respawning. Because the slot
+    /// list is not serialized it is empty at Play start, triggering adoption.
+    /// </summary>
+    private void AdoptExistingChildren()
+    {
+        if (hasAdoptedChildren || slots.Count > 0 || transform.childCount == 0)
+            return;
+        
+        hasAdoptedChildren = true;
+        
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            Transform child = transform.GetChild(i);
+            SpawnSlot slot = new SpawnSlot
+            {
+                worldPosition = child.position,
+                rotation = child.rotation,
+                currentInstance = child.gameObject
+            };
+            slots.Add(slot);
+            AttachRespawnable(child.gameObject, i);
+        }
+    }
+    
+    /// <summary>
+    /// Called (via <see cref="RespawnableItem.NotifyCollected"/>) when the item
+    /// in the given slot is collected. Schedules a respawn after the configured
+    /// delay. Ignored if the slot is out of range or already awaiting respawn.
+    /// </summary>
+    /// <param name="slotIndex">Index of the collected slot.</param>
+    public void HandleItemCollected(int slotIndex)
+    {
+        if (slotIndex < 0 || slotIndex >= slots.Count)
+            return;
+        
+        SpawnSlot slot = slots[slotIndex];
+        if (slot.respawnPending)
+            return;
+        
+        slot.respawnPending = true;
+        slot.currentInstance = null;
+        StartCoroutine(RespawnAfterDelay(slotIndex));
+    }
+    
+    private IEnumerator RespawnAfterDelay(int slotIndex)
+    {
+        yield return new WaitForSeconds(respawnDelay);
+        
+        if (prefab == null)
+            yield break;
+        
+        SpawnSlot slot = slots[slotIndex];
+        GameObject instance = Instantiate(prefab, slot.worldPosition, slot.rotation, transform);
+        instance.name = $"{prefab.name}_{slotIndex}";
+        slot.currentInstance = instance;
+        slot.respawnPending = false;
+        
+        AttachRespawnable(instance, slotIndex);
+    }
+    
+    private void OnValidate()
+    {
+        respawnDelay = Mathf.Max(0f, respawnDelay);
     }
     
     private void OnDrawGizmosSelected()
