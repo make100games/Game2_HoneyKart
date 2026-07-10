@@ -98,6 +98,16 @@ public class CoinCollector : MonoBehaviour
 
         ApplySpeedBoost();
         PlaySparkles();
+
+        // Notify the owning spawner so the coin's slot respawns after its delay.
+        // Coins managed by a TerrainObjectSpawner carry a RespawnableItem; coins
+        // without one (e.g. explosion-scattered) are simply destroyed.
+        RespawnableItem respawnable = coin.GetComponent<RespawnableItem>();
+        if (respawnable != null)
+        {
+            respawnable.NotifyCollected();
+        }
+
         Destroy(coin);
     }
     
