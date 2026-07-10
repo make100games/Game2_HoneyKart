@@ -39,7 +39,7 @@ public class BombLauncher : MonoBehaviour
 
     private void Awake()
     {
-        RemainingBombs = maxBombs;
+        RemainingBombs = 0;
         kartRigidbody = GetComponent<Rigidbody>();
     }
 
