@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6148825745099486350}
   - component: {fileID: 464969938433544550}
   - component: {fileID: -2666443478006204583}
+  - component: {fileID: 6179619240275830774}
   m_Layer: 0
   m_Name: ItemBox
   m_TagString: Untagged
@@ -125,6 +126,20 @@ MonoBehaviour:
   rotationController: {fileID: 0}
   autoFindController: 1
   controllerTag: RotationController
+--- !u!114 &6179619240275830774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8728282409293503356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d6ff823d69a8400f8b8d802f66e3741, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bombsGranted: 3
+  destroyDelaySeconds: 2
 --- !u!1001 &6306161140608413726
 PrefabInstance:
   m_ObjectHideFlags: 0

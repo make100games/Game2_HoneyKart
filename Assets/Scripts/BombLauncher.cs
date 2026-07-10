@@ -22,6 +22,19 @@ public class BombLauncher : MonoBehaviour
     /// <summary>Current number of bombs available to fire.</summary>
     public int RemainingBombs { get; private set; }
 
+    /// <summary>
+    /// Grants additional bombs to this kart, capping the total at
+    /// <see cref="maxBombs"/>. Non-positive counts are ignored.
+    /// </summary>
+    /// <param name="count">Number of bombs to add.</param>
+    public void AddBombs(int count)
+    {
+        if (count <= 0)
+            return;
+
+        RemainingBombs = Mathf.Min(RemainingBombs + count, maxBombs);
+    }
+
     private Rigidbody kartRigidbody;
 
     private void Awake()
