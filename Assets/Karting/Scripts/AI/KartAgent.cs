@@ -1,4 +1,5 @@
-﻿using KartGame.KartSystems;
+using System;
+using KartGame.KartSystems;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
@@ -88,6 +89,27 @@ namespace KartGame.AI
         public bool ShowRaycasts;
 #endregion
 
+#region Weapon
+        [Header("Weapon")]
+        [Tooltip("When false (default), the agent fires via a heuristic and the existing 2-branch model stays valid.")]
+        public bool UseMLFiring = false;
+        public float FireTargetRange = 25f;
+        [Range(0f, 180f)] public float FireTargetHalfAngle = 30f;
+        public float FireCooldownSeconds = 2f;
+        [Tooltip("Layers considered other karts for heuristic targeting.")]
+        public LayerMask KartMask;
+
+        [Header("Weapon Rewards (ML firing only)")]
+        public float FireWithBombReward = 0.5f;
+        public float FireWithoutBombPenalty = 0.1f;
+#endregion
+
+        /// <summary>Raised when the agent wants to fire; BombLauncher subscribes.</summary>
+        public event Action FireRequested;
+
+        /// <summary>Called by the kart's BombLauncher to keep the agent informed of its current bomb count.</summary>
+        public void SetAvailableBombs(int count) => m_AvailableBombs = Mathf.Max(0, count);
+
         ArcadeKart m_Kart;
         bool m_Acceleration;
         bool m_Brake;
@@ -96,6 +118,9 @@ namespace KartGame.AI
 
         bool m_EndEpisode;
         float m_LastAccumulatedReward;
+
+        int m_AvailableBombs;
+        float m_LastFireTime = -999f;
 
         void Awake()
         {
@@ -120,6 +145,9 @@ namespace KartGame.AI
                 EndEpisode();
                 OnEpisodeBegin();
             }
+
+            if (!UseMLFiring && m_AvailableBombs > 0 && HasTargetInFront())
+                RequestFire();
         }
 
         void LateUpdate()
@@ -238,6 +266,9 @@ namespace KartGame.AI
             }
 
             sensor.AddObservation(m_Acceleration);
+
+            if (UseMLFiring)
+                sensor.AddObservation(m_AvailableBombs > 0 ? 1f : 0f);
         }
 
         public override void OnActionReceived(ActionBuffers actions)
@@ -257,6 +288,23 @@ namespace KartGame.AI
             AddReward(reward * TowardsCheckpointReward);
             AddReward((m_Acceleration && !m_Brake ? 1.0f : 0.0f) * AccelerationReward);
             AddReward(m_Kart.LocalSpeed() * SpeedReward);
+
+            if (UseMLFiring && actions.DiscreteActions.Length > 2)
+            {
+                bool fire = actions.DiscreteActions[2] >= 1;
+                if (fire)
+                {
+                    if (m_AvailableBombs > 0)
+                    {
+                        AddReward(FireWithBombReward);
+                        RequestFire();
+                    }
+                    else
+                    {
+                        AddReward(-FireWithoutBombPenalty);
+                    }
+                }
+            }
         }
 
         public override void OnEpisodeBegin()
@@ -283,6 +331,31 @@ namespace KartGame.AI
             m_Steering = actions.DiscreteActions[0] - 1f;
             m_Acceleration = actions.DiscreteActions[1] >= 1.0f;
             m_Brake = actions.DiscreteActions[1] < 1.0f;
+        }
+
+        void RequestFire()
+        {
+            if (Time.time - m_LastFireTime < FireCooldownSeconds)
+                return;
+
+            m_LastFireTime = Time.time;
+            FireRequested?.Invoke();
+        }
+
+        bool HasTargetInFront()
+        {
+            Collider[] hits = Physics.OverlapSphere(transform.position, FireTargetRange, KartMask, QueryTriggerInteraction.Ignore);
+            foreach (var hit in hits)
+            {
+                ArcadeKart otherKart = hit.GetComponentInParent<ArcadeKart>();
+                if (otherKart == null || otherKart == m_Kart)
+                    continue;
+
+                Vector3 direction = (otherKart.transform.position - transform.position).normalized;
+                if (Vector3.Angle(transform.forward, direction) <= FireTargetHalfAngle)
+                    return true;
+            }
+            return false;
         }
 
         public InputData GenerateInput()

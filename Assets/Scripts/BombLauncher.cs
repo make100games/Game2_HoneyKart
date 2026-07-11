@@ -1,3 +1,4 @@
+using KartGame.AI;
 using UnityEngine;
 
 /// <summary>
@@ -22,6 +23,9 @@ public class BombLauncher : MonoBehaviour
     /// <summary>Current number of bombs available to fire.</summary>
     public int RemainingBombs { get; private set; }
 
+    private KartAgent kartAgent;
+    private bool isAIControlled;
+
     /// <summary>
     /// Grants additional bombs to this kart, capping the total at
     /// <see cref="maxBombs"/>. Non-positive counts are ignored.
@@ -33,6 +37,7 @@ public class BombLauncher : MonoBehaviour
             return;
 
         RemainingBombs = Mathf.Min(RemainingBombs + count, maxBombs);
+        NotifyAgentBombCount();
     }
 
     private Rigidbody kartRigidbody;
@@ -41,14 +46,20 @@ public class BombLauncher : MonoBehaviour
     {
         RemainingBombs = 0;
         kartRigidbody = GetComponent<Rigidbody>();
+        kartAgent = GetComponent<KartAgent>();
+        isAIControlled = kartAgent != null;
+
+        if (isAIControlled)
+        {
+            kartAgent.FireRequested += HandleFireRequested;
+            kartAgent.SetAvailableBombs(RemainingBombs);
+        }
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && RemainingBombs > 0)
-        {
-            FireBomb();
-        }
+        if (!isAIControlled && Input.GetKeyDown(KeyCode.Space))
+            TryFireBomb();
     }
 
     private void FireBomb()
@@ -84,6 +95,28 @@ public class BombLauncher : MonoBehaviour
             float spinDegreesPerSecond = Random.Range(minSpinDegreesPerSecond, maxSpinDegreesPerSecond);
             rb.angularVelocity = Random.onUnitSphere * (spinDegreesPerSecond * Mathf.Deg2Rad);
         }
+
+        NotifyAgentBombCount();
+    }
+
+    private void TryFireBomb()
+    {
+        if (RemainingBombs > 0)
+            FireBomb();
+    }
+
+    private void HandleFireRequested() => TryFireBomb();
+
+    private void NotifyAgentBombCount()
+    {
+        if (kartAgent != null)
+            kartAgent.SetAvailableBombs(RemainingBombs);
+    }
+
+    private void OnDestroy()
+    {
+        if (kartAgent != null)
+            kartAgent.FireRequested -= HandleFireRequested;
     }
 
     private void OnValidate()
