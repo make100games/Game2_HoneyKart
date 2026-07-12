@@ -51,6 +51,7 @@ public class GameFlowManager : MonoBehaviour
     string m_SceneToLoad;
     float elapsedTimeBeforeEndScene = 0;
     private bool m_RaceFinished = false;
+    private bool m_CountdownStarted = false;
 
     void Start()
     {
@@ -89,10 +90,23 @@ public class GameFlowManager : MonoBehaviour
 			k.SetCanMove(false);
         }
 
-        //run race countdown animation
+        // Countdown is deferred — BeginRaceCountdown() is called by PreRaceCameraFlyIn
+        // after the fly-in sequence completes (~10 s after race entry).
+    }
+
+    /// <summary>
+    /// Plays the countdown Timeline, shows objectives, and starts the race after the
+    /// standard 3-second countdown. Called by <see cref="PreRaceCameraFlyIn"/> at the
+    /// end of the fly-in sequence. Guarded so it fires at most once per race entry.
+    /// </summary>
+    public void BeginRaceCountdown()
+    {
+        if (m_CountdownStarted)
+            return;
+
+        m_CountdownStarted = true;
         ShowRaceCountdownAnimation();
         StartCoroutine(ShowObjectivesRoutine());
-
         StartCoroutine(CountdownThenStartRaceRoutine());
     }
 
