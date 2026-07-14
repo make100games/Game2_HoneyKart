@@ -64,7 +64,7 @@ public class FinishPositionUI : MonoBehaviour
     {
         yield return new WaitForSeconds(slideInDelay);
 
-        positionLabel.text = GetOrdinalText(position);
+        positionLabel.text = OrdinalFormatter.ToOrdinal(position);
         positionLabel.gameObject.SetActive(true);
 
         float w = m_CanvasRect.rect.width;
@@ -89,15 +89,5 @@ public class FinishPositionUI : MonoBehaviour
         positionLabel.rectTransform.anchoredPosition = new Vector2(endX, targetY);
     }
 
-    /// <summary>Converts a 1-based position integer to its ordinal string (e.g. 1 → "1st").</summary>
-    private static string GetOrdinalText(int n)
-    {
-        return n switch
-        {
-            1 => "1st",
-            2 => "2nd",
-            3 => "3rd",
-            _ => $"{n}th"
-        };
-    }
+    
 }

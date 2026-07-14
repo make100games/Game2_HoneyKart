@@ -27,6 +27,9 @@ public class RaceState : GameStateBase
     [Tooltip("LapObjective on GameManager — playerTracker is assigned before the race hierarchy activates.")]
     [SerializeField] private LapObjective lapObjective;
 
+    [Tooltip("Live race position HUD component — playerTracker is assigned alongside lapObjective on race entry.")]
+    [SerializeField] private RacePositionUI racePositionUI;
+
     private ArcadeKart m_SelectedKart;
 
     /// <summary>
@@ -72,6 +75,9 @@ public class RaceState : GameStateBase
 
                 if (lapObjective != null)
                     lapObjective.playerTracker = playerKartOptions[selectedIndex].GetComponent<LapTracker>();
+
+                if (racePositionUI != null)
+                    racePositionUI.playerTracker = playerKartOptions[selectedIndex].GetComponent<LapTracker>();
             }
         }
         opponentSpawnManager.ResetToSpawn();

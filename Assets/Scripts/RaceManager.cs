@@ -15,6 +15,12 @@ public class RaceManager : MonoBehaviour
              "A lap is counted each time a kart passes this checkpoint after completing a full circuit.")]
     public int StartCheckpointIndex = 0;
 
+    [Tooltip("Transform of the halfway checkpoint trigger. Used for live position distance tiebreaking.")]
+    public Transform halfwayCheckpoint;
+
+    [Tooltip("Transform of the finish line checkpoint trigger. Used for live position distance tiebreaking.")]
+    public Transform finishLineCheckpoint;
+
     /// <summary>Singleton accessor set in Awake.</summary>
     public static RaceManager Instance => s_Instance;
 
@@ -108,5 +114,61 @@ public class RaceManager : MonoBehaviour
         {
             Debug.Log($"[RaceManager] {tracker.racerName} finished in position {position}");
         }
+    }
+
+    /// <summary>
+    /// Returns the 1-based live race position of the given tracker among all registered racers.
+    /// Uses a hybrid ranking: sort by ProgressScore, then break ties by ascending distance to
+    /// the racer's next checkpoint. O(n) with no allocations.
+    /// Returns 1 as a safe fallback if the singleton is unavailable or the tracker is not registered.
+    /// </summary>
+    public int GetLivePosition(LapTracker tracker)
+    {
+        if (tracker == null || !m_Racers.Contains(tracker))
+        {
+            Debug.LogWarning("[RaceManager] GetLivePosition called with an unregistered or null tracker.");
+            return 1;
+        }
+
+        int trackerScore = tracker.ProgressScore;
+        float trackerDist = DistanceToNextCheckpoint(tracker);
+
+        int aheadCount = 0;
+        for (int i = 0; i < m_Racers.Count; i++)
+        {
+            LapTracker r = m_Racers[i];
+            if (r == tracker) continue;
+
+            int rScore = r.ProgressScore;
+            if (rScore > trackerScore)
+            {
+                aheadCount++;
+            }
+            else if (rScore == trackerScore && DistanceToNextCheckpoint(r) < trackerDist)
+            {
+                aheadCount++;
+            }
+        }
+
+        return aheadCount + 1;
+    }
+
+    /// <summary>
+    /// Returns the world-space distance from the racer to its next checkpoint.
+    /// Falls back to float.MaxValue if the relevant checkpoint Transform is not assigned.
+    /// </summary>
+    private float DistanceToNextCheckpoint(LapTracker r)
+    {
+        Transform checkpoint = r.NextCheckpointTag == Tags.CheckpointFinishLine
+            ? finishLineCheckpoint
+            : halfwayCheckpoint;
+
+        if (checkpoint == null)
+        {
+            Debug.LogWarning("[RaceManager] A checkpoint Transform reference is null — distance tiebreaking will be skipped for this racer.");
+            return float.MaxValue;
+        }
+
+        return Vector3.Distance(r.transform.position, checkpoint.position);
     }
 }

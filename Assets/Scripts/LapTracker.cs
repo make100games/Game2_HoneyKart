@@ -21,6 +21,12 @@ public class LapTracker : MonoBehaviour
     /// <summary>True once all required laps (per RaceManager.TotalLaps) are done.</summary>
     public bool HasFinished => m_HasFinished;
 
+    /// <summary>Monotonic progress metric: laps * 2 + 1 if next checkpoint is the finish line, else 0.</summary>
+    public int ProgressScore => m_LapsCompleted * 2 + (m_tagOfNextCheckpoint == Tags.CheckpointFinishLine ? 1 : 0);
+
+    /// <summary>Tag of the next checkpoint this kart must cross. Used by RaceManager for distance-based tiebreaking.</summary>
+    public string NextCheckpointTag => m_tagOfNextCheckpoint;
+
     /// <summary>Fired with the new lap count each time a lap is completed.</summary>
     public event Action<int> OnLapCompleted;
 
