@@ -3,7 +3,7 @@ using UnityEngine;
 
 /// <summary>
 /// Scene-level singleton that owns the configurable TotalLaps value and tracks race completion order.
-/// All LapTracker instances register themselves here during Start.
+/// Racers are registered by RaceState via RegisterAllActiveRacers() when the race hierarchy activates.
 /// </summary>
 public class RaceManager : MonoBehaviour
 {
@@ -51,16 +51,22 @@ public class RaceManager : MonoBehaviour
         }
     }
 
-    /// <summary>Called by each LapTracker.Start() to register with the race.</summary>
-    public static void Register(LapTracker tracker)
+    /// <summary>
+    /// Clears the current racer list and registers every currently active LapTracker in the scene.
+    /// Called by RaceState once the race hierarchy is activated, so opponents and the runtime-selected
+    /// player kart are all active (and non-selected player kart candidates are correctly excluded).
+    /// </summary>
+    public void RegisterAllActiveRacers()
     {
-        if (s_Instance == null)
+        m_Racers.Clear();
+
+        LapTracker[] activeTrackers = FindObjectsByType<LapTracker>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+        for (int i = 0; i < activeTrackers.Length; i++)
         {
-            Debug.LogWarning("[RaceManager] Register called but no RaceManager instance exists in the scene.");
-            return;
+            RegisterInternal(activeTrackers[i]);
         }
 
-        s_Instance.RegisterInternal(tracker);
+        Debug.Log($"[RaceManager] Registered {m_Racers.Count} racers.");
     }
 
     private void RegisterInternal(LapTracker tracker)

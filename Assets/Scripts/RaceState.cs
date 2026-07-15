@@ -82,6 +82,10 @@ public class RaceState : GameStateBase
         }
         opponentSpawnManager.ResetToSpawn();
         gameObject.SetActive(true);
+
+        if (RaceManager.Instance != null)
+            RaceManager.Instance.RegisterAllActiveRacers();
+
         GameFlowManager.OnRaceFinished += HandleRaceFinished;
     }
 

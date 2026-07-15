@@ -44,11 +44,6 @@ public class LapTracker : MonoBehaviour
         m_HasFinished = false;
     }
 
-    void Start()
-    {
-        RaceManager.Register(this);
-    }
-
     void OnTriggerEnter(Collider other)
     {
         if (m_HasFinished) return;
