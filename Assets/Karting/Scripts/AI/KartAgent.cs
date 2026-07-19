@@ -122,9 +122,12 @@ namespace KartGame.AI
         int m_AvailableBombs;
         float m_LastFireTime = -999f;
 
+        DecisionRequester m_DecisionRequester;
+
         void Awake()
         {
             m_Kart = GetComponent<ArcadeKart>();
+            m_DecisionRequester = GetComponent<DecisionRequester>();
             if (AgentSensorTransform == null) AgentSensorTransform = transform;
         }
 
@@ -134,10 +137,17 @@ namespace KartGame.AI
             OnEpisodeBegin();
 
             if (Mode == AgentMode.Inferencing) m_CheckpointIndex = InitCheckpointIndex;
+
+            // Pause the ML decision loop until the race countdown finishes and the kart is allowed to move.
+            if (m_DecisionRequester != null) m_DecisionRequester.enabled = false;
         }
 
         void Update()
         {
+            // Resume the ML decision loop the moment the countdown ends.
+            if (m_DecisionRequester != null && !m_DecisionRequester.enabled && m_Kart.CanMove)
+                m_DecisionRequester.enabled = true;
+
             if (m_EndEpisode)
             {
                 m_EndEpisode = false;
@@ -360,6 +370,10 @@ namespace KartGame.AI
 
         public InputData GenerateInput()
         {
+            // Report neutral input while the countdown is active so the kart cannot twitch or creep forward.
+            if (m_Kart == null || !m_Kart.CanMove)
+                return new InputData { Accelerate = false, Brake = false, TurnInput = 0f };
+
             return new InputData
             {
                 Accelerate = m_Acceleration,
