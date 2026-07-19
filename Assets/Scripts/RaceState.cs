@@ -33,6 +33,9 @@ public class RaceState : GameStateBase
     [Tooltip("Item HUD component — playerLauncher is assigned alongside racePositionUI on race entry.")]
     [SerializeField] private ItemHUD itemHUD;
 
+    [Tooltip("Lap counter HUD component — playerTracker is assigned alongside racePositionUI on race entry.")]
+    [SerializeField] private LapCounterUI lapCounterUI;
+
     private ArcadeKart m_SelectedKart;
 
     /// <summary>
@@ -81,6 +84,9 @@ public class RaceState : GameStateBase
 
                 if (racePositionUI != null)
                     racePositionUI.playerTracker = playerKartOptions[selectedIndex].GetComponent<LapTracker>();
+
+                if (lapCounterUI != null)
+                    lapCounterUI.playerTracker = playerKartOptions[selectedIndex].GetComponent<LapTracker>();
 
                 if (itemHUD != null)
                     itemHUD.playerLauncher = playerKartOptions[selectedIndex].GetComponent<BombLauncher>();
