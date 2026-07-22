@@ -110360,6 +110360,11 @@ PrefabInstance:
       propertyPath: groundLayers.m_Bits
       value: 3584
       objectReference: {fileID: 0}
+    - target: {fileID: 427854029033695368, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2172650618388516011, guid: 107bdee8671f44bba805456dc720d2c3,
         type: 3}
       propertyPath: m_Name
@@ -110413,6 +110418,11 @@ PrefabInstance:
     - target: {fileID: 2172650618388516012, guid: 107bdee8671f44bba805456dc720d2c3,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453089050352125717, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
+      propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6794427416097652480, guid: 107bdee8671f44bba805456dc720d2c3,
@@ -110540,6 +110550,16 @@ PrefabInstance:
       propertyPath: 'Colliders.Array.data[24]'
       value: 
       objectReference: {fileID: 1292885860}
+    - target: {fileID: 7781326589011967136, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8079264618197953512, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -110757,6 +110777,16 @@ PrefabInstance:
       propertyPath: 'Colliders.Array.data[24]'
       value: 
       objectReference: {fileID: 1292885860}
+    - target: {fileID: 728189853791214304, guid: 7e996ba2074e740a6954d841b0bb5125,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1294942961104768424, guid: 7e996ba2074e740a6954d841b0bb5125,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1439395471843396569, guid: 7e996ba2074e740a6954d841b0bb5125,
         type: 3}
       propertyPath: m_Name
@@ -110812,6 +110842,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4065103203051200853, guid: 7e996ba2074e740a6954d841b0bb5125,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7212467964859977416, guid: 7e996ba2074e740a6954d841b0bb5125,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -110825,6 +110865,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1832945630}
     m_Modifications:
+    - target: {fileID: 776985740394304108, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1237341429562410276, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547562370144583313, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2887302532712413785, guid: de2fbfc409b64499aaf1cae144d80e19,
         type: 3}
       propertyPath: coinPrefab
@@ -111016,6 +111071,11 @@ PrefabInstance:
       propertyPath: 'Colliders.Array.data[24]'
       value: 
       objectReference: {fileID: 1292885860}
+    - target: {fileID: 9162347834734334220, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -111039,6 +111099,21 @@ PrefabInstance:
         type: 3}
       propertyPath: groundLayers.m_Bits
       value: 3584
+      objectReference: {fileID: 0}
+    - target: {fileID: 1356676053662452805, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5669487788897215448, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7439026342500470565, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8683912622688117118, guid: ca62c9e2da62a496386485954479e8dd,
         type: 3}
@@ -111165,6 +111240,11 @@ PrefabInstance:
       propertyPath: 'Colliders.Array.data[24]'
       value: 
       objectReference: {fileID: 1292885860}
+    - target: {fileID: 8997972256354048109, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9177158977135158178, guid: ca62c9e2da62a496386485954479e8dd,
         type: 3}
       propertyPath: m_LocalPosition.x
