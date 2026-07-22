@@ -56,24 +56,23 @@ public class BombProjectile : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+   private void OnCollisionEnter(Collision collision)
+{
+    if (hasExploded)
+        return;
+
+    // Detonate on any kart, regardless of which child collider was hit.
+    if (collision.collider.GetComponentInParent<KartCombatHandler>() != null)
     {
-        if (hasExploded)
-            return;
-
-        int layer = collision.gameObject.layer;
-
-        if ((playerLayers.value & (1 << layer)) != 0)
-        {
-            // Direct hit or rolled into a player kart - detonate now.
-            Explode();
-        }
-        else if ((groundLayers.value & (1 << layer)) != 0)
-        {
-            // Touched ground - keep rolling, start the fuse.
-            StartFuse();
-        }
+        Explode();
+        return;
     }
+
+    int layer = collision.gameObject.layer;
+    if ((groundLayers.value & (1 << layer)) != 0)
+        StartFuse();
+}
+
 
     private void StartFuse()
     {
