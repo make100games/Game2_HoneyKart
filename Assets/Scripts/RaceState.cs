@@ -9,6 +9,9 @@ using UnityEngine;
 /// </summary>
 public class RaceState : GameStateBase
 {
+    [Tooltip("The opponents that the player races against. Enabled once you enter this state")]
+    [SerializeField] private GameObject opponents;
+
     [Tooltip("Manages AI kart spawn positions; ResetToSpawn() is called on every race entry.")]
     [SerializeField] private OpponentSpawnManager opponentSpawnManager;
 
@@ -44,6 +47,7 @@ public class RaceState : GameStateBase
     /// </summary>
     public override void Enter()
     {
+        opponents.SetActive(true);
         if (gameFlowManager == null)
         {
             Debug.LogWarning("[RaceState] gameFlowManager reference is null — player kart will not be assigned.");
