@@ -58962,6 +58962,7 @@ MonoBehaviour:
   racePositionUI: {fileID: 1179574009}
   itemHUD: {fileID: 1618763282}
   lapCounterUI: {fileID: 1076501431}
+  spawnSlot: {fileID: 1152628711}
 --- !u!1001 &967021347
 PrefabInstance:
   m_ObjectHideFlags: 0

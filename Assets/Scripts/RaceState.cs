@@ -39,6 +39,9 @@ public class RaceState : GameStateBase
     [Tooltip("Lap counter HUD component — playerTracker is assigned alongside racePositionUI on race entry.")]
     [SerializeField] private LapCounterUI lapCounterUI;
 
+    [Tooltip("The spawn slot of the human player")]
+    [SerializeField] private Transform spawnSlot;
+
     private ArcadeKart m_SelectedKart;
 
     /// <summary>
@@ -98,6 +101,21 @@ public class RaceState : GameStateBase
             }
         }
         opponentSpawnManager.PositionOpponentsAtSpawnSlots(m_SelectedKart.gameObject.name);
+
+        // Place human player near starting line on the spawn slot
+        var playerBr = m_SelectedKart.gameObject.GetComponent<Rigidbody>();
+        playerBr.linearVelocity = Vector3.zero;
+        playerBr.angularVelocity = Vector3.zero;
+        playerBr.constraints = RigidbodyConstraints.FreezeAll;
+
+        // Set position and rotation directly on the Rigidbody rather than toggling isKinematic.
+        // WheelColliders require a non-kinematic Rigidbody; toggling isKinematic puts them in an
+        // undefined state and can cause suspension forces to fight the teleport on the next step.
+        playerBr.position = spawnSlot.position;
+        playerBr.rotation = spawnSlot.rotation;
+        //m_SelectedKart.gameObject.transform.position = spawnSlot.position;
+        //m_SelectedKart.gameObject.transform.rotation = spawnSlot.rotation;
+
         gameObject.SetActive(true);
 
         if (RaceManager.Instance != null)
