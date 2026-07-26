@@ -14,6 +14,8 @@ public class OpponentSpawnManager : MonoBehaviour
         public Quaternion rotation;
     }
 
+    [SerializeField]
+    private Transform[] spawnSlots;
     private SpawnData[] m_SpawnData;
 
     void Awake()
@@ -32,30 +34,46 @@ public class OpponentSpawnManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Teleports all AI karts back to their recorded spawn transforms, zeroes their Rigidbody velocity,
-    /// and disables movement so GameFlowManager's countdown can gate the race start cleanly.
+    /// Positions opponents at the spawn slots. Only positions the opponents that don't match
+    /// the character the player chose so that we don't have duplicate characters.
     /// </summary>
-    public void ResetToSpawn()
+    /// <param name="playerCharacterName"></param>
+    public void PositionOpponentsAtSpawnSlots(string playerCharacterName)
     {
-        foreach (SpawnData data in m_SpawnData)
+        Debug.LogWarning("PlayerCharacterName: " + playerCharacterName);
+        var spawnIndex = 0;
+        ArcadeKart[] karts = GetComponentsInChildren<ArcadeKart>();
+        for (int i = 0; i < karts.Length; i++)
         {
-            if (data.kart == null) continue;
+            var kart = karts[i];
+            Debug.LogWarning("Opponetn name: " + kart.gameObject.name);
+            if (kart.gameObject.name == (playerCharacterName + "_Agent"))
+            {
+                Debug.Log("Disable opponent because player selected this character as their own");
+                kart.gameObject.SetActive(false);
+                continue;
+            }
+            var spawnSlot = spawnSlots[spawnIndex];
 
-            Rigidbody rb = data.kart.Rigidbody;
+            // Move opponent to spawn slot and disable all AI inputs and physics to avoid wiggling
+            Rigidbody rb = kart.Rigidbody;
             if (rb == null) continue;
 
             // Zero velocities first so the physics solver starts clean at the new position.
-            rb.linearVelocity  = Vector3.zero;
+            rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
+            rb.constraints = RigidbodyConstraints.FreezeAll;
 
             // Set position and rotation directly on the Rigidbody rather than toggling isKinematic.
             // WheelColliders require a non-kinematic Rigidbody; toggling isKinematic puts them in an
             // undefined state and can cause suspension forces to fight the teleport on the next step.
-            rb.position = data.position;
-            rb.rotation = data.rotation;
+            rb.position = spawnSlot.position;
+            rb.rotation = spawnSlot.rotation;
 
             // Freeze driving — GameFlowManager.Start() will unfreeze after its countdown.
-            data.kart.SetCanMove(false);
+            kart.SetCanMove(false);
+
+            spawnIndex++;
         }
     }
 }

@@ -71,6 +71,7 @@ public class RaceState : GameStateBase
                 gameFlowManager.autoFindKarts = false;
                 gameFlowManager.playerKart = playerKartOptions[selectedIndex];
                 m_SelectedKart = playerKartOptions[selectedIndex];
+                Debug.LogWarning("Selected kart: " + m_SelectedKart.gameObject.name);
 
                 Transform selectedTransform = m_SelectedKart.transform;
 
@@ -96,7 +97,7 @@ public class RaceState : GameStateBase
                     itemHUD.playerLauncher = playerKartOptions[selectedIndex].GetComponent<BombLauncher>();
             }
         }
-        opponentSpawnManager.ResetToSpawn();
+        opponentSpawnManager.PositionOpponentsAtSpawnSlots(m_SelectedKart.gameObject.name);
         gameObject.SetActive(true);
 
         if (RaceManager.Instance != null)

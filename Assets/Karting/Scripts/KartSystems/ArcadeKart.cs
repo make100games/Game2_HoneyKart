@@ -182,7 +182,16 @@ namespace KartGame.KartSystems
         bool m_InAir = false;
 
         public void AddPowerup(StatPowerup statPowerup) => m_ActivePowerupList.Add(statPowerup);
-        public void SetCanMove(bool move) => m_CanMove = move;
+        public void SetCanMove(bool move)
+        {
+            m_CanMove = move;
+
+            if (move)
+            {
+                Rigidbody.constraints = RigidbodyConstraints.None;
+            }
+        }
+
         /// <summary>True once the race has started and the kart is allowed to drive.</summary>
         public bool CanMove => m_CanMove;
         public float GetMaxSpeed() => Mathf.Max(m_FinalStats.TopSpeed, m_FinalStats.ReverseSpeed);
