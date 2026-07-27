@@ -35629,6 +35629,36 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6448637425832958826, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6448637425862541866, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6448637425862541866, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6448637426257800486, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
+      propertyPath: ReverseSoundMaxVolume
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6448637426257800486, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
+      propertyPath: RunningSoundMaxVolume
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6448637427291916427, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6453089050352125717, guid: 107bdee8671f44bba805456dc720d2c3,
         type: 3}
       propertyPath: m_Layer
@@ -35759,6 +35789,16 @@ PrefabInstance:
       propertyPath: 'Colliders.Array.data[24]'
       value: 
       objectReference: {fileID: 1292885860}
+    - target: {fileID: 7531492609182499933, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 75120ab76ce794117ab552c60492e1b8, type: 3}
+    - target: {fileID: 7531492609182499933, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7781326589011967136, guid: 107bdee8671f44bba805456dc720d2c3,
         type: 3}
       propertyPath: m_Layer
@@ -35768,6 +35808,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357212020510980421, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357212020510980421, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -69229,10 +69279,55 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6098196211944820729, guid: 7e996ba2074e740a6954d841b0bb5125,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6098196212497554456, guid: 7e996ba2074e740a6954d841b0bb5125,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6098196212510295384, guid: 7e996ba2074e740a6954d841b0bb5125,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6098196212510295384, guid: 7e996ba2074e740a6954d841b0bb5125,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6098196212924426836, guid: 7e996ba2074e740a6954d841b0bb5125,
+        type: 3}
+      propertyPath: ReverseSoundMaxVolume
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6098196212924426836, guid: 7e996ba2074e740a6954d841b0bb5125,
+        type: 3}
+      propertyPath: RunningSoundMaxVolume
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 7212467964859977416, guid: 7e996ba2074e740a6954d841b0bb5125,
         type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7303202694533022511, guid: 7e996ba2074e740a6954d841b0bb5125,
+        type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 75120ab76ce794117ab552c60492e1b8, type: 3}
+    - target: {fileID: 9089887726726217271, guid: 7e996ba2074e740a6954d841b0bb5125,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9089887726726217271, guid: 7e996ba2074e740a6954d841b0bb5125,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -81679,6 +81774,56 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4628610718304845125, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4628610718304845125, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6576333522712379485, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 75120ab76ce794117ab552c60492e1b8, type: 3}
+    - target: {fileID: 6576333522712379485, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7690109065588697382, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
+      propertyPath: ReverseSoundMaxVolume
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7690109065588697382, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
+      propertyPath: RunningSoundMaxVolume
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7690109066267182634, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7690109066267182634, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7690109066271416170, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7690109066689399947, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8712033900726906776, guid: de2fbfc409b64499aaf1cae144d80e19,
         type: 3}
@@ -110228,10 +110373,60 @@ PrefabInstance:
       propertyPath: groundLayers.m_Bits
       value: 3584
       objectReference: {fileID: 0}
+    - target: {fileID: 718363524269910867, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 75120ab76ce794117ab552c60492e1b8, type: 3}
+    - target: {fileID: 718363524269910867, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1335272499555292747, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1335272499555292747, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1356676053662452805, guid: ca62c9e2da62a496386485954479e8dd,
         type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4036130011831281541, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4036130012797829672, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
+      propertyPath: ReverseSoundMaxVolume
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4036130012797829672, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
+      propertyPath: RunningSoundMaxVolume
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4036130013478300964, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4036130013478300964, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4036130013490787428, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5669487788897215448, guid: ca62c9e2da62a496386485954479e8dd,
         type: 3}
@@ -113401,6 +113596,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6448637425832958826, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6448637425862541866, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6448637427291916427, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6453089050352125717, guid: 107bdee8671f44bba805456dc720d2c3,
         type: 3}
       propertyPath: m_Layer
@@ -113531,6 +113741,11 @@ PrefabInstance:
       propertyPath: 'Colliders.Array.data[24]'
       value: 
       objectReference: {fileID: 1292885860}
+    - target: {fileID: 7531492609182499933, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7781326589011967136, guid: 107bdee8671f44bba805456dc720d2c3,
         type: 3}
       propertyPath: m_Layer
@@ -113540,6 +113755,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357212020510980421, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -113828,10 +114048,35 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6098196211944820729, guid: 7e996ba2074e740a6954d841b0bb5125,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6098196212497554456, guid: 7e996ba2074e740a6954d841b0bb5125,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6098196212510295384, guid: 7e996ba2074e740a6954d841b0bb5125,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7212467964859977416, guid: 7e996ba2074e740a6954d841b0bb5125,
         type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7303202694533022511, guid: 7e996ba2074e740a6954d841b0bb5125,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9089887726726217271, guid: 7e996ba2074e740a6954d841b0bb5125,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -113926,6 +114171,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4628610718304845125, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6576333522712379485, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7690109066267182634, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7690109066271416170, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7690109066689399947, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8712033900726906776, guid: de2fbfc409b64499aaf1cae144d80e19,
         type: 3}
@@ -114081,10 +114351,35 @@ PrefabInstance:
       propertyPath: groundLayers.m_Bits
       value: 3584
       objectReference: {fileID: 0}
+    - target: {fileID: 718363524269910867, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1335272499555292747, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1356676053662452805, guid: ca62c9e2da62a496386485954479e8dd,
         type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4036130011831281541, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4036130013478300964, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4036130013490787428, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5669487788897215448, guid: ca62c9e2da62a496386485954479e8dd,
         type: 3}
