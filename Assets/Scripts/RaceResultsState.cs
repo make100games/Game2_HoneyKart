@@ -39,6 +39,32 @@ public class RaceResultsState : GameStateBase
     [Tooltip("Priority raised on orbitCamera — must exceed the follow camera's priority of 10.")]
     public int orbitCameraPriority = 20;
 
+    [Header("Results Music")]
+    [Tooltip("Shared scene AudioSource used for all music cues.")]
+    [SerializeField] private AudioSource musicSource;
+
+    [Tooltip("Non-looping cue played when the player finishes 1st.")]
+    [SerializeField] private AudioClip firstPlaceMusicClip;
+
+    [Tooltip("Non-looping cue played when the player finishes 2nd or 3rd.")]
+    [SerializeField] private AudioClip middlingPlaceMusicClip;
+
+    [Tooltip("Non-looping cue played when the player finishes 4th or lower.")]
+    [SerializeField] private AudioClip lastPlaceMusicClip;
+
+    [Tooltip("Looping cue played once the orbit camera starts rotating.")]
+    [SerializeField] private AudioClip finishMusicClip;
+
+    [Tooltip("Seconds to wait before starting the position-result music cue.")]
+    [SerializeField] private float resultMusicDelay = 0f;
+
+    [Tooltip("Seconds to wait before starting the orbit-finish music cue.")]
+    [SerializeField] private float orbitFinishMusicDelay = 0f;
+
+    private const int FirstPlace = 1;
+    private const int SecondPlace = 2;
+    private const int ThirdPlace = 3;
+
     [Header("Results UI")]
     [SerializeField] private RectTransform bottomPanel;
     [SerializeField] private RectTransform buttonRestartRect;
@@ -134,6 +160,8 @@ public class RaceResultsState : GameStateBase
             buttonQuitRect.anchoredPosition = buttonQuitTargetPos + Vector2.down * SlideInOffscreenOffset;
 
         StartCoroutine(ActivateOrbitCameraRoutine());
+
+        PlayPositionResultMusic();
     }
 
     /// <summary>Restores kart state, stops all coroutines, and deactivates this state.</summary>
@@ -156,6 +184,8 @@ public class RaceResultsState : GameStateBase
 
         if (orbitPivot != null)
             orbitPivot.StartOrbiting(m_Kart.transform);
+
+        PlayMusicCue(finishMusicClip, orbitFinishMusicDelay, true);
 
         if (orbitCamera != null)
         {
@@ -206,4 +236,69 @@ public class RaceResultsState : GameStateBase
     private void OnRestartPressed() => GameStateManager.Instance.EnterRace();
     private void OnChangeCharacterPressed() => GameStateManager.Instance.StartGame();
     private void OnQuitPressed() => GameStateManager.Instance.RestartGame();
+
+    /// <summary>
+    /// Resolves the finishing kart's one-based race position and plays the matching
+    /// non-looping result cue.
+    /// </summary>
+    private void PlayPositionResultMusic()
+    {
+        if (m_Kart == null)
+        {
+            Debug.LogWarning("[RaceResultsState] No kart reference — skipping position result music.", this);
+            return;
+        }
+
+        LapTracker tracker = m_Kart.GetComponent<LapTracker>();
+        if (tracker == null || RaceManager.Instance == null)
+        {
+            Debug.LogWarning("[RaceResultsState] Missing LapTracker or RaceManager.Instance — skipping position result music.", this);
+            return;
+        }
+
+        int finishPosition = RaceManager.GetFinishPosition(tracker);
+        AudioClip clip = GetResultClip(finishPosition);
+
+        PlayMusicCue(clip, resultMusicDelay, false);
+    }
+
+    /// <summary>
+    /// Maps a one-based finish position to its result clip: 1st place, 2nd/3rd place
+    /// (middling), or 4th and lower (last place).
+    /// </summary>
+    private AudioClip GetResultClip(int finishPosition)
+    {
+        if (finishPosition == FirstPlace)
+            return firstPlaceMusicClip;
+
+        if (finishPosition == SecondPlace || finishPosition == ThirdPlace)
+            return middlingPlaceMusicClip;
+
+        return lastPlaceMusicClip;
+    }
+
+    /// <summary>
+    /// Hard-stops any pending/current cue on the shared source, then schedules the given
+    /// clip from sample zero after the configured delay.
+    /// </summary>
+    private void PlayMusicCue(AudioClip clip, float delay, bool loop)
+    {
+        if (musicSource == null || clip == null)
+        {
+            Debug.LogWarning("[RaceResultsState] musicSource or clip is unassigned — skipping music cue.", this);
+            return;
+        }
+
+        float clampedDelay = Mathf.Max(0f, delay);
+
+        musicSource.Stop();
+        musicSource.clip = clip;
+        musicSource.loop = loop;
+        musicSource.time = 0f;
+
+        if (clampedDelay > 0f)
+            musicSource.PlayDelayed(clampedDelay);
+        else
+            musicSource.Play();
+    }
 }

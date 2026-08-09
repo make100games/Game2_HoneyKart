@@ -29,6 +29,16 @@ public class GameFlowManager : MonoBehaviour
 
     public PlayableDirector raceCountdownTrigger;
 
+    [Header("Race Music")]
+    [Tooltip("Shared scene AudioSource used for all music cues.")]
+    public AudioSource musicSource;
+
+    [Tooltip("Looping race music cue restarted when kart movement is enabled after the countdown.")]
+    public AudioClip raceMusicClip;
+
+    [Tooltip("Seconds to wait before restarting the race music cue.")]
+    public float raceMusicDelay = 0f;
+
     [Header("Lose")]
     [Tooltip("This string has to be the name of the scene you want to load when losing")]
     public string loseSceneName = "LoseScene";
@@ -121,6 +131,32 @@ public class GameFlowManager : MonoBehaviour
 			k.SetCanMove(true);
         }
         m_TimeManager.StartRace();
+        PlayRaceMusic();
+    }
+
+    /// <summary>
+    /// Hard-stops the fly-in cue (or whatever is currently playing on the shared source), then
+    /// schedules the looping race music from sample zero after the configured delay.
+    /// </summary>
+    void PlayRaceMusic()
+    {
+        if (musicSource == null || raceMusicClip == null)
+        {
+            Debug.LogWarning("[GameFlowManager] musicSource or raceMusicClip is unassigned — skipping race music.", this);
+            return;
+        }
+
+        float delay = Mathf.Max(0f, raceMusicDelay);
+
+        musicSource.Stop();
+        musicSource.clip = raceMusicClip;
+        musicSource.loop = true;
+        musicSource.time = 0f;
+
+        if (delay > 0f)
+            musicSource.PlayDelayed(delay);
+        else
+            musicSource.Play();
     }
 
     void ShowRaceCountdownAnimation() {

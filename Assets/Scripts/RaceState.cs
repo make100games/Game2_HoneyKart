@@ -42,6 +42,16 @@ public class RaceState : GameStateBase
     [Tooltip("The spawn slot of the human player")]
     [SerializeField] private Transform spawnSlot;
 
+    [Header("Race Fly-In Music")]
+    [Tooltip("Shared scene AudioSource used for all music cues.")]
+    [SerializeField] private AudioSource musicSource;
+
+    [Tooltip("Non-looping fly-in music cue played when the race state activates.")]
+    [SerializeField] private AudioClip raceFlyInMusicClip;
+
+    [Tooltip("Seconds to wait before starting the fly-in music cue.")]
+    [SerializeField] private float raceFlyInMusicDelay = 0f;
+
     private ArcadeKart m_SelectedKart;
 
     /// <summary>
@@ -117,6 +127,7 @@ public class RaceState : GameStateBase
         //m_SelectedKart.gameObject.transform.rotation = spawnSlot.rotation;
 
         gameObject.SetActive(true);
+        PlayRaceFlyInMusic();
 
         if (RaceManager.Instance != null)
             RaceManager.Instance.RegisterAllActiveRacers();
@@ -148,5 +159,30 @@ public class RaceState : GameStateBase
     {
         yield return null;
         GameStateManager.Instance.CompleteRace(kart);
+    }
+
+    /// <summary>
+    /// Hard-stops any pending/current cue on the shared source, then schedules the non-looping
+    /// fly-in music from sample zero after the configured delay.
+    /// </summary>
+    private void PlayRaceFlyInMusic()
+    {
+        if (musicSource == null || raceFlyInMusicClip == null)
+        {
+            Debug.LogWarning("[RaceState] musicSource or raceFlyInMusicClip is unassigned — skipping fly-in music.", this);
+            return;
+        }
+
+        float delay = Mathf.Max(0f, raceFlyInMusicDelay);
+
+        musicSource.Stop();
+        musicSource.clip = raceFlyInMusicClip;
+        musicSource.loop = false;
+        musicSource.time = 0f;
+
+        if (delay > 0f)
+            musicSource.PlayDelayed(delay);
+        else
+            musicSource.Play();
     }
 }

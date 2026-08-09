@@ -48,6 +48,16 @@ public class AttractModeState : GameStateBase
     [Tooltip("Seconds for the title to fade from alpha 0 to 1.")]
     public float titleFadeDuration = 1.5f;
 
+    [Header("Attract Music")]
+    [Tooltip("Shared scene AudioSource used for all music cues.")]
+    [SerializeField] private AudioSource musicSource;
+
+    [Tooltip("Looping attract-mode music cue.")]
+    [SerializeField] private AudioClip attractMusicClip;
+
+    [Tooltip("Seconds to wait before starting the attract music cue.")]
+    [SerializeField] private float attractMusicDelay = 2f;
+
     private bool m_TitleVisible;
     private bool m_MenuShown;
 
@@ -96,6 +106,7 @@ public class AttractModeState : GameStateBase
     {
         gameObject.SetActive(true);
         StartCoroutine(TitleSequenceCoroutine());
+        PlayAttractMusic();
     }
 
     /// <summary>Stops all coroutines and deactivates this state and all its children.</summary>
@@ -149,6 +160,32 @@ public class AttractModeState : GameStateBase
             menuPanel.SetActive(true);
         if (selectedEffect != null)
             selectedEffect.Play();
+    }
+
+    /// <summary>
+    /// Hard-stops any pending/current cue on the shared source, then schedules the looping
+    /// attract-mode music from sample zero after the configured delay. Music is intentionally
+    /// left running on Exit() so it continues through character selection.
+    /// </summary>
+    private void PlayAttractMusic()
+    {
+        if (musicSource == null || attractMusicClip == null)
+        {
+            Debug.LogWarning("[AttractModeState] musicSource or attractMusicClip is unassigned — skipping attract music.", this);
+            return;
+        }
+
+        float delay = Mathf.Max(0f, attractMusicDelay);
+
+        musicSource.Stop();
+        musicSource.clip = attractMusicClip;
+        musicSource.loop = true;
+        musicSource.time = 0f;
+
+        if (delay > 0f)
+            musicSource.PlayDelayed(delay);
+        else
+            musicSource.Play();
     }
 
     private void OnControlsClicked()
