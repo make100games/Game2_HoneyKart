@@ -20,6 +20,16 @@ public class BombLauncher : MonoBehaviour
     [SerializeField] private float minSpinDegreesPerSecond = DefaultMinSpinDegreesPerSecond;
     [SerializeField] private float maxSpinDegreesPerSecond = DefaultMaxSpinDegreesPerSecond;
 
+    [Header("Sound Effects")]
+    [Tooltip("Shared spatial AudioSource on this kart used for gameplay sound effects.")]
+    [SerializeField] private AudioSource sfxSource;
+
+    [Tooltip("Sound effect played when this kart collects an item box.")]
+    [SerializeField] private AudioClip itemCollectedClip;
+
+    [Tooltip("Sound effect played when this kart fires a bomb.")]
+    [SerializeField] private AudioClip bombFireClip;
+
     /// <summary>Current number of bombs available to fire.</summary>
     public int RemainingBombs { get; private set; }
 
@@ -41,6 +51,15 @@ public class BombLauncher : MonoBehaviour
     }
 
     private Rigidbody kartRigidbody;
+
+    /// <summary>
+    /// Plays this kart's item-collected sound effect. Called by <see cref="ItemBox"/> once
+    /// after a successful bomb grant so the collecting kart's spatial source carries the cue.
+    /// </summary>
+    public void PlayItemCollectedSound()
+    {
+        PlaySfx(itemCollectedClip);
+    }
 
     private void Awake()
     {
@@ -73,6 +92,8 @@ public class BombLauncher : MonoBehaviour
         {
             projectile.SetLauncherColliders(GetComponentsInChildren<Collider>());
         }
+
+        PlaySfx(bombFireClip);
 
         float angleRad = launchAngle * Mathf.Deg2Rad;
         float gravity = Physics.gravity.magnitude;
@@ -111,6 +132,24 @@ public class BombLauncher : MonoBehaviour
     {
         if (kartAgent != null)
             kartAgent.SetAvailableBombs(RemainingBombs);
+    }
+
+    /// <summary>
+    /// Hard-stops any pending/current cue on this kart's shared spatial source, then plays
+    /// the given clip from sample zero.
+    /// </summary>
+    private void PlaySfx(AudioClip clip)
+    {
+        if (sfxSource == null || clip == null)
+        {
+            Debug.LogWarning("BombLauncher: sfxSource or clip is unassigned — skipping sound effect.", this);
+            return;
+        }
+
+        sfxSource.Stop();
+        sfxSource.clip = clip;
+        sfxSource.time = 0f;
+        sfxSource.Play();
     }
 
     private void OnDestroy()

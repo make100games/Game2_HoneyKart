@@ -61,6 +61,16 @@ public class RaceResultsState : GameStateBase
     [Tooltip("Seconds to wait before starting the orbit-finish music cue.")]
     [SerializeField] private float orbitFinishMusicDelay = 0f;
 
+    [Header("Sound Effects")]
+    [Tooltip("Shared root-level 2D AudioSource used for result-button sound effects.")]
+    [SerializeField] private AudioSource sfxSource;
+
+    [Tooltip("Sound effect played for Restart and Quit (forward navigation).")]
+    [SerializeField] private AudioClip menuSelectClip;
+
+    [Tooltip("Sound effect played for Change Character (backward navigation).")]
+    [SerializeField] private AudioClip menuBackClip;
+
     private const int FirstPlace = 1;
     private const int SecondPlace = 2;
     private const int ThirdPlace = 3;
@@ -233,9 +243,41 @@ public class RaceResultsState : GameStateBase
             buttonQuitRect.anchoredPosition = buttonQuitTargetPos;
     }
 
-    private void OnRestartPressed() => GameStateManager.Instance.EnterRace();
-    private void OnChangeCharacterPressed() => GameStateManager.Instance.StartGame();
-    private void OnQuitPressed() => GameStateManager.Instance.RestartGame();
+    private void OnRestartPressed()
+    {
+        PlaySfx(menuSelectClip);
+        GameStateManager.Instance.EnterRace();
+    }
+
+    private void OnChangeCharacterPressed()
+    {
+        PlaySfx(menuBackClip);
+        GameStateManager.Instance.StartGame();
+    }
+
+    private void OnQuitPressed()
+    {
+        PlaySfx(menuSelectClip);
+        GameStateManager.Instance.RestartGame();
+    }
+
+    /// <summary>
+    /// Hard-stops any pending/current cue on the shared sound-effects source, then plays
+    /// the given clip from sample zero.
+    /// </summary>
+    private void PlaySfx(AudioClip clip)
+    {
+        if (sfxSource == null || clip == null)
+        {
+            Debug.LogWarning("[RaceResultsState] sfxSource or clip is unassigned — skipping sound effect.", this);
+            return;
+        }
+
+        sfxSource.Stop();
+        sfxSource.clip = clip;
+        sfxSource.time = 0f;
+        sfxSource.Play();
+    }
 
     /// <summary>
     /// Resolves the finishing kart's one-based race position and plays the matching

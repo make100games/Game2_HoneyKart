@@ -15,6 +15,16 @@ public class LapTracker : MonoBehaviour
     [Tooltip("Layer mask for checkpoint colliders. Must include the layer the checkpoints are on.")]
     public LayerMask checkpointMask;
 
+    [Header("Finish Sound Effect")]
+    [Tooltip("Only true on player-controlled kart prefabs — prevents AI finishes from playing the human finish cue.")]
+    [SerializeField] private bool playFinishSound;
+
+    [Tooltip("Non-spatial AudioSource used for the finish cue. Assign the shared root-level 2D source.")]
+    [SerializeField] private AudioSource finishSfxSource;
+
+    [Tooltip("Sound effect played when this tracker completes its final required lap.")]
+    [SerializeField] private AudioClip finishClip;
+
     /// <summary>Current number of completed laps.</summary>
     public int LapsCompleted => m_LapsCompleted;
 
@@ -70,8 +80,30 @@ public class LapTracker : MonoBehaviour
         if (m_LapsCompleted >= RaceManager.Instance.TotalLaps)
         {
             m_HasFinished = true;
+            PlayFinishSound();
             OnRaceFinished?.Invoke();
             RaceManager.Instance.OnRaceFinished(this);
         }
+    }
+
+    /// <summary>
+    /// Hard-stops any pending/current cue on the shared non-spatial finish source, then
+    /// plays the finish clip from sample zero. Only fires for player-prefab trackers.
+    /// </summary>
+    private void PlayFinishSound()
+    {
+        if (!playFinishSound)
+            return;
+
+        if (finishSfxSource == null || finishClip == null)
+        {
+            Debug.LogWarning("[LapTracker] finishSfxSource or finishClip is unassigned — skipping finish sound.", this);
+            return;
+        }
+
+        finishSfxSource.Stop();
+        finishSfxSource.clip = finishClip;
+        finishSfxSource.time = 0f;
+        finishSfxSource.Play();
     }
 }

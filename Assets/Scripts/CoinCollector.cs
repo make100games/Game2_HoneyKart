@@ -23,6 +23,13 @@ public class CoinCollector : MonoBehaviour
     [Header("Coin Settings")]
     [Tooltip("Layer of the coin objects")]
     public LayerMask coinLayer;
+
+    [Header("Sound Effects")]
+    [Tooltip("Shared spatial AudioSource on this kart used for gameplay sound effects.")]
+    [SerializeField] private AudioSource sfxSource;
+
+    [Tooltip("Sound effect played when a coin is collected.")]
+    [SerializeField] private AudioClip coinCollectClip;
     
     private ParticleSystem[] particleSystems;
     public ParticleSystem systemToManuallyEmit;
@@ -98,6 +105,7 @@ public class CoinCollector : MonoBehaviour
 
         ApplySpeedBoost();
         PlaySparkles();
+        PlayCoinCollectSound();
 
         // Notify the owning spawner so the coin's slot respawns after its delay.
         // Coins managed by a TerrainObjectSpawner carry a RespawnableItem; coins
@@ -170,5 +178,23 @@ public class CoinCollector : MonoBehaviour
                 ps.Play();
             }
         }
+    }
+
+    /// <summary>
+    /// Hard-stops any pending/current cue on this kart's shared spatial source, then plays
+    /// the coin collect clip from sample zero.
+    /// </summary>
+    private void PlayCoinCollectSound()
+    {
+        if (sfxSource == null || coinCollectClip == null)
+        {
+            Debug.LogWarning("CoinCollector: sfxSource or coinCollectClip is unassigned — skipping coin collect sound.", this);
+            return;
+        }
+
+        sfxSource.Stop();
+        sfxSource.clip = coinCollectClip;
+        sfxSource.time = 0f;
+        sfxSource.Play();
     }
 }

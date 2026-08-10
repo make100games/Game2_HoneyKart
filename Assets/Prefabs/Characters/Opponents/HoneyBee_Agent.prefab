@@ -1122,6 +1122,9 @@ MonoBehaviour:
   checkpointMask:
     serializedVersion: 2
     m_Bits: 262144
+  playFinishSound: 0
+  finishSfxSource: {fileID: 0}
+  finishClip: {fileID: 0}
 --- !u!114 &-99864275615779752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1147,6 +1150,8 @@ MonoBehaviour:
   groundLayers:
     serializedVersion: 2
     m_Bits: 0
+  sfxSource: {fileID: 0}
+  distressClip: {fileID: 0}
 --- !u!114 &7462615108513145548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1167,6 +1172,8 @@ MonoBehaviour:
   coinLayer:
     serializedVersion: 2
     m_Bits: 65536
+  sfxSource: {fileID: 0}
+  coinCollectClip: {fileID: 0}
   systemToManuallyEmit: {fileID: 5002461013490451561}
 --- !u!114 &58486953117289320
 MonoBehaviour:
@@ -1188,6 +1195,9 @@ MonoBehaviour:
   launchAngle: 35
   minSpinDegreesPerSecond: 90
   maxSpinDegreesPerSecond: 720
+  sfxSource: {fileID: 0}
+  itemCollectedClip: {fileID: 0}
+  bombFireClip: {fileID: 0}
 --- !u!1001 &8193161477561822910
 PrefabInstance:
   m_ObjectHideFlags: 0

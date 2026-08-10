@@ -56,6 +56,13 @@ public class KartCombatHandler : MonoBehaviour
     [Tooltip("Layers treated as ground for the flip landing and coin landing.")]
     [SerializeField] private LayerMask groundLayers;
 
+    [Header("Sound Effects")]
+    [Tooltip("Shared spatial AudioSource on this kart used for gameplay sound effects.")]
+    [SerializeField] private AudioSource sfxSource;
+
+    [Tooltip("Character-specific distress clip played when this kart is hit by an explosion.")]
+    [SerializeField] private AudioClip distressClip;
+
     private Rigidbody kartRigidbody;
     private ArcadeKart kart;
     private bool isKnockedBack;
@@ -83,6 +90,7 @@ public class KartCombatHandler : MonoBehaviour
 
         LaunchKnockback();
         SpawnCoins();
+        PlayDistressSound();
     }
 
     private void LaunchKnockback()
@@ -189,6 +197,24 @@ public class KartCombatHandler : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Hard-stops any pending/current cue on this kart's shared spatial source, then plays
+    /// the character-specific distress clip from sample zero.
+    /// </summary>
+    private void PlayDistressSound()
+    {
+        if (sfxSource == null || distressClip == null)
+        {
+            Debug.LogWarning("KartCombatHandler: sfxSource or distressClip is unassigned — skipping distress sound.", this);
+            return;
+        }
+
+        sfxSource.Stop();
+        sfxSource.clip = distressClip;
+        sfxSource.time = 0f;
+        sfxSource.Play();
+    }
+
     private void OnValidate()
     {
         knockbackVelocity = Mathf.Max(0f, knockbackVelocity);
@@ -199,5 +225,11 @@ public class KartCombatHandler : MonoBehaviour
 
         if (coinPrefab == null)
             Debug.LogWarning("KartCombatHandler: coinPrefab is not assigned.", this);
+
+        if (sfxSource == null)
+            Debug.LogWarning("KartCombatHandler: sfxSource is not assigned.", this);
+
+        if (distressClip == null)
+            Debug.LogWarning("KartCombatHandler: distressClip is not assigned.", this);
     }
 }

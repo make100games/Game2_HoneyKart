@@ -56,6 +56,7 @@ public class ItemBox : MonoBehaviour
             boxCollider.enabled = false;
 
         launcher.AddBombs(bombsGranted);
+        launcher.PlayItemCollectedSound();
 
         if (collectEffect != null)
             collectEffect.Play();

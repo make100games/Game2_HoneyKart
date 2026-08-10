@@ -24,6 +24,16 @@ public class BombProjectile : MonoBehaviour
     [SerializeField] private GameObject explosionEffect;
     [SerializeField] private GameObject[] fuseEffects;
 
+    [Header("Sound Effects")]
+    [Tooltip("Shared spatial AudioSource on this bomb used for its falling and explosion cues.")]
+    [SerializeField] private AudioSource sfxSource;
+
+    [Tooltip("Sound effect looped/played while the bomb is falling/rolling before it detonates.")]
+    [SerializeField] private AudioClip fallingClip;
+
+    [Tooltip("Sound effect played at the moment of detonation.")]
+    [SerializeField] private AudioClip explosionClip;
+
     private Rigidbody rb;
     private bool hasExploded;
     private bool fuseStarted;
@@ -37,6 +47,7 @@ public class BombProjectile : MonoBehaviour
     {
         // Safety fallback for bombs that fly off the map and never touch ground.
         Invoke(nameof(Explode), maxLifetime);
+        PlayFallingSound();
     }
 
     /// <summary>
@@ -91,6 +102,8 @@ public class BombProjectile : MonoBehaviour
         hasExploded = true;
         CancelInvoke();
 
+        PlayExplosionSound();
+
         // Hide the bomb mesh but leave explosion child renderers visible.
         if (bombMeshRenderer != null)
             bombMeshRenderer.enabled = false;
@@ -137,6 +150,43 @@ public class BombProjectile : MonoBehaviour
         }
 
         Destroy(gameObject, destroyDelaySeconds);
+    }
+
+    /// <summary>
+    /// Starts the non-looping falling cue on this bomb's spatial source. Called once from
+    /// Start() so it plays for the bomb's entire flight/roll until it detonates.
+    /// </summary>
+    private void PlayFallingSound()
+    {
+        if (sfxSource == null || fallingClip == null)
+        {
+            Debug.LogWarning("BombProjectile: sfxSource or fallingClip is unassigned — skipping falling sound.", this);
+            return;
+        }
+
+        sfxSource.Stop();
+        sfxSource.clip = fallingClip;
+        sfxSource.loop = false;
+        sfxSource.time = 0f;
+        sfxSource.Play();
+    }
+
+    /// <summary>
+    /// Interrupts the falling cue with the explosion cue at the moment of detonation.
+    /// </summary>
+    private void PlayExplosionSound()
+    {
+        if (sfxSource == null || explosionClip == null)
+        {
+            Debug.LogWarning("BombProjectile: sfxSource or explosionClip is unassigned — skipping explosion sound.", this);
+            return;
+        }
+
+        sfxSource.Stop();
+        sfxSource.clip = explosionClip;
+        sfxSource.loop = false;
+        sfxSource.time = 0f;
+        sfxSource.Play();
     }
 
     private void OnValidate()

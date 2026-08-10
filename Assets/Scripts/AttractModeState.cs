@@ -58,6 +58,13 @@ public class AttractModeState : GameStateBase
     [Tooltip("Seconds to wait before starting the attract music cue.")]
     [SerializeField] private float attractMusicDelay = 2f;
 
+    [Header("Sound Effects")]
+    [Tooltip("Shared root-level 2D AudioSource used for all menu selection sound effects.")]
+    [SerializeField] private AudioSource sfxSource;
+
+    [Tooltip("Sound effect played when Start, Controls, or Credits is pressed.")]
+    [SerializeField] private AudioClip menuSelectClip;
+
     private bool m_TitleVisible;
     private bool m_MenuShown;
 
@@ -119,6 +126,7 @@ public class AttractModeState : GameStateBase
     /// <summary>Button callback — delegates race start to GameStateManager.</summary>
     public void StartGame()
     {
+        PlayMenuSelectSound();
         GameStateManager.Instance.StartGame();
     }
 
@@ -190,11 +198,31 @@ public class AttractModeState : GameStateBase
 
     private void OnControlsClicked()
     {
+        PlayMenuSelectSound();
         Debug.Log("[AttractModeState] Controls button clicked (stub).");
     }
 
     private void OnCreditsClicked()
     {
+        PlayMenuSelectSound();
         Debug.Log("[AttractModeState] Credits button clicked (stub).");
+    }
+
+    /// <summary>
+    /// Hard-stops any pending/current cue on the shared sound-effects source, then plays
+    /// the menu-select clip from sample zero.
+    /// </summary>
+    private void PlayMenuSelectSound()
+    {
+        if (sfxSource == null || menuSelectClip == null)
+        {
+            Debug.LogWarning("[AttractModeState] sfxSource or menuSelectClip is unassigned — skipping menu select sound.", this);
+            return;
+        }
+
+        sfxSource.Stop();
+        sfxSource.clip = menuSelectClip;
+        sfxSource.time = 0f;
+        sfxSource.Play();
     }
 }

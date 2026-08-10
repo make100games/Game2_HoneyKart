@@ -29,6 +29,16 @@ public class CharacterSelectState : GameStateBase
     [Header("Selected Effects")]
     [SerializeField] private ParticleSystem[] selectedEffects;
 
+    [Header("Sound Effects")]
+    [Tooltip("Shared root-level 2D AudioSource used for character selection voice cues.")]
+    [SerializeField] private AudioSource sfxSource;
+
+    [Tooltip("Voice clip played when a character is clicked, index-aligned with selectableCharacters.")]
+    [SerializeField] private AudioClip[] selectedVoiceClips;
+
+    [Tooltip("Voice clip played when the race is confirmed, index-aligned with selectableCharacters.")]
+    [SerializeField] private AudioClip[] confirmedVoiceClips;
+
     private const int CharacterSelectVCamPriority = 50;
     private const float SlideInDuration = 0.4f;
     private const float SlideInOffscreenOffset = 300f;
@@ -77,6 +87,7 @@ public class CharacterSelectState : GameStateBase
         PlayerCharacterSelection.SelectedIndex = index;
         selectedEffects[index].Play();
         characterNameImage.sprite = characterNameSprites[index];
+        PlaySelectedVoice(index);
 
         if (!hasSlideInOccurred)
         {
@@ -138,6 +149,56 @@ public class CharacterSelectState : GameStateBase
     /// <summary>Called by StartGameButton's onClick to transition to the race state.</summary>
     private void OnStartGamePressed()
     {
+        PlayConfirmedVoice(PlayerCharacterSelection.SelectedIndex);
         GameStateManager.Instance.EnterRace();
+    }
+
+    /// <summary>
+    /// Interrupts the shared sound-effects source and plays the selected voice clip for
+    /// the given character index, if the arrays and source are validly configured.
+    /// </summary>
+    private void PlaySelectedVoice(int index)
+    {
+        PlayVoiceClip(selectedVoiceClips, index);
+    }
+
+    /// <summary>
+    /// Interrupts the shared sound-effects source and plays the confirmed voice clip for
+    /// the given character index, if the arrays and source are validly configured.
+    /// </summary>
+    private void PlayConfirmedVoice(int index)
+    {
+        PlayVoiceClip(confirmedVoiceClips, index);
+    }
+
+    /// <summary>
+    /// Validates the source, array bounds, and clip entry before hard-stopping the shared
+    /// source and playing the resolved clip from sample zero.
+    /// </summary>
+    private void PlayVoiceClip(AudioClip[] clips, int index)
+    {
+        if (sfxSource == null)
+        {
+            Debug.LogWarning("[CharacterSelectState] sfxSource is unassigned — skipping voice cue.", this);
+            return;
+        }
+
+        if (clips == null || index < 0 || index >= clips.Length)
+        {
+            Debug.LogWarning("[CharacterSelectState] Voice clip array is missing or index out of bounds — skipping voice cue.", this);
+            return;
+        }
+
+        AudioClip clip = clips[index];
+        if (clip == null)
+        {
+            Debug.LogWarning("[CharacterSelectState] Voice clip entry is unassigned — skipping voice cue.", this);
+            return;
+        }
+
+        sfxSource.Stop();
+        sfxSource.clip = clip;
+        sfxSource.time = 0f;
+        sfxSource.Play();
     }
 }
