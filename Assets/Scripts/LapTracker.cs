@@ -9,6 +9,8 @@ using UnityEngine;
 /// </summary>
 public class LapTracker : MonoBehaviour
 {
+    private const float FinishSoundVolumeScale = 1.3f;
+
     [Tooltip("Display name used in race results logging.")]
     public string racerName;
 
@@ -87,8 +89,11 @@ public class LapTracker : MonoBehaviour
     }
 
     /// <summary>
-    /// Hard-stops any pending/current cue on the shared non-spatial finish source, then
-    /// plays the finish clip from sample zero. Only fires for player-prefab trackers.
+    /// Hard-stops any pending/current cue on the shared non-spatial finish source, then plays
+    /// the finish clip at a boosted volume via PlayOneShot, which is not clamped to the
+    /// AudioSource's own 0-1 volume ceiling. This source is shared with UI menu cues, which
+    /// are unaffected since PlayOneShot's volume scale only applies to this single call.
+    /// Only fires for player-prefab trackers.
     /// </summary>
     private void PlayFinishSound()
     {
@@ -102,8 +107,6 @@ public class LapTracker : MonoBehaviour
         }
 
         finishSfxSource.Stop();
-        finishSfxSource.clip = finishClip;
-        finishSfxSource.time = 0f;
-        finishSfxSource.Play();
+        finishSfxSource.PlayOneShot(finishClip, FinishSoundVolumeScale);
     }
 }

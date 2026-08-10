@@ -20,6 +20,7 @@ public class KartCombatHandler : MonoBehaviour
     private const float DefaultCoinSpawnHeight = 0.5f;
     private const float DefaultCoinSurfaceHoverDistance = 0.1f;
     private const float GravityMagnitude = 9.81f;
+    private const float SoundEffectVolumeScale = 1.3f;
 
     [Header("Knockback")]
     [Tooltip("Upward velocity (m/s) applied to the kart when hit by an explosion.")]
@@ -199,7 +200,8 @@ public class KartCombatHandler : MonoBehaviour
 
     /// <summary>
     /// Hard-stops any pending/current cue on this kart's shared spatial source, then plays
-    /// the character-specific distress clip from sample zero.
+    /// the character-specific distress clip at a boosted volume via PlayOneShot, which is not
+    /// clamped to the AudioSource's own 0-1 volume ceiling.
     /// </summary>
     private void PlayDistressSound()
     {
@@ -210,9 +212,7 @@ public class KartCombatHandler : MonoBehaviour
         }
 
         sfxSource.Stop();
-        sfxSource.clip = distressClip;
-        sfxSource.time = 0f;
-        sfxSource.Play();
+        sfxSource.PlayOneShot(distressClip, SoundEffectVolumeScale);
     }
 
     private void OnValidate()

@@ -3,6 +3,8 @@ using KartGame.KartSystems;
 
 public class CoinCollector : MonoBehaviour
 {
+    private const float SoundEffectVolumeScale = 1.3f;
+
     [Header("Speed Boost Settings")]
     [Tooltip("Speed increase per coin collected")]
     public float speedBoostPerCoin = 2f;
@@ -182,7 +184,8 @@ public class CoinCollector : MonoBehaviour
 
     /// <summary>
     /// Hard-stops any pending/current cue on this kart's shared spatial source, then plays
-    /// the coin collect clip from sample zero.
+    /// the coin collect clip at a boosted volume via PlayOneShot, which is not clamped to the
+    /// AudioSource's own 0-1 volume ceiling.
     /// </summary>
     private void PlayCoinCollectSound()
     {
@@ -193,8 +196,6 @@ public class CoinCollector : MonoBehaviour
         }
 
         sfxSource.Stop();
-        sfxSource.clip = coinCollectClip;
-        sfxSource.time = 0f;
-        sfxSource.Play();
+        sfxSource.PlayOneShot(coinCollectClip, SoundEffectVolumeScale);
     }
 }

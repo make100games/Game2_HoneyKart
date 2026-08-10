@@ -12,6 +12,7 @@ public class BombProjectile : MonoBehaviour
 {
     private const float DefaultGroundFuseSeconds = 2f;
     private const float DefaultDestroyDelaySeconds = 3f;
+    private const float SoundEffectVolumeScale = 1.3f;
 
     [SerializeField] private LayerMask groundLayers;
     [SerializeField] private LayerMask playerLayers;
@@ -153,8 +154,9 @@ public class BombProjectile : MonoBehaviour
     }
 
     /// <summary>
-    /// Starts the non-looping falling cue on this bomb's spatial source. Called once from
-    /// Start() so it plays for the bomb's entire flight/roll until it detonates.
+    /// Starts the non-looping falling cue on this bomb's spatial source at a boosted volume via
+    /// PlayOneShot, which is not clamped to the AudioSource's own 0-1 volume ceiling. Called once
+    /// from Start() so it plays for the bomb's entire flight/roll until it detonates.
     /// </summary>
     private void PlayFallingSound()
     {
@@ -165,14 +167,12 @@ public class BombProjectile : MonoBehaviour
         }
 
         sfxSource.Stop();
-        sfxSource.clip = fallingClip;
-        sfxSource.loop = false;
-        sfxSource.time = 0f;
-        sfxSource.Play();
+        sfxSource.PlayOneShot(fallingClip, SoundEffectVolumeScale);
     }
 
     /// <summary>
-    /// Interrupts the falling cue with the explosion cue at the moment of detonation.
+    /// Interrupts the falling cue with the explosion cue at a boosted volume via PlayOneShot,
+    /// at the moment of detonation.
     /// </summary>
     private void PlayExplosionSound()
     {
@@ -183,10 +183,7 @@ public class BombProjectile : MonoBehaviour
         }
 
         sfxSource.Stop();
-        sfxSource.clip = explosionClip;
-        sfxSource.loop = false;
-        sfxSource.time = 0f;
-        sfxSource.Play();
+        sfxSource.PlayOneShot(explosionClip, SoundEffectVolumeScale);
     }
 
     private void OnValidate()

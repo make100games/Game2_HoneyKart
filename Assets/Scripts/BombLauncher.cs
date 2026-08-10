@@ -11,6 +11,7 @@ public class BombLauncher : MonoBehaviour
 {
     private const float DefaultMinSpinDegreesPerSecond = 90f;
     private const float DefaultMaxSpinDegreesPerSecond = 720f;
+    private const float SoundEffectVolumeScale = 1.3f;
 
     [SerializeField] private GameObject bombPrefab;
     [SerializeField] private Transform launchPoint;
@@ -136,7 +137,8 @@ public class BombLauncher : MonoBehaviour
 
     /// <summary>
     /// Hard-stops any pending/current cue on this kart's shared spatial source, then plays
-    /// the given clip from sample zero.
+    /// the given clip at a boosted volume via PlayOneShot, which is not clamped to the
+    /// AudioSource's own 0-1 volume ceiling.
     /// </summary>
     private void PlaySfx(AudioClip clip)
     {
@@ -147,9 +149,7 @@ public class BombLauncher : MonoBehaviour
         }
 
         sfxSource.Stop();
-        sfxSource.clip = clip;
-        sfxSource.time = 0f;
-        sfxSource.Play();
+        sfxSource.PlayOneShot(clip, SoundEffectVolumeScale);
     }
 
     private void OnDestroy()
