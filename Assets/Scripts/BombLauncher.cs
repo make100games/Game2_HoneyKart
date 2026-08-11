@@ -11,7 +11,6 @@ public class BombLauncher : MonoBehaviour
 {
     private const float DefaultMinSpinDegreesPerSecond = 90f;
     private const float DefaultMaxSpinDegreesPerSecond = 720f;
-    private const float SoundEffectVolumeScale = 1.3f;
 
     [SerializeField] private GameObject bombPrefab;
     [SerializeField] private Transform launchPoint;
@@ -25,11 +24,11 @@ public class BombLauncher : MonoBehaviour
     [Tooltip("Shared spatial AudioSource on this kart used for gameplay sound effects.")]
     [SerializeField] private AudioSource sfxSource;
 
-    [Tooltip("Sound effect played when this kart collects an item box.")]
-    [SerializeField] private AudioClip itemCollectedClip;
+    [Tooltip("Sound effect played when this kart collects an item box, with its own volume and attenuation controls.")]
+    [SerializeField] private SoundEffectSettings itemCollectedSound;
 
-    [Tooltip("Sound effect played when this kart fires a bomb.")]
-    [SerializeField] private AudioClip bombFireClip;
+    [Tooltip("Sound effect played when this kart fires a bomb, with its own volume and attenuation controls.")]
+    [SerializeField] private SoundEffectSettings bombFireSound;
 
     /// <summary>Current number of bombs available to fire.</summary>
     public int RemainingBombs { get; private set; }
@@ -59,7 +58,7 @@ public class BombLauncher : MonoBehaviour
     /// </summary>
     public void PlayItemCollectedSound()
     {
-        PlaySfx(itemCollectedClip);
+        PlaySfx(itemCollectedSound);
     }
 
     private void Awake()
@@ -94,7 +93,7 @@ public class BombLauncher : MonoBehaviour
             projectile.SetLauncherColliders(GetComponentsInChildren<Collider>());
         }
 
-        PlaySfx(bombFireClip);
+        PlaySfx(bombFireSound);
 
         float angleRad = launchAngle * Mathf.Deg2Rad;
         float gravity = Physics.gravity.magnitude;
@@ -136,20 +135,26 @@ public class BombLauncher : MonoBehaviour
     }
 
     /// <summary>
-    /// Hard-stops any pending/current cue on this kart's shared spatial source, then plays
-    /// the given clip at a boosted volume via PlayOneShot, which is not clamped to the
-    /// AudioSource's own 0-1 volume ceiling.
+    /// Hard-stops any pending/current cue on this kart's shared source, applies the given
+    /// cue's 3D attenuation only when the source is spatial, then plays the clip at its
+    /// configured volume via PlayOneShot, which is not clamped to the AudioSource's own 0-1
+    /// volume ceiling.
     /// </summary>
-    private void PlaySfx(AudioClip clip)
+    private void PlaySfx(SoundEffectSettings settings)
     {
-        if (sfxSource == null || clip == null)
+        if (sfxSource == null || settings == null || settings.Clip == null)
         {
-            Debug.LogWarning("BombLauncher: sfxSource or clip is unassigned — skipping sound effect.", this);
+            Debug.LogWarning("BombLauncher: sfxSource, settings, or its clip is unassigned — skipping sound effect.", this);
             return;
         }
 
+        if (sfxSource.spatialBlend > 0f)
+        {
+            settings.ApplySpatialSettings(sfxSource);
+        }
+
         sfxSource.Stop();
-        sfxSource.PlayOneShot(clip, SoundEffectVolumeScale);
+        sfxSource.PlayOneShot(settings.Clip, settings.VolumeScale);
     }
 
     private void OnDestroy()

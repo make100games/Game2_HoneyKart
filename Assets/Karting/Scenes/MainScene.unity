@@ -36661,6 +36661,11 @@ PrefabInstance:
       propertyPath: coinCollectClip
       value: 
       objectReference: {fileID: 8300000, guid: 75cc9f8d0011f462ebdc0694a714d9c6, type: 3}
+    - target: {fileID: 528533201159597436, guid: eeee6358623a7456e9bd7419f3af644f,
+        type: 3}
+      propertyPath: coinCollectSound.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 75cc9f8d0011f462ebdc0694a714d9c6, type: 3}
     - target: {fileID: 691606637546363976, guid: eeee6358623a7456e9bd7419f3af644f,
         type: 3}
       propertyPath: PlayerAnimator
@@ -36761,6 +36766,16 @@ PrefabInstance:
       propertyPath: itemCollectedClip
       value: 
       objectReference: {fileID: 8300000, guid: 1761ffcc22bf342aca661bc0fac4c786, type: 3}
+    - target: {fileID: 9206974508071813441, guid: eeee6358623a7456e9bd7419f3af644f,
+        type: 3}
+      propertyPath: bombFireSound.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5a951214e2331471590391fa4f3bf01e, type: 3}
+    - target: {fileID: 9206974508071813441, guid: eeee6358623a7456e9bd7419f3af644f,
+        type: 3}
+      propertyPath: itemCollectedSound.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 1761ffcc22bf342aca661bc0fac4c786, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -36825,7 +36840,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 3584
   sfxSource: {fileID: 478339350}
-  distressClip: {fileID: 8300000, guid: 06b1ae37af5504dc48545d7bfae03fc9, type: 3}
+  distressSound:
+    clip: {fileID: 8300000, guid: 06b1ae37af5504dc48545d7bfae03fc9, type: 3}
+    volumeScale: 1.3
+    minDistance: 1
+    maxDistance: 10
+    rolloffMode: 0
 --- !u!82 &478339350
 AudioSource:
   m_ObjectHideFlags: 0
@@ -36883,7 +36903,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -51938,6 +51958,11 @@ PrefabInstance:
       propertyPath: coinCollectClip
       value: 
       objectReference: {fileID: 8300000, guid: 75cc9f8d0011f462ebdc0694a714d9c6, type: 3}
+    - target: {fileID: 6617487857173264817, guid: b15b4be8637964b32a8eae3afe616805,
+        type: 3}
+      propertyPath: coinCollectSound.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 75cc9f8d0011f462ebdc0694a714d9c6, type: 3}
     - target: {fileID: 7493709995150537067, guid: b15b4be8637964b32a8eae3afe616805,
         type: 3}
       propertyPath: maxBombs
@@ -51956,6 +51981,16 @@ PrefabInstance:
     - target: {fileID: 7493709995150537067, guid: b15b4be8637964b32a8eae3afe616805,
         type: 3}
       propertyPath: itemCollectedClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 1761ffcc22bf342aca661bc0fac4c786, type: 3}
+    - target: {fileID: 7493709995150537067, guid: b15b4be8637964b32a8eae3afe616805,
+        type: 3}
+      propertyPath: bombFireSound.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5a951214e2331471590391fa4f3bf01e, type: 3}
+    - target: {fileID: 7493709995150537067, guid: b15b4be8637964b32a8eae3afe616805,
+        type: 3}
+      propertyPath: itemCollectedSound.clip
       value: 
       objectReference: {fileID: 8300000, guid: 1761ffcc22bf342aca661bc0fac4c786, type: 3}
     m_RemovedComponents: []
@@ -52022,7 +52057,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 3584
   sfxSource: {fileID: 765074598}
-  distressClip: {fileID: 8300000, guid: 98a996adb8b1347b69f0900b03b3336c, type: 3}
+  distressSound:
+    clip: {fileID: 8300000, guid: 98a996adb8b1347b69f0900b03b3336c, type: 3}
+    volumeScale: 1.3
+    minDistance: 1
+    maxDistance: 10
+    rolloffMode: 0
 --- !u!82 &765074598
 AudioSource:
   m_ObjectHideFlags: 0
@@ -52080,7 +52120,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -70269,6 +70309,16 @@ PrefabInstance:
       propertyPath: itemCollectedClip
       value: 
       objectReference: {fileID: 8300000, guid: 1761ffcc22bf342aca661bc0fac4c786, type: 3}
+    - target: {fileID: 4690043489379902299, guid: 435ff0a96b6894d20ba63520b8f9a4f6,
+        type: 3}
+      propertyPath: bombFireSound.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5a951214e2331471590391fa4f3bf01e, type: 3}
+    - target: {fileID: 4690043489379902299, guid: 435ff0a96b6894d20ba63520b8f9a4f6,
+        type: 3}
+      propertyPath: itemCollectedSound.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 1761ffcc22bf342aca661bc0fac4c786, type: 3}
     - target: {fileID: 5311357088338151682, guid: 435ff0a96b6894d20ba63520b8f9a4f6,
         type: 3}
       propertyPath: sfxSource
@@ -70277,6 +70327,11 @@ PrefabInstance:
     - target: {fileID: 5311357088338151682, guid: 435ff0a96b6894d20ba63520b8f9a4f6,
         type: 3}
       propertyPath: coinCollectClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 75cc9f8d0011f462ebdc0694a714d9c6, type: 3}
+    - target: {fileID: 5311357088338151682, guid: 435ff0a96b6894d20ba63520b8f9a4f6,
+        type: 3}
+      propertyPath: coinCollectSound.clip
       value: 
       objectReference: {fileID: 8300000, guid: 75cc9f8d0011f462ebdc0694a714d9c6, type: 3}
     m_RemovedComponents: []
@@ -70343,7 +70398,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 3584
   sfxSource: {fileID: 1135877171}
-  distressClip: {fileID: 8300000, guid: 1bd31dd941d29473d9b9ce9fa30fe4e3, type: 3}
+  distressSound:
+    clip: {fileID: 8300000, guid: 1bd31dd941d29473d9b9ce9fa30fe4e3, type: 3}
+    volumeScale: 1.3
+    minDistance: 1
+    maxDistance: 10
+    rolloffMode: 0
 --- !u!82 &1135877171
 AudioSource:
   m_ObjectHideFlags: 0
@@ -70401,7 +70461,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -93141,6 +93201,16 @@ PrefabInstance:
       propertyPath: itemCollectedClip
       value: 
       objectReference: {fileID: 8300000, guid: 1761ffcc22bf342aca661bc0fac4c786, type: 3}
+    - target: {fileID: 556197059625714132, guid: fcf82a01e83174de285c0824bbd37529,
+        type: 3}
+      propertyPath: bombFireSound.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5a951214e2331471590391fa4f3bf01e, type: 3}
+    - target: {fileID: 556197059625714132, guid: fcf82a01e83174de285c0824bbd37529,
+        type: 3}
+      propertyPath: itemCollectedSound.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 1761ffcc22bf342aca661bc0fac4c786, type: 3}
     - target: {fileID: 1657154507978188365, guid: fcf82a01e83174de285c0824bbd37529,
         type: 3}
       propertyPath: finishClip
@@ -93164,6 +93234,11 @@ PrefabInstance:
     - target: {fileID: 5877087838865929496, guid: fcf82a01e83174de285c0824bbd37529,
         type: 3}
       propertyPath: coinCollectClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 75cc9f8d0011f462ebdc0694a714d9c6, type: 3}
+    - target: {fileID: 5877087838865929496, guid: fcf82a01e83174de285c0824bbd37529,
+        type: 3}
+      propertyPath: coinCollectSound.clip
       value: 
       objectReference: {fileID: 8300000, guid: 75cc9f8d0011f462ebdc0694a714d9c6, type: 3}
     - target: {fileID: 9015355615857688293, guid: fcf82a01e83174de285c0824bbd37529,
@@ -93295,7 +93370,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 3584
   sfxSource: {fileID: 1626036199}
-  distressClip: {fileID: 8300000, guid: eed170fe941d2461686510db9e3f770a, type: 3}
+  distressSound:
+    clip: {fileID: 8300000, guid: eed170fe941d2461686510db9e3f770a, type: 3}
+    volumeScale: 1.3
+    minDistance: 1
+    maxDistance: 10
+    rolloffMode: 0
 --- !u!82 &1626036199
 AudioSource:
   m_ObjectHideFlags: 0
@@ -93353,7 +93433,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -114850,6 +114930,11 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 98a996adb8b1347b69f0900b03b3336c, type: 3}
     - target: {fileID: -3871717492896771540, guid: 107bdee8671f44bba805456dc720d2c3,
         type: 3}
+      propertyPath: distressSound.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 98a996adb8b1347b69f0900b03b3336c, type: 3}
+    - target: {fileID: -3871717492896771540, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
       propertyPath: groundLayers.m_Bits
       value: 3584
       objectReference: {fileID: 0}
@@ -114928,6 +115013,16 @@ PrefabInstance:
       propertyPath: itemCollectedClip
       value: 
       objectReference: {fileID: 8300000, guid: 1761ffcc22bf342aca661bc0fac4c786, type: 3}
+    - target: {fileID: 4365330290932149921, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
+      propertyPath: bombFireSound.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5a951214e2331471590391fa4f3bf01e, type: 3}
+    - target: {fileID: 4365330290932149921, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
+      propertyPath: itemCollectedSound.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 1761ffcc22bf342aca661bc0fac4c786, type: 3}
     - target: {fileID: 6448637425832958826, guid: 107bdee8671f44bba805456dc720d2c3,
         type: 3}
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
@@ -114956,6 +115051,11 @@ PrefabInstance:
     - target: {fileID: 6503890725744866062, guid: 107bdee8671f44bba805456dc720d2c3,
         type: 3}
       propertyPath: coinCollectClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 75cc9f8d0011f462ebdc0694a714d9c6, type: 3}
+    - target: {fileID: 6503890725744866062, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
+      propertyPath: coinCollectSound.clip
       value: 
       objectReference: {fileID: 8300000, guid: 75cc9f8d0011f462ebdc0694a714d9c6, type: 3}
     - target: {fileID: 6794427416097652480, guid: 107bdee8671f44bba805456dc720d2c3,
@@ -115206,6 +115306,11 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 06b1ae37af5504dc48545d7bfae03fc9, type: 3}
     - target: {fileID: -4633733646640369909, guid: 7e996ba2074e740a6954d841b0bb5125,
         type: 3}
+      propertyPath: distressSound.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 06b1ae37af5504dc48545d7bfae03fc9, type: 3}
+    - target: {fileID: -4633733646640369909, guid: 7e996ba2074e740a6954d841b0bb5125,
+        type: 3}
       propertyPath: groundLayers.m_Bits
       value: 3584
       objectReference: {fileID: 0}
@@ -115414,6 +115519,11 @@ PrefabInstance:
       propertyPath: coinCollectClip
       value: 
       objectReference: {fileID: 8300000, guid: 75cc9f8d0011f462ebdc0694a714d9c6, type: 3}
+    - target: {fileID: 4862166407070761501, guid: 7e996ba2074e740a6954d841b0bb5125,
+        type: 3}
+      propertyPath: coinCollectSound.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 75cc9f8d0011f462ebdc0694a714d9c6, type: 3}
     - target: {fileID: 6098196211944820729, guid: 7e996ba2074e740a6954d841b0bb5125,
         type: 3}
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
@@ -115442,6 +115552,16 @@ PrefabInstance:
     - target: {fileID: 7043586338733838311, guid: 7e996ba2074e740a6954d841b0bb5125,
         type: 3}
       propertyPath: itemCollectedClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 1761ffcc22bf342aca661bc0fac4c786, type: 3}
+    - target: {fileID: 7043586338733838311, guid: 7e996ba2074e740a6954d841b0bb5125,
+        type: 3}
+      propertyPath: bombFireSound.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5a951214e2331471590391fa4f3bf01e, type: 3}
+    - target: {fileID: 7043586338733838311, guid: 7e996ba2074e740a6954d841b0bb5125,
+        type: 3}
+      propertyPath: itemCollectedSound.clip
       value: 
       objectReference: {fileID: 8300000, guid: 1761ffcc22bf342aca661bc0fac4c786, type: 3}
     - target: {fileID: 7212467964859977416, guid: 7e996ba2074e740a6954d841b0bb5125,
@@ -115496,6 +115616,11 @@ PrefabInstance:
       propertyPath: coinCollectClip
       value: 
       objectReference: {fileID: 8300000, guid: 75cc9f8d0011f462ebdc0694a714d9c6, type: 3}
+    - target: {fileID: 1289419409320026002, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
+      propertyPath: coinCollectSound.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 75cc9f8d0011f462ebdc0694a714d9c6, type: 3}
     - target: {fileID: 2547562370144583313, guid: de2fbfc409b64499aaf1cae144d80e19,
         type: 3}
       propertyPath: m_Layer
@@ -115515,6 +115640,11 @@ PrefabInstance:
     - target: {fileID: 2887302532712413785, guid: de2fbfc409b64499aaf1cae144d80e19,
         type: 3}
       propertyPath: distressClip
+      value: 
+      objectReference: {fileID: 8300000, guid: eed170fe941d2461686510db9e3f770a, type: 3}
+    - target: {fileID: 2887302532712413785, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
+      propertyPath: distressSound.clip
       value: 
       objectReference: {fileID: 8300000, guid: eed170fe941d2461686510db9e3f770a, type: 3}
     - target: {fileID: 2887302532712413785, guid: de2fbfc409b64499aaf1cae144d80e19,
@@ -115595,6 +115725,16 @@ PrefabInstance:
     - target: {fileID: 5416290988218709184, guid: de2fbfc409b64499aaf1cae144d80e19,
         type: 3}
       propertyPath: itemCollectedClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 1761ffcc22bf342aca661bc0fac4c786, type: 3}
+    - target: {fileID: 5416290988218709184, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
+      propertyPath: bombFireSound.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5a951214e2331471590391fa4f3bf01e, type: 3}
+    - target: {fileID: 5416290988218709184, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
+      propertyPath: itemCollectedSound.clip
       value: 
       objectReference: {fileID: 8300000, guid: 1761ffcc22bf342aca661bc0fac4c786, type: 3}
     - target: {fileID: 6576333522712379485, guid: de2fbfc409b64499aaf1cae144d80e19,
@@ -115782,6 +115922,11 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 1bd31dd941d29473d9b9ce9fa30fe4e3, type: 3}
     - target: {fileID: -99864275615779752, guid: ca62c9e2da62a496386485954479e8dd,
         type: 3}
+      propertyPath: distressSound.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 1bd31dd941d29473d9b9ce9fa30fe4e3, type: 3}
+    - target: {fileID: -99864275615779752, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
       propertyPath: groundLayers.m_Bits
       value: 3584
       objectReference: {fileID: 0}
@@ -115798,6 +115943,16 @@ PrefabInstance:
     - target: {fileID: 58486953117289320, guid: ca62c9e2da62a496386485954479e8dd,
         type: 3}
       propertyPath: itemCollectedClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 1761ffcc22bf342aca661bc0fac4c786, type: 3}
+    - target: {fileID: 58486953117289320, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
+      propertyPath: bombFireSound.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5a951214e2331471590391fa4f3bf01e, type: 3}
+    - target: {fileID: 58486953117289320, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
+      propertyPath: itemCollectedSound.clip
       value: 
       objectReference: {fileID: 8300000, guid: 1761ffcc22bf342aca661bc0fac4c786, type: 3}
     - target: {fileID: 718363524269910867, guid: ca62c9e2da62a496386485954479e8dd,
@@ -115848,6 +116003,11 @@ PrefabInstance:
     - target: {fileID: 7462615108513145548, guid: ca62c9e2da62a496386485954479e8dd,
         type: 3}
       propertyPath: coinCollectClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 75cc9f8d0011f462ebdc0694a714d9c6, type: 3}
+    - target: {fileID: 7462615108513145548, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
+      propertyPath: coinCollectSound.clip
       value: 
       objectReference: {fileID: 8300000, guid: 75cc9f8d0011f462ebdc0694a714d9c6, type: 3}
     - target: {fileID: 8683912622688117118, guid: ca62c9e2da62a496386485954479e8dd,

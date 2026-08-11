@@ -172,8 +172,18 @@ MonoBehaviour:
   - {fileID: 2099506071543071981}
   - {fileID: 6863063397752287940}
   sfxSource: {fileID: 7060393077157401840}
-  fallingClip: {fileID: 8300000, guid: 8c08ce448af8b43b18dfafa4fd29d6f4, type: 3}
-  explosionClip: {fileID: 8300000, guid: 0447dd1757db848f1b55889123a33708, type: 3}
+  fallingSound:
+    clip: {fileID: 8300000, guid: 8c08ce448af8b43b18dfafa4fd29d6f4, type: 3}
+    volumeScale: 1.3
+    minDistance: 1
+    maxDistance: 10
+    rolloffMode: 0
+  explosionSound:
+    clip: {fileID: 8300000, guid: 0447dd1757db848f1b55889123a33708, type: 3}
+    volumeScale: 1.3
+    minDistance: 1
+    maxDistance: 30
+    rolloffMode: 0
 --- !u!82 &7060393077157401840
 AudioSource:
   m_ObjectHideFlags: 0

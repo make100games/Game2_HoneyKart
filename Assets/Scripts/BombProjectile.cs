@@ -12,7 +12,6 @@ public class BombProjectile : MonoBehaviour
 {
     private const float DefaultGroundFuseSeconds = 2f;
     private const float DefaultDestroyDelaySeconds = 3f;
-    private const float SoundEffectVolumeScale = 1.3f;
 
     [SerializeField] private LayerMask groundLayers;
     [SerializeField] private LayerMask playerLayers;
@@ -29,11 +28,11 @@ public class BombProjectile : MonoBehaviour
     [Tooltip("Shared spatial AudioSource on this bomb used for its falling and explosion cues.")]
     [SerializeField] private AudioSource sfxSource;
 
-    [Tooltip("Sound effect looped/played while the bomb is falling/rolling before it detonates.")]
-    [SerializeField] private AudioClip fallingClip;
+    [Tooltip("Sound effect played while the bomb is falling/rolling before it detonates, with its own volume and attenuation controls.")]
+    [SerializeField] private SoundEffectSettings fallingSound;
 
-    [Tooltip("Sound effect played at the moment of detonation.")]
-    [SerializeField] private AudioClip explosionClip;
+    [Tooltip("Sound effect played at the moment of detonation, with its own volume and attenuation controls.")]
+    [SerializeField] private SoundEffectSettings explosionSound;
 
     private Rigidbody rb;
     private bool hasExploded;
@@ -154,36 +153,50 @@ public class BombProjectile : MonoBehaviour
     }
 
     /// <summary>
-    /// Starts the non-looping falling cue on this bomb's spatial source at a boosted volume via
-    /// PlayOneShot, which is not clamped to the AudioSource's own 0-1 volume ceiling. Called once
+    /// Starts the non-looping falling cue on this bomb's spatial source at its configured
+    /// volume via PlayOneShot, which is not clamped to the AudioSource's own 0-1 volume
+    /// ceiling. Applies the cue's own 3D attenuation immediately before playback so a
+    /// previously played cue's distance settings don't leak into this one. Called once
     /// from Start() so it plays for the bomb's entire flight/roll until it detonates.
     /// </summary>
     private void PlayFallingSound()
     {
-        if (sfxSource == null || fallingClip == null)
+        if (sfxSource == null || fallingSound == null || fallingSound.Clip == null)
         {
-            Debug.LogWarning("BombProjectile: sfxSource or fallingClip is unassigned — skipping falling sound.", this);
+            Debug.LogWarning("BombProjectile: sfxSource, fallingSound, or its clip is unassigned — skipping falling sound.", this);
             return;
         }
 
+        if (sfxSource.spatialBlend > 0f)
+        {
+            fallingSound.ApplySpatialSettings(sfxSource);
+        }
+
         sfxSource.Stop();
-        sfxSource.PlayOneShot(fallingClip, SoundEffectVolumeScale);
+        sfxSource.PlayOneShot(fallingSound.Clip, fallingSound.VolumeScale);
     }
 
     /// <summary>
-    /// Interrupts the falling cue with the explosion cue at a boosted volume via PlayOneShot,
-    /// at the moment of detonation.
+    /// Interrupts the falling cue with the explosion cue at its configured volume via
+    /// PlayOneShot, at the moment of detonation. Applies the explosion cue's own 3D
+    /// attenuation immediately before playback, allowing its maxDistance to exceed the
+    /// falling cue's range.
     /// </summary>
     private void PlayExplosionSound()
     {
-        if (sfxSource == null || explosionClip == null)
+        if (sfxSource == null || explosionSound == null || explosionSound.Clip == null)
         {
-            Debug.LogWarning("BombProjectile: sfxSource or explosionClip is unassigned — skipping explosion sound.", this);
+            Debug.LogWarning("BombProjectile: sfxSource, explosionSound, or its clip is unassigned — skipping explosion sound.", this);
             return;
         }
 
+        if (sfxSource.spatialBlend > 0f)
+        {
+            explosionSound.ApplySpatialSettings(sfxSource);
+        }
+
         sfxSource.Stop();
-        sfxSource.PlayOneShot(explosionClip, SoundEffectVolumeScale);
+        sfxSource.PlayOneShot(explosionSound.Clip, explosionSound.VolumeScale);
     }
 
     private void OnValidate()

@@ -3,8 +3,6 @@ using KartGame.KartSystems;
 
 public class CoinCollector : MonoBehaviour
 {
-    private const float SoundEffectVolumeScale = 1.3f;
-
     [Header("Speed Boost Settings")]
     [Tooltip("Speed increase per coin collected")]
     public float speedBoostPerCoin = 2f;
@@ -30,8 +28,8 @@ public class CoinCollector : MonoBehaviour
     [Tooltip("Shared spatial AudioSource on this kart used for gameplay sound effects.")]
     [SerializeField] private AudioSource sfxSource;
 
-    [Tooltip("Sound effect played when a coin is collected.")]
-    [SerializeField] private AudioClip coinCollectClip;
+    [Tooltip("Sound effect played when a coin is collected, with its own volume and attenuation controls.")]
+    [SerializeField] private SoundEffectSettings coinCollectSound;
     
     private ParticleSystem[] particleSystems;
     public ParticleSystem systemToManuallyEmit;
@@ -183,19 +181,25 @@ public class CoinCollector : MonoBehaviour
     }
 
     /// <summary>
-    /// Hard-stops any pending/current cue on this kart's shared spatial source, then plays
-    /// the coin collect clip at a boosted volume via PlayOneShot, which is not clamped to the
-    /// AudioSource's own 0-1 volume ceiling.
+    /// Hard-stops any pending/current cue on this kart's shared source, applies the coin
+    /// collect cue's 3D attenuation only when the source is spatial, then plays the clip at
+    /// its configured volume via PlayOneShot, which is not clamped to the AudioSource's own
+    /// 0-1 volume ceiling.
     /// </summary>
     private void PlayCoinCollectSound()
     {
-        if (sfxSource == null || coinCollectClip == null)
+        if (sfxSource == null || coinCollectSound == null || coinCollectSound.Clip == null)
         {
-            Debug.LogWarning("CoinCollector: sfxSource or coinCollectClip is unassigned — skipping coin collect sound.", this);
+            Debug.LogWarning("CoinCollector: sfxSource, coinCollectSound, or its clip is unassigned — skipping coin collect sound.", this);
             return;
         }
 
+        if (sfxSource.spatialBlend > 0f)
+        {
+            coinCollectSound.ApplySpatialSettings(sfxSource);
+        }
+
         sfxSource.Stop();
-        sfxSource.PlayOneShot(coinCollectClip, SoundEffectVolumeScale);
+        sfxSource.PlayOneShot(coinCollectSound.Clip, coinCollectSound.VolumeScale);
     }
 }

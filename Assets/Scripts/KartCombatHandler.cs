@@ -20,7 +20,6 @@ public class KartCombatHandler : MonoBehaviour
     private const float DefaultCoinSpawnHeight = 0.5f;
     private const float DefaultCoinSurfaceHoverDistance = 0.1f;
     private const float GravityMagnitude = 9.81f;
-    private const float SoundEffectVolumeScale = 1.3f;
 
     [Header("Knockback")]
     [Tooltip("Upward velocity (m/s) applied to the kart when hit by an explosion.")]
@@ -61,8 +60,8 @@ public class KartCombatHandler : MonoBehaviour
     [Tooltip("Shared spatial AudioSource on this kart used for gameplay sound effects.")]
     [SerializeField] private AudioSource sfxSource;
 
-    [Tooltip("Character-specific distress clip played when this kart is hit by an explosion.")]
-    [SerializeField] private AudioClip distressClip;
+    [Tooltip("Character-specific distress cue played when this kart is hit by an explosion, with its own volume and attenuation controls.")]
+    [SerializeField] private SoundEffectSettings distressSound;
 
     private Rigidbody kartRigidbody;
     private ArcadeKart kart;
@@ -199,20 +198,26 @@ public class KartCombatHandler : MonoBehaviour
     }
 
     /// <summary>
-    /// Hard-stops any pending/current cue on this kart's shared spatial source, then plays
-    /// the character-specific distress clip at a boosted volume via PlayOneShot, which is not
-    /// clamped to the AudioSource's own 0-1 volume ceiling.
+    /// Hard-stops any pending/current cue on this kart's shared source, applies the distress
+    /// cue's 3D attenuation only when the source is spatial, then plays the character-specific
+    /// distress clip at its configured volume via PlayOneShot, which is not clamped to the
+    /// AudioSource's own 0-1 volume ceiling.
     /// </summary>
     private void PlayDistressSound()
     {
-        if (sfxSource == null || distressClip == null)
+        if (sfxSource == null || distressSound == null || distressSound.Clip == null)
         {
-            Debug.LogWarning("KartCombatHandler: sfxSource or distressClip is unassigned — skipping distress sound.", this);
+            Debug.LogWarning("KartCombatHandler: sfxSource, distressSound, or its clip is unassigned — skipping distress sound.", this);
             return;
         }
 
+        if (sfxSource.spatialBlend > 0f)
+        {
+            distressSound.ApplySpatialSettings(sfxSource);
+        }
+
         sfxSource.Stop();
-        sfxSource.PlayOneShot(distressClip, SoundEffectVolumeScale);
+        sfxSource.PlayOneShot(distressSound.Clip, distressSound.VolumeScale);
     }
 
     private void OnValidate()
@@ -229,7 +234,7 @@ public class KartCombatHandler : MonoBehaviour
         if (sfxSource == null)
             Debug.LogWarning("KartCombatHandler: sfxSource is not assigned.", this);
 
-        if (distressClip == null)
-            Debug.LogWarning("KartCombatHandler: distressClip is not assigned.", this);
+        if (distressSound == null || distressSound.Clip == null)
+            Debug.LogWarning("KartCombatHandler: distressSound or its clip is not assigned.", this);
     }
 }
