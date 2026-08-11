@@ -114938,6 +114938,16 @@ PrefabInstance:
       propertyPath: groundLayers.m_Bits
       value: 3584
       objectReference: {fileID: 0}
+    - target: {fileID: -3871717492896771540, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
+      propertyPath: distressSound.maxDistance
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: -3871717492896771540, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
+      propertyPath: distressSound.minDistance
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 427854029033695368, guid: 107bdee8671f44bba805456dc720d2c3,
         type: 3}
       propertyPath: m_Layer
@@ -115314,6 +115324,16 @@ PrefabInstance:
       propertyPath: groundLayers.m_Bits
       value: 3584
       objectReference: {fileID: 0}
+    - target: {fileID: -4633733646640369909, guid: 7e996ba2074e740a6954d841b0bb5125,
+        type: 3}
+      propertyPath: distressSound.maxDistance
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: -4633733646640369909, guid: 7e996ba2074e740a6954d841b0bb5125,
+        type: 3}
+      propertyPath: distressSound.minDistance
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 349531164268695766, guid: 7e996ba2074e740a6954d841b0bb5125,
         type: 3}
       propertyPath: 'Colliders.Array.data[0]'
@@ -115652,6 +115672,16 @@ PrefabInstance:
       propertyPath: groundLayers.m_Bits
       value: 3584
       objectReference: {fileID: 0}
+    - target: {fileID: 2887302532712413785, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
+      propertyPath: distressSound.maxDistance
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 2887302532712413785, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
+      propertyPath: distressSound.minDistance
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3305684839085820075, guid: de2fbfc409b64499aaf1cae144d80e19,
         type: 3}
       propertyPath: m_Name
@@ -115929,6 +115959,16 @@ PrefabInstance:
         type: 3}
       propertyPath: groundLayers.m_Bits
       value: 3584
+      objectReference: {fileID: 0}
+    - target: {fileID: -99864275615779752, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
+      propertyPath: distressSound.maxDistance
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: -99864275615779752, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
+      propertyPath: distressSound.minDistance
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 58486953117289320, guid: ca62c9e2da62a496386485954479e8dd,
         type: 3}
