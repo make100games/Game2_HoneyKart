@@ -31953,7 +31953,7 @@ MonoBehaviour:
     type: 3}
   lastPlaceMusicClip: {fileID: 8300000, guid: a9b570c676d3e4eedbd8a8f3ef944798, type: 3}
   finishMusicClip: {fileID: 8300000, guid: ef5e523d6ed6d425b9dd9fc754c5e3d4, type: 3}
-  resultMusicDelay: 0
+  resultMusicDelay: 1
   orbitFinishMusicDelay: 0
   sfxSource: {fileID: 380609521}
   menuSelectClip: {fileID: 8300000, guid: aee124b466cc14fbfa8bebdbb85ccf01, type: 3}
@@ -81206,7 +81206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f261440be2854c3582bcf63638c670e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TotalLaps: 5
+  TotalLaps: 1
   StartCheckpointIndex: 12
   halfwayCheckpoint: {fileID: 1140350300}
   finishLineCheckpoint: {fileID: 499345139}
