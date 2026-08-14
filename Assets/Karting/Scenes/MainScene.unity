@@ -33095,7 +33095,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -36666,6 +36666,11 @@ PrefabInstance:
       propertyPath: coinCollectSound.clip
       value: 
       objectReference: {fileID: 8300000, guid: 75cc9f8d0011f462ebdc0694a714d9c6, type: 3}
+    - target: {fileID: 528533201159597436, guid: eeee6358623a7456e9bd7419f3af644f,
+        type: 3}
+      propertyPath: coinCollectSound.volumeScale
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 691606637546363976, guid: eeee6358623a7456e9bd7419f3af644f,
         type: 3}
       propertyPath: PlayerAnimator
@@ -36776,6 +36781,11 @@ PrefabInstance:
       propertyPath: itemCollectedSound.clip
       value: 
       objectReference: {fileID: 8300000, guid: 1761ffcc22bf342aca661bc0fac4c786, type: 3}
+    - target: {fileID: 9206974508071813441, guid: eeee6358623a7456e9bd7419f3af644f,
+        type: 3}
+      propertyPath: itemCollectedSound.volumeScale
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -36859,7 +36869,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -51963,6 +51973,11 @@ PrefabInstance:
       propertyPath: coinCollectSound.clip
       value: 
       objectReference: {fileID: 8300000, guid: 75cc9f8d0011f462ebdc0694a714d9c6, type: 3}
+    - target: {fileID: 6617487857173264817, guid: b15b4be8637964b32a8eae3afe616805,
+        type: 3}
+      propertyPath: coinCollectSound.volumeScale
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7493709995150537067, guid: b15b4be8637964b32a8eae3afe616805,
         type: 3}
       propertyPath: maxBombs
@@ -51993,6 +52008,11 @@ PrefabInstance:
       propertyPath: itemCollectedSound.clip
       value: 
       objectReference: {fileID: 8300000, guid: 1761ffcc22bf342aca661bc0fac4c786, type: 3}
+    - target: {fileID: 7493709995150537067, guid: b15b4be8637964b32a8eae3afe616805,
+        type: 3}
+      propertyPath: itemCollectedSound.volumeScale
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -52076,7 +52096,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -70319,6 +70339,11 @@ PrefabInstance:
       propertyPath: itemCollectedSound.clip
       value: 
       objectReference: {fileID: 8300000, guid: 1761ffcc22bf342aca661bc0fac4c786, type: 3}
+    - target: {fileID: 4690043489379902299, guid: 435ff0a96b6894d20ba63520b8f9a4f6,
+        type: 3}
+      propertyPath: itemCollectedSound.volumeScale
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5311357088338151682, guid: 435ff0a96b6894d20ba63520b8f9a4f6,
         type: 3}
       propertyPath: sfxSource
@@ -70334,6 +70359,11 @@ PrefabInstance:
       propertyPath: coinCollectSound.clip
       value: 
       objectReference: {fileID: 8300000, guid: 75cc9f8d0011f462ebdc0694a714d9c6, type: 3}
+    - target: {fileID: 5311357088338151682, guid: 435ff0a96b6894d20ba63520b8f9a4f6,
+        type: 3}
+      propertyPath: coinCollectSound.volumeScale
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -70417,7 +70447,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -93211,6 +93241,11 @@ PrefabInstance:
       propertyPath: itemCollectedSound.clip
       value: 
       objectReference: {fileID: 8300000, guid: 1761ffcc22bf342aca661bc0fac4c786, type: 3}
+    - target: {fileID: 556197059625714132, guid: fcf82a01e83174de285c0824bbd37529,
+        type: 3}
+      propertyPath: itemCollectedSound.volumeScale
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1657154507978188365, guid: fcf82a01e83174de285c0824bbd37529,
         type: 3}
       propertyPath: finishClip
@@ -93241,6 +93276,11 @@ PrefabInstance:
       propertyPath: coinCollectSound.clip
       value: 
       objectReference: {fileID: 8300000, guid: 75cc9f8d0011f462ebdc0694a714d9c6, type: 3}
+    - target: {fileID: 5877087838865929496, guid: fcf82a01e83174de285c0824bbd37529,
+        type: 3}
+      propertyPath: coinCollectSound.volumeScale
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 9015355615857688293, guid: fcf82a01e83174de285c0824bbd37529,
         type: 3}
       propertyPath: PlayerAnimator
@@ -93389,7 +93429,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
