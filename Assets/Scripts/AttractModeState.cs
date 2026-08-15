@@ -31,11 +31,30 @@ public class AttractModeState : GameStateBase
     [Tooltip("Button that starts the race.")]
     public Button startGameButton;
 
-    [Tooltip("Button that shows controls (stub).")]
+    [Tooltip("Button that opens the Controls submenu.")]
     public Button controlsButton;
 
-    [Tooltip("Button that shows credits (stub).")]
+    [Tooltip("Button that opens the Credits submenu.")]
     public Button creditsButton;
+
+    [Header("Attract Submenus")]
+    [Tooltip("CanvasGroup on the main menu (Start/Controls/Credits) — mirrors menuPanel's GameObject.")]
+    public CanvasGroup mainMenuGroup;
+
+    [Tooltip("CanvasGroup on the Controls submenu.")]
+    public CanvasGroup controlsMenuGroup;
+
+    [Tooltip("CanvasGroup on the Credits submenu.")]
+    public CanvasGroup creditsMenuGroup;
+
+    [Tooltip("Button that returns from the Controls submenu to the main menu.")]
+    public Button controlsBackButton;
+
+    [Tooltip("Button that returns from the Credits submenu to the main menu.")]
+    public Button creditsBackButton;
+
+    [Tooltip("Seconds for a submenu cross-fade transition. Must be non-negative.")]
+    public float menuTransitionDuration = 0.2f;
 
     [Header("Effects")]
     [Tooltip("Particle system played when the player presses any key to reveal the menu.")]
@@ -65,8 +84,13 @@ public class AttractModeState : GameStateBase
     [Tooltip("Sound effect played when Start, Controls, or Credits is pressed.")]
     [SerializeField] private AudioClip menuSelectClip;
 
+    [Tooltip("Sound effect played when a submenu Back button is pressed.")]
+    [SerializeField] private AudioClip menuBackClip;
+
     private bool m_TitleVisible;
     private bool m_MenuShown;
+    private CanvasGroup m_CurrentMenuGroup;
+    private Coroutine m_MenuTransitionCoroutine;
 
     private const int AttractVCamPriority = 50;
 
@@ -79,6 +103,10 @@ public class AttractModeState : GameStateBase
             controlsButton.onClick.AddListener(OnControlsClicked);
         if (creditsButton != null)
             creditsButton.onClick.AddListener(OnCreditsClicked);
+        if (controlsBackButton != null)
+            controlsBackButton.onClick.AddListener(OnControlsBackClicked);
+        if (creditsBackButton != null)
+            creditsBackButton.onClick.AddListener(OnCreditsBackClicked);
     }
 
     void OnEnable()
@@ -97,6 +125,7 @@ public class AttractModeState : GameStateBase
 
         m_TitleVisible = false;
         m_MenuShown = false;
+        ResetMenuGroups();
     }
 
     void Update()
@@ -120,13 +149,15 @@ public class AttractModeState : GameStateBase
     public override void Exit()
     {
         StopAllCoroutines();
+        m_MenuTransitionCoroutine = null;
+        ResetMenuGroups();
         gameObject.SetActive(false);
     }
 
     /// <summary>Button callback — delegates race start to GameStateManager.</summary>
     public void StartGame()
     {
-        PlayMenuSelectSound();
+        PlayMenuSound(menuSelectClip, "Start");
         GameStateManager.Instance.StartGame();
     }
 
@@ -166,6 +197,11 @@ public class AttractModeState : GameStateBase
         m_MenuShown = true;
         if (menuPanel != null)
             menuPanel.SetActive(true);
+        if (mainMenuGroup != null)
+        {
+            m_CurrentMenuGroup = mainMenuGroup;
+            SetMenuGroupState(mainMenuGroup, true, 1f, true);
+        }
         if (selectedEffect != null)
             selectedEffect.Play();
     }
@@ -198,30 +234,131 @@ public class AttractModeState : GameStateBase
 
     private void OnControlsClicked()
     {
-        PlayMenuSelectSound();
-        Debug.Log("[AttractModeState] Controls button clicked (stub).");
+        PlayMenuSound(menuSelectClip, "Controls");
+        TransitionToMenu(controlsMenuGroup);
     }
 
     private void OnCreditsClicked()
     {
-        PlayMenuSelectSound();
-        Debug.Log("[AttractModeState] Credits button clicked (stub).");
+        PlayMenuSound(menuSelectClip, "Credits");
+        TransitionToMenu(creditsMenuGroup);
+    }
+
+    private void OnControlsBackClicked()
+    {
+        PlayMenuSound(menuBackClip, "Controls Back");
+        TransitionToMenu(mainMenuGroup);
+    }
+
+    private void OnCreditsBackClicked()
+    {
+        PlayMenuSound(menuBackClip, "Credits Back");
+        TransitionToMenu(mainMenuGroup);
+    }
+
+    /// <summary>
+    /// Requests a cross-fade transition from the current menu group to targetGroup. Rejects
+    /// invalid configuration (missing group) or a request to show the already-current group,
+    /// and guards against overlapping transitions.
+    /// </summary>
+    private void TransitionToMenu(CanvasGroup targetGroup)
+    {
+        if (targetGroup == null)
+        {
+            Debug.LogWarning("[AttractModeState] Requested menu group is unassigned — ignoring navigation request.", this);
+            return;
+        }
+
+        if (targetGroup == m_CurrentMenuGroup)
+            return;
+
+        if (m_MenuTransitionCoroutine != null)
+            return;
+
+        CanvasGroup outgoingGroup = m_CurrentMenuGroup;
+        m_CurrentMenuGroup = targetGroup;
+        m_MenuTransitionCoroutine = StartCoroutine(CrossFadeMenuCoroutine(outgoingGroup, targetGroup));
+    }
+
+    /// <summary>
+    /// Disables outgoing input immediately, activates the incoming group at alpha zero, then
+    /// interpolates both alpha values with unscaled time before deactivating the outgoing group
+    /// and enabling interaction/raycast blocking only on the incoming group.
+    /// </summary>
+    private IEnumerator CrossFadeMenuCoroutine(CanvasGroup outgoingGroup, CanvasGroup incomingGroup)
+    {
+        if (outgoingGroup != null)
+            SetMenuGroupState(outgoingGroup, true, outgoingGroup.alpha, false);
+
+        SetMenuGroupState(incomingGroup, true, 0f, false);
+
+        float duration = Mathf.Max(0f, menuTransitionDuration);
+        if (duration > 0f)
+        {
+            float elapsed = 0f;
+            float startAlpha = outgoingGroup != null ? outgoingGroup.alpha : 0f;
+            while (elapsed < duration)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                float t = Mathf.Clamp01(elapsed / duration);
+                if (outgoingGroup != null)
+                    outgoingGroup.alpha = Mathf.Lerp(startAlpha, 0f, t);
+                incomingGroup.alpha = Mathf.Lerp(0f, 1f, t);
+                yield return null;
+            }
+        }
+
+        if (outgoingGroup != null)
+            SetMenuGroupState(outgoingGroup, false, 0f, false);
+
+        SetMenuGroupState(incomingGroup, true, 1f, true);
+
+        m_MenuTransitionCoroutine = null;
+    }
+
+    /// <summary>
+    /// Restores deterministic alpha, active, interactable, and raycast states for all three
+    /// attract menu groups. Controls and Credits start hidden; the main group remains hidden
+    /// until the title sequence reveals it via ShowMenu().
+    /// </summary>
+    private void ResetMenuGroups()
+    {
+        if (mainMenuGroup != null)
+            SetMenuGroupState(mainMenuGroup, false, 0f, false);
+        if (controlsMenuGroup != null)
+            SetMenuGroupState(controlsMenuGroup, false, 0f, false);
+        if (creditsMenuGroup != null)
+            SetMenuGroupState(creditsMenuGroup, false, 0f, false);
+
+        m_CurrentMenuGroup = null;
+    }
+
+    /// <summary>Centralizes active state, alpha, interactable, and raycast updates for a menu CanvasGroup.</summary>
+    private void SetMenuGroupState(CanvasGroup group, bool active, float alpha, bool acceptsInput)
+    {
+        if (group == null)
+            return;
+
+        group.gameObject.SetActive(active);
+        group.alpha = alpha;
+        group.interactable = acceptsInput;
+        group.blocksRaycasts = acceptsInput;
     }
 
     /// <summary>
     /// Hard-stops any pending/current cue on the shared sound-effects source, then plays
-    /// the menu-select clip from sample zero.
+    /// the given clip from sample zero. Missing source/clip is non-fatal to navigation.
     /// </summary>
-    private void PlayMenuSelectSound()
+    private void PlayMenuSound(AudioClip clip, string cueName)
     {
-        if (sfxSource == null || menuSelectClip == null)
+        if (sfxSource == null || clip == null)
         {
-            Debug.LogWarning("[AttractModeState] sfxSource or menuSelectClip is unassigned — skipping menu select sound.", this);
+            Debug.LogWarning($"[AttractModeState] sfxSource or {cueName} clip is unassigned — skipping menu sound.", this);
             return;
         }
 
         sfxSource.Stop();
-        sfxSource.clip = menuSelectClip;
+        sfxSource.clip = clip;
         sfxSource.time = 0f;
         sfxSource.Play();
     }
