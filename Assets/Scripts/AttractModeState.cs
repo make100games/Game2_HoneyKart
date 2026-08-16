@@ -238,7 +238,9 @@ public class AttractModeState : GameStateBase
     /// <summary>
     /// Waits for the configured delay after the title becomes visible, then loops a smooth
     /// alpha pulse on the start prompt until it is cancelled by <see cref="HideStartPrompt"/>
-    /// (called from <see cref="ShowMenu"/> or <see cref="Exit"/>).
+    /// (called from <see cref="ShowMenu"/> or <see cref="Exit"/>). The prompt's GameObject stays
+    /// active at all times — only alpha is toggled — so its TextMeshPro label, font asset, and
+    /// shader variant are warmed up on scene load instead of on first appearance.
     /// </summary>
     private IEnumerator ShowStartPromptCoroutine()
     {
@@ -254,8 +256,6 @@ public class AttractModeState : GameStateBase
 
         float delay = Mathf.Max(0f, promptDelay);
         yield return new WaitForSeconds(delay);
-
-        startPromptGroup.gameObject.SetActive(true);
 
         float duration = Mathf.Max(0f, promptPulseDuration);
         float minAlpha = Mathf.Clamp01(promptMinAlpha);
@@ -288,7 +288,11 @@ public class AttractModeState : GameStateBase
         return Input.anyKeyDown || Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1);
     }
 
-    /// <summary>Cancels the pending/running start-prompt coroutine and resets it to a hidden, alpha-zero state.</summary>
+    /// <summary>
+    /// Cancels the pending/running start-prompt coroutine and resets it to alpha zero.
+    /// The prompt's GameObject is left active — only alpha is reset — so the label never
+    /// re-triggers TMP's Awake/OnEnable or a first-draw shader compile.
+    /// </summary>
     private void HideStartPrompt()
     {
         if (m_StartPromptCoroutine != null)
@@ -298,10 +302,7 @@ public class AttractModeState : GameStateBase
         }
 
         if (startPromptGroup != null)
-        {
-            startPromptGroup.gameObject.SetActive(false);
             startPromptGroup.alpha = 0f;
-        }
     }
 
     /// <summary>
