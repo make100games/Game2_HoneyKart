@@ -103899,10 +103899,10 @@ RectTransform:
   m_Father: {fileID: 160980873}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 100}
-  m_Pivot: {x: 0.5, y: 1}
+  m_SizeDelta: {x: 671, y: 100}
+  m_Pivot: {x: 0, y: 1}
 --- !u!114 &1780651808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106875,7 +106875,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   preRaceCameraFlyIn: {fileID: 52909153}
   levelBannerGroup: {fileID: 1703506878}
-  bannerDelay: 0.5
+  bannerDelay: 0
   bannerFadeInDuration: 0.5
   bannerHoldDuration: 2
   bannerFadeOutDuration: 0.5
