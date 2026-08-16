@@ -66,6 +66,18 @@ public class PreRaceCameraFlyIn : MonoBehaviour
     public float approachSpeed = 15f;
 
     // -------------------------------------------------------------------------
+    // Public phase events — UI subscribers (e.g. RaceUIPolishController) hook
+    // into these to synchronize presentation with the camera sequence without
+    // this component taking on any UI responsibilities.
+    // -------------------------------------------------------------------------
+
+    /// <summary>Raised immediately after the fly-through camera (Phase 2) becomes active.</summary>
+    public event System.Action FlythroughStarted;
+
+    /// <summary>Raised immediately after all fly-in cameras are lowered and the race follow camera takes over (Phase 4 handoff).</summary>
+    public event System.Action FollowCameraActivated;
+
+    // -------------------------------------------------------------------------
     // MonoBehaviour
     // -------------------------------------------------------------------------
 
@@ -117,6 +129,7 @@ public class PreRaceCameraFlyIn : MonoBehaviour
         if (flythroughCamera != null)
         {
             SetActiveCamera(flythroughCamera);
+            FlythroughStarted?.Invoke();
             yield return new WaitForSeconds(flythroughDuration);
         }
         else
@@ -156,6 +169,7 @@ public class PreRaceCameraFlyIn : MonoBehaviour
         // InactiveCameraPriority; follow cam at priority 10 takes over.
         // ------------------------------------------------------------------
         SetActiveCamera(null);
+        FollowCameraActivated?.Invoke();
         yield return new WaitForSeconds(followIdleDuration);
 
         gameFlowManager.BeginRaceCountdown();

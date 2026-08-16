@@ -67,6 +67,25 @@ public class AttractModeState : GameStateBase
     [Tooltip("Seconds for the title to fade from alpha 0 to 1.")]
     public float titleFadeDuration = 1.5f;
 
+    [Header("Start Prompt")]
+    [Tooltip("CanvasGroup on the 'Click anywhere to start' prompt — initially inactive at alpha 0.")]
+    public CanvasGroup startPromptGroup;
+
+    [Tooltip("Text component on the start prompt (for validation/reference only).")]
+    public TMP_Text startPromptText;
+
+    [Tooltip("Seconds after the title fully appears before the prompt begins to show. Clamped to non-negative.")]
+    public float promptDelay = 1f;
+
+    [Tooltip("Seconds for one smooth pulse cycle (dim to bright and back). Clamped to non-negative; zero holds the prompt at max alpha.")]
+    public float promptPulseDuration = 1f;
+
+    [Tooltip("Minimum alpha reached during the pulse. Clamped to [0,1].")]
+    public float promptMinAlpha = 0.35f;
+
+    [Tooltip("Maximum alpha reached during the pulse. Clamped to [0,1].")]
+    public float promptMaxAlpha = 1f;
+
     [Header("Attract Music")]
     [Tooltip("Shared scene AudioSource used for all music cues.")]
     [SerializeField] private AudioSource musicSource;
@@ -91,6 +110,8 @@ public class AttractModeState : GameStateBase
     private bool m_MenuShown;
     private CanvasGroup m_CurrentMenuGroup;
     private Coroutine m_MenuTransitionCoroutine;
+    private Coroutine m_StartPromptCoroutine;
+    private bool m_PromptMissingWarned;
 
     private const int AttractVCamPriority = 50;
 
@@ -125,7 +146,9 @@ public class AttractModeState : GameStateBase
 
         m_TitleVisible = false;
         m_MenuShown = false;
+        m_PromptMissingWarned = false;
         ResetMenuGroups();
+        HideStartPrompt();
     }
 
     void Update()
@@ -133,7 +156,7 @@ public class AttractModeState : GameStateBase
         if (!m_TitleVisible || m_MenuShown)
             return;
 
-        if (Input.anyKeyDown)
+        if (WasMenuRevealPressedThisFrame())
             ShowMenu();
     }
 
@@ -150,7 +173,9 @@ public class AttractModeState : GameStateBase
     {
         StopAllCoroutines();
         m_MenuTransitionCoroutine = null;
+        m_StartPromptCoroutine = null;
         ResetMenuGroups();
+        HideStartPrompt();
         gameObject.SetActive(false);
     }
 
@@ -189,12 +214,16 @@ public class AttractModeState : GameStateBase
         }
 
         m_TitleVisible = true;
+        m_StartPromptCoroutine = StartCoroutine(ShowStartPromptCoroutine());
     }
 
     /// <summary>Reveals the main menu panel and plays the selected effect particle system.</summary>
     private void ShowMenu()
     {
         m_MenuShown = true;
+        HideStartPrompt();
+        PlayMenuSound(menuSelectClip, "Reveal Menu");
+
         if (menuPanel != null)
             menuPanel.SetActive(true);
         if (mainMenuGroup != null)
@@ -204,6 +233,75 @@ public class AttractModeState : GameStateBase
         }
         if (selectedEffect != null)
             selectedEffect.Play();
+    }
+
+    /// <summary>
+    /// Waits for the configured delay after the title becomes visible, then loops a smooth
+    /// alpha pulse on the start prompt until it is cancelled by <see cref="HideStartPrompt"/>
+    /// (called from <see cref="ShowMenu"/> or <see cref="Exit"/>).
+    /// </summary>
+    private IEnumerator ShowStartPromptCoroutine()
+    {
+        if (startPromptGroup == null)
+        {
+            if (!m_PromptMissingWarned)
+            {
+                Debug.LogWarning("[AttractModeState] startPromptGroup is unassigned — skipping start prompt.", this);
+                m_PromptMissingWarned = true;
+            }
+            yield break;
+        }
+
+        float delay = Mathf.Max(0f, promptDelay);
+        yield return new WaitForSeconds(delay);
+
+        startPromptGroup.gameObject.SetActive(true);
+
+        float duration = Mathf.Max(0f, promptPulseDuration);
+        float minAlpha = Mathf.Clamp01(promptMinAlpha);
+        float maxAlpha = Mathf.Clamp01(promptMaxAlpha);
+
+        if (duration <= 0f)
+        {
+            startPromptGroup.alpha = maxAlpha;
+            yield break;
+        }
+
+        float elapsedTime = 0f;
+        while (true)
+        {
+            elapsedTime += Time.deltaTime;
+            float phase = (Mathf.Sin(elapsedTime / duration * Mathf.PI * 2f) + 1f) * 0.5f;
+            startPromptGroup.alpha = Mathf.Lerp(minAlpha, maxAlpha, phase);
+            yield return null;
+        }
+    }
+
+    /// <summary>
+    /// Checks for any keyboard key or primary/secondary mouse button pressed this frame.
+    /// Uses the legacy Input class because the com.unity.inputsystem package is not present
+    /// in this project (Assembly-CSharp has no reference to it); this project's Input handling
+    /// setting still permits legacy Input calls.
+    /// </summary>
+    private bool WasMenuRevealPressedThisFrame()
+    {
+        return Input.anyKeyDown || Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1);
+    }
+
+    /// <summary>Cancels the pending/running start-prompt coroutine and resets it to a hidden, alpha-zero state.</summary>
+    private void HideStartPrompt()
+    {
+        if (m_StartPromptCoroutine != null)
+        {
+            StopCoroutine(m_StartPromptCoroutine);
+            m_StartPromptCoroutine = null;
+        }
+
+        if (startPromptGroup != null)
+        {
+            startPromptGroup.gameObject.SetActive(false);
+            startPromptGroup.alpha = 0f;
+        }
     }
 
     /// <summary>
