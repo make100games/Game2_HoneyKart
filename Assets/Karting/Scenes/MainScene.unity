@@ -81584,7 +81584,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f261440be2854c3582bcf63638c670e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TotalLaps: 1
+  TotalLaps: 5
   StartCheckpointIndex: 12
   halfwayCheckpoint: {fileID: 1140350300}
   finishLineCheckpoint: {fileID: 499345139}
