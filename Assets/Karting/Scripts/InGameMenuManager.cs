@@ -23,17 +23,9 @@ public class InGameMenuManager : MonoBehaviour
     {
         //m_PlayerInputsHandler = FindObjectOfType<PlayerInputHandler>();
         //DebugUtility.HandleErrorIfNullFindObject<PlayerInputHandler, InGameMenuManager>(m_PlayerInputsHandler, this);
-
-        m_FramerateCounter = FindObjectOfType<FramerateCounter>();
         //DebugUtility.HandleErrorIfNullFindObject<FramerateCounter, InGameMenuManager>(m_FramerateCounter, this);
 
         menuRoot.SetActive(false);
-
-        shadowsToggle.isOn = QualitySettings.shadows != ShadowQuality.Disable;
-        shadowsToggle.onValueChanged.AddListener(OnShadowsChanged);
-
-        framerateToggle.isOn = m_FramerateCounter.uiText.gameObject.activeSelf;
-        framerateToggle.onValueChanged.AddListener(OnFramerateCounterChanged);
     }
 
     private void Update()
@@ -45,14 +37,7 @@ public class InGameMenuManager : MonoBehaviour
             && (Input.GetButtonDown(GameConstants.k_ButtonNamePauseMenu)
             || (menuRoot.activeSelf && Input.GetButtonDown(GameConstants.k_ButtonNameCancel))))
         {
-            if (controlImage.activeSelf)
-            {
-                controlImage.SetActive(false);
-                return;
-            }
-
             SetPauseMenuActivation(!menuRoot.activeSelf);
-
         }
 
         if (Input.GetAxisRaw(GameConstants.k_AxisNameVertical) != 0)
@@ -60,7 +45,6 @@ public class InGameMenuManager : MonoBehaviour
             if (EventSystem.current.currentSelectedGameObject == null)
             {
                 EventSystem.current.SetSelectedGameObject(null);
-                shadowsToggle.Select();
             }
         }
     }
@@ -96,20 +80,5 @@ public class InGameMenuManager : MonoBehaviour
             AudioUtility.SetMasterVolume(1);
         }
 
-    }
-
-    void OnShadowsChanged(bool newValue)
-    {
-        QualitySettings.shadows = newValue ? ShadowQuality.All : ShadowQuality.Disable;
-    }
-
-    void OnFramerateCounterChanged(bool newValue)
-    {
-        m_FramerateCounter.uiText.gameObject.SetActive(newValue);
-    }
-
-    public void OnShowControlButtonClicked(bool show)
-    {
-        controlImage.SetActive(show);
     }
 }
