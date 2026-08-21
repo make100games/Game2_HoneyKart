@@ -77,7 +77,9 @@ public class BombLauncher : MonoBehaviour
 
     private void Update()
     {
-        if (!isAIControlled && Input.GetKeyDown(KeyCode.Space))
+        // Time.timeScale is set to 0 while the pause menu is open, so bombs fired during
+        // pause would never receive any physics motion. Block firing entirely while paused.
+        if (!isAIControlled && Time.timeScale > 0f && Input.GetKeyDown(KeyCode.Space))
             TryFireBomb();
     }
 
