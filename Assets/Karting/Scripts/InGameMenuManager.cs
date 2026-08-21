@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -39,8 +39,11 @@ public class InGameMenuManager : MonoBehaviour
     private void Update()
     {
         
-        if (Input.GetButtonDown(GameConstants.k_ButtonNamePauseMenu)
-            || (menuRoot.activeSelf && Input.GetButtonDown(GameConstants.k_ButtonNameCancel)))
+        bool pauseMenuTogglable = GameFlowManager.IsRaceActive || menuRoot.activeSelf;
+
+        if (pauseMenuTogglable
+            && (Input.GetButtonDown(GameConstants.k_ButtonNamePauseMenu)
+            || (menuRoot.activeSelf && Input.GetButtonDown(GameConstants.k_ButtonNameCancel))))
         {
             if (controlImage.activeSelf)
             {

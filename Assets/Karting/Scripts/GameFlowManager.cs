@@ -49,6 +49,10 @@ public class GameFlowManager : MonoBehaviour
     /// <summary>Fired once when all laps are completed. Carries the player kart for observers.</summary>
     public static event System.Action<ArcadeKart> OnRaceFinished;
 
+    /// <summary>True from the moment the countdown ends (karts can move) until the race finishes
+    /// or ends. Used to restrict the pause menu to being togglable only during active racing.</summary>
+    public static bool IsRaceActive { get; private set; }
+
     public GameState gameState { get; private set; }
 
     public bool autoFindKarts = true;
@@ -95,6 +99,7 @@ public class GameFlowManager : MonoBehaviour
         loseDisplayMessage.gameObject.SetActive(false);
 
         m_TimeManager.StopRace();
+        IsRaceActive = false;
         foreach (ArcadeKart k in karts)
         {
 			k.SetCanMove(false);
@@ -131,6 +136,7 @@ public class GameFlowManager : MonoBehaviour
 			k.SetCanMove(true);
         }
         m_TimeManager.StartRace();
+        IsRaceActive = true;
         PlayRaceMusic();
     }
 
@@ -204,6 +210,7 @@ public class GameFlowManager : MonoBehaviour
             if (!m_RaceFinished && m_ObjectiveManager.AreAllObjectivesCompleted())
             {
                 m_RaceFinished = true;
+                IsRaceActive = false;
                 OnRaceFinished?.Invoke(playerKart);
             }
 
@@ -219,6 +226,7 @@ public class GameFlowManager : MonoBehaviour
         Cursor.visible = true;
 
         m_TimeManager.StopRace();
+        IsRaceActive = false;
 
         // Remember that we need to load the appropriate end scene after a delay
         gameState = win ? GameState.Won : GameState.Lost;
