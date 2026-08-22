@@ -14767,6 +14767,41 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &125827540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3840204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebb9f384159c14fefbbe7c34e0ca9b1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  impulseSpeedGain: 9
+  boostTopSpeedBonus: 9
+  boostAccelerationBonus: 6
+  boostDuration: 1.25
+  settleDeceleration: 10
+  settleTimeout: 3
+--- !u!114 &125827541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3840204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2fb5bd659be24972a2ca5f9f9f5da5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chargePerCoinFirstPlace: 0.125
+  chargePerCoinLastPlace: 0.34
+  drainPerSecondFirstPlace: 0.2
+  drainPerSecondLastPlace: 0.05
+  positionPollInterval: 0.1
 --- !u!1 &126294303
 GameObject:
   m_ObjectHideFlags: 0
@@ -37055,6 +37090,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 478339350}
+    - targetCorrespondingSourceObject: {fileID: 691606637546363986, guid: eeee6358623a7456e9bd7419f3af644f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 478339359}
+    - targetCorrespondingSourceObject: {fileID: 691606637546363986, guid: eeee6358623a7456e9bd7419f3af644f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 478339358}
   m_SourcePrefab: {fileID: 100100000, guid: eeee6358623a7456e9bd7419f3af644f, type: 3}
 --- !u!4 &478339339 stripped
 Transform:
@@ -37210,6 +37253,41 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &478339358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478339341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebb9f384159c14fefbbe7c34e0ca9b1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  impulseSpeedGain: 9
+  boostTopSpeedBonus: 9
+  boostAccelerationBonus: 6
+  boostDuration: 1.25
+  settleDeceleration: 10
+  settleTimeout: 3
+--- !u!114 &478339359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478339341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2fb5bd659be24972a2ca5f9f9f5da5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chargePerCoinFirstPlace: 0.125
+  chargePerCoinLastPlace: 0.34
+  drainPerSecondFirstPlace: 0.2
+  drainPerSecondLastPlace: 0.05
+  positionPollInterval: 0.1
 --- !u!1 &478425667
 GameObject:
   m_ObjectHideFlags: 0
@@ -52662,6 +52740,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 765074598}
+    - targetCorrespondingSourceObject: {fileID: 5512546689472429204, guid: b15b4be8637964b32a8eae3afe616805,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 765074607}
+    - targetCorrespondingSourceObject: {fileID: 5512546689472429204, guid: b15b4be8637964b32a8eae3afe616805,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 765074606}
   m_SourcePrefab: {fileID: 100100000, guid: b15b4be8637964b32a8eae3afe616805, type: 3}
 --- !u!4 &765074587 stripped
 Transform:
@@ -52817,6 +52903,41 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &765074606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765074589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebb9f384159c14fefbbe7c34e0ca9b1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  impulseSpeedGain: 9
+  boostTopSpeedBonus: 9
+  boostAccelerationBonus: 6
+  boostDuration: 1.25
+  settleDeceleration: 10
+  settleTimeout: 3
+--- !u!114 &765074607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765074589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2fb5bd659be24972a2ca5f9f9f5da5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chargePerCoinFirstPlace: 0.125
+  chargePerCoinLastPlace: 0.34
+  drainPerSecondFirstPlace: 0.2
+  drainPerSecondLastPlace: 0.05
+  positionPollInterval: 0.1
 --- !u!1001 &768195891
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -71164,6 +71285,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1135877171}
+    - targetCorrespondingSourceObject: {fileID: 3483693247462894689, guid: 435ff0a96b6894d20ba63520b8f9a4f6,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1135877180}
+    - targetCorrespondingSourceObject: {fileID: 3483693247462894689, guid: 435ff0a96b6894d20ba63520b8f9a4f6,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1135877179}
   m_SourcePrefab: {fileID: 100100000, guid: 435ff0a96b6894d20ba63520b8f9a4f6, type: 3}
 --- !u!4 &1135877160 stripped
 Transform:
@@ -71319,6 +71448,41 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1135877179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135877162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2fb5bd659be24972a2ca5f9f9f5da5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chargePerCoinFirstPlace: 0.125
+  chargePerCoinLastPlace: 0.34
+  drainPerSecondFirstPlace: 0.2
+  drainPerSecondLastPlace: 0.05
+  positionPollInterval: 0.1
+--- !u!114 &1135877180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135877162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebb9f384159c14fefbbe7c34e0ca9b1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  impulseSpeedGain: 9
+  boostTopSpeedBonus: 9
+  boostAccelerationBonus: 6
+  boostDuration: 1.25
+  settleDeceleration: 10
+  settleTimeout: 3
 --- !u!1 &1138542850
 GameObject:
   m_ObjectHideFlags: 0
@@ -94160,6 +94324,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1626036199}
+    - targetCorrespondingSourceObject: {fileID: 9015355615857688319, guid: fcf82a01e83174de285c0824bbd37529,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1626036208}
+    - targetCorrespondingSourceObject: {fileID: 9015355615857688319, guid: fcf82a01e83174de285c0824bbd37529,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1626036207}
   m_SourcePrefab: {fileID: 100100000, guid: fcf82a01e83174de285c0824bbd37529, type: 3}
 --- !u!4 &1626036188 stripped
 Transform:
@@ -94315,6 +94487,41 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1626036207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1626036190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2fb5bd659be24972a2ca5f9f9f5da5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chargePerCoinFirstPlace: 0.125
+  chargePerCoinLastPlace: 0.34
+  drainPerSecondFirstPlace: 0.2
+  drainPerSecondLastPlace: 0.05
+  positionPollInterval: 0.1
+--- !u!114 &1626036208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1626036190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebb9f384159c14fefbbe7c34e0ca9b1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  impulseSpeedGain: 9
+  boostTopSpeedBonus: 9
+  boostAccelerationBonus: 6
+  boostDuration: 1.25
+  settleDeceleration: 10
+  settleTimeout: 3
 --- !u!1001 &1626366926
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -95243,6 +95450,41 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1644180248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1567468125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2fb5bd659be24972a2ca5f9f9f5da5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chargePerCoinFirstPlace: 0.125
+  chargePerCoinLastPlace: 0.34
+  drainPerSecondFirstPlace: 0.2
+  drainPerSecondLastPlace: 0.05
+  positionPollInterval: 0.1
+--- !u!114 &1644180249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1567468125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebb9f384159c14fefbbe7c34e0ca9b1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  impulseSpeedGain: 9
+  boostTopSpeedBonus: 9
+  boostAccelerationBonus: 6
+  boostDuration: 1.25
+  settleDeceleration: 10
+  settleTimeout: 3
 --- !u!1 &1645101725
 GameObject:
   m_ObjectHideFlags: 0
@@ -106353,6 +106595,41 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1845626940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1845626914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2fb5bd659be24972a2ca5f9f9f5da5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chargePerCoinFirstPlace: 0.125
+  chargePerCoinLastPlace: 0.34
+  drainPerSecondFirstPlace: 0.2
+  drainPerSecondLastPlace: 0.05
+  positionPollInterval: 0.1
+--- !u!114 &1845626941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1845626914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebb9f384159c14fefbbe7c34e0ca9b1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  impulseSpeedGain: 9
+  boostTopSpeedBonus: 9
+  boostAccelerationBonus: 6
+  boostDuration: 1.25
+  settleDeceleration: 10
+  settleTimeout: 3
 --- !u!1001 &1848360675
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -107445,6 +107722,41 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1880314102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163966159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebb9f384159c14fefbbe7c34e0ca9b1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  impulseSpeedGain: 9
+  boostTopSpeedBonus: 9
+  boostAccelerationBonus: 6
+  boostDuration: 1.25
+  settleDeceleration: 10
+  settleTimeout: 3
+--- !u!114 &1880314103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163966159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2fb5bd659be24972a2ca5f9f9f5da5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chargePerCoinFirstPlace: 0.125
+  chargePerCoinLastPlace: 0.34
+  drainPerSecondFirstPlace: 0.2
+  drainPerSecondLastPlace: 0.05
+  positionPollInterval: 0.1
 --- !u!1001 &1880478616
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -116303,6 +116615,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1880314089}
+    - targetCorrespondingSourceObject: {fileID: 2172650618388516011, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1880314103}
+    - targetCorrespondingSourceObject: {fileID: 2172650618388516011, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1880314102}
   m_SourcePrefab: {fileID: 100100000, guid: 107bdee8671f44bba805456dc720d2c3, type: 3}
 --- !u!1001 &1563311025468148798
 PrefabInstance:
@@ -116689,6 +117009,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 125827527}
+    - targetCorrespondingSourceObject: {fileID: 1439395471843396569, guid: 7e996ba2074e740a6954d841b0bb5125,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 125827541}
+    - targetCorrespondingSourceObject: {fileID: 1439395471843396569, guid: 7e996ba2074e740a6954d841b0bb5125,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 125827540}
   m_SourcePrefab: {fileID: 100100000, guid: 7e996ba2074e740a6954d841b0bb5125, type: 3}
 --- !u!1001 &2789451292069016357
 PrefabInstance:
@@ -117007,6 +117335,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1845626927}
+    - targetCorrespondingSourceObject: {fileID: 3305684839085820075, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1845626941}
+    - targetCorrespondingSourceObject: {fileID: 3305684839085820075, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1845626940}
   m_SourcePrefab: {fileID: 100100000, guid: de2fbfc409b64499aaf1cae144d80e19, type: 3}
 --- !u!1001 &5005669530658710614
 PrefabInstance:
@@ -117325,6 +117661,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1644180235}
+    - targetCorrespondingSourceObject: {fileID: 9177158977135158181, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1644180249}
+    - targetCorrespondingSourceObject: {fileID: 9177158977135158181, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1644180248}
   m_SourcePrefab: {fileID: 100100000, guid: ca62c9e2da62a496386485954479e8dd, type: 3}
 --- !u!1001 &5919064628734658895
 PrefabInstance:

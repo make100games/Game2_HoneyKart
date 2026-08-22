@@ -65,6 +65,8 @@ public class KartCombatHandler : MonoBehaviour
 
     private Rigidbody kartRigidbody;
     private ArcadeKart kart;
+    private BoostMeter boostMeter;
+    private KartBoost kartBoost;
     private bool isKnockedBack;
     private bool hasLeftGround;
     private float airborneTimer;
@@ -75,6 +77,8 @@ public class KartCombatHandler : MonoBehaviour
     {
         kartRigidbody = GetComponent<Rigidbody>();
         kart = GetComponent<ArcadeKart>();
+        boostMeter = GetComponent<BoostMeter>();
+        kartBoost = GetComponent<KartBoost>();
     }
 
     /// <summary>
@@ -87,6 +91,14 @@ public class KartCombatHandler : MonoBehaviour
     {
         if (isKnockedBack)
             return;
+
+        // Cancel any in-flight boost before knockback so the raised speed ceiling
+        // doesn't survive the hit, then wipe the meter so the boost cannot be re-fired.
+        if (kartBoost != null)
+            kartBoost.Cancel();
+
+        if (boostMeter != null)
+            boostMeter.EmptyImmediately();
 
         LaunchKnockback();
         SpawnCoins();

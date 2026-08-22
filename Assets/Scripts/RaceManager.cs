@@ -24,6 +24,9 @@ public class RaceManager : MonoBehaviour
     /// <summary>Singleton accessor set in Awake.</summary>
     public static RaceManager Instance => s_Instance;
 
+    /// <summary>Number of racers currently registered for the race, used to normalize live position into a 0-1 blend factor.</summary>
+    public int RacerCount => m_Racers?.Count ?? 0;
+
     private static RaceManager s_Instance;
 
     private List<LapTracker> m_Racers;

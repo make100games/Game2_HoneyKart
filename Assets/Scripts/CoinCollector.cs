@@ -3,16 +3,6 @@ using KartGame.KartSystems;
 
 public class CoinCollector : MonoBehaviour
 {
-    [Header("Speed Boost Settings")]
-    [Tooltip("Speed increase per coin collected")]
-    public float speedBoostPerCoin = 2f;
-    
-    [Tooltip("Duration of speed boost in seconds")]
-    public float boostDuration = 5f;
-    
-    [Tooltip("Maximum total speed the kart can reach")]
-    public float absoluteMaxSpeed = 30f;
-    
     [Header("References")]
     [Tooltip("Reference to the ArcadeKart component")]
     public ArcadeKart kart;
@@ -33,12 +23,20 @@ public class CoinCollector : MonoBehaviour
     
     private ParticleSystem[] particleSystems;
     public ParticleSystem systemToManuallyEmit;
-    
+
+    private BoostMeter m_BoostMeter;
+
     private void Start()
     {
         if (kart == null)
         {
             kart = GetComponentInParent<ArcadeKart>();
+        }
+
+        m_BoostMeter = GetComponent<BoostMeter>();
+        if (m_BoostMeter == null)
+        {
+            m_BoostMeter = GetComponentInParent<BoostMeter>();
         }
         
         if (sparklesObject != null)
@@ -103,7 +101,11 @@ public class CoinCollector : MonoBehaviour
             return;
         }
 
-        ApplySpeedBoost();
+        if (m_BoostMeter != null)
+        {
+            m_BoostMeter.AddChargeForCoin();
+        }
+
         PlaySparkles();
         PlayCoinCollectSound();
 
@@ -117,47 +119,6 @@ public class CoinCollector : MonoBehaviour
         }
 
         Destroy(coin);
-    }
-    
-    private void ApplySpeedBoost()
-    {
-        if (kart == null)
-        {
-            Debug.LogWarning("CoinCollector: No ArcadeKart reference assigned!");
-            return;
-        }
-        
-        float boostAmount = speedBoostPerCoin;
-        
-        if (kart.baseStats.TopSpeed + speedBoostPerCoin > absoluteMaxSpeed)
-        {
-            boostAmount = Mathf.Max(0f, absoluteMaxSpeed - kart.baseStats.TopSpeed);
-        }
-        
-        if (boostAmount > 0f)
-        {
-            ArcadeKart.StatPowerup speedBoost = new ArcadeKart.StatPowerup
-            {
-                PowerUpID = "CoinSpeedBoost",
-                MaxTime = boostDuration,
-                ElapsedTime = 0f,
-                modifiers = new ArcadeKart.Stats
-                {
-                    TopSpeed = boostAmount,
-                    Acceleration = 0f,
-                    AccelerationCurve = 0f,
-                    Braking = 0f,
-                    CoastingDrag = 0f,
-                    AddedGravity = 0f,
-                    Grip = 0f,
-                    ReverseAcceleration = 0f,
-                    ReverseSpeed = 0f,
-                    Steer = 0f
-                }
-            };
-            
-            kart.AddPowerup(speedBoost);
-        }
     }
     
     private void PlaySparkles()
