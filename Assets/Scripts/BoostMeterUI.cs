@@ -23,6 +23,7 @@ public sealed class BoostMeterUI : MonoBehaviour
     private RectTransform m_BoostTextRect;
     private CanvasGroup m_BoostTextGroup;
     private BoostMeter m_BoostMeter;
+    private CoinCollector m_CoinCollector;
     private KartCombatHandler m_CombatHandler;
     private KartBoost m_KartBoost;
     private Vector2 m_RootPosition;
@@ -82,20 +83,23 @@ public sealed class BoostMeterUI : MonoBehaviour
     }
 
     /// <summary>Binds the HUD to the selected player kart and refreshes its current charge.</summary>
-    public void Bind(BoostMeter boostMeter, KartCombatHandler combatHandler, KartBoost kartBoost)
+    public void Bind(BoostMeter boostMeter, CoinCollector coinCollector, KartCombatHandler combatHandler, KartBoost kartBoost)
     {
         Unbind();
         m_BoostMeter = boostMeter;
+        m_CoinCollector = coinCollector;
         m_CombatHandler = combatHandler;
         m_KartBoost = kartBoost;
 
         if (m_BoostMeter != null)
         {
             m_BoostMeter.ChargeChanged += HandleChargeChanged;
-            m_BoostMeter.CoinCollected += HandleCoinCollected;
             m_DisplayedCharge = m_BoostMeter.Charge01;
             m_MeterGraphic.SetFillAmount(m_DisplayedCharge);
         }
+
+        if (m_CoinCollector != null)
+            m_CoinCollector.CoinCollected += HandleCoinCollected;
 
         if (m_CombatHandler != null)
             m_CombatHandler.ExplosionHit += HandleExplosionHit;
@@ -107,16 +111,16 @@ public sealed class BoostMeterUI : MonoBehaviour
     public void Unbind()
     {
         if (m_BoostMeter != null)
-        {
             m_BoostMeter.ChargeChanged -= HandleChargeChanged;
-            m_BoostMeter.CoinCollected -= HandleCoinCollected;
-        }
+        if (m_CoinCollector != null)
+            m_CoinCollector.CoinCollected -= HandleCoinCollected;
         if (m_CombatHandler != null)
             m_CombatHandler.ExplosionHit -= HandleExplosionHit;
         if (m_KartBoost != null)
             m_KartBoost.BoostStarted -= HandleBoostStarted;
 
         m_BoostMeter = null;
+        m_CoinCollector = null;
         m_CombatHandler = null;
         m_KartBoost = null;
     }
@@ -128,6 +132,7 @@ public sealed class BoostMeterUI : MonoBehaviour
 
     private void Update()
     {
+        SynchronizeCharge();
         UpdateFillAnimation();
         UpdateFeedbackIcon();
         UpdateBombShake();
@@ -139,6 +144,32 @@ public sealed class BoostMeterUI : MonoBehaviour
         m_AnimateNextIncrease = true;
         m_FeedbackType = FeedbackType.Coin;
         m_EventIconElapsed = 0f;
+    }
+
+    private void SynchronizeCharge()
+    {
+        if (m_BoostMeter == null || m_HoldFullUntilFillCompletes)
+            return;
+
+        float authoritativeCharge = m_BoostMeter.Charge01;
+        if (m_FillElapsed < FillAnimationDuration)
+        {
+            if (authoritativeCharge > 0f)
+                m_FillTargetCharge = authoritativeCharge;
+            return;
+        }
+
+        if (authoritativeCharge > m_DisplayedCharge)
+        {
+            m_FillStartCharge = m_DisplayedCharge;
+            m_FillTargetCharge = authoritativeCharge;
+            m_FillElapsed = 0f;
+        }
+        else if (authoritativeCharge < m_DisplayedCharge)
+        {
+            m_DisplayedCharge = authoritativeCharge;
+            m_MeterGraphic.SetFillAmount(m_DisplayedCharge);
+        }
     }
 
     private void HandleChargeChanged(float charge)

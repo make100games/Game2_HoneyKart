@@ -202,6 +202,7 @@ public class RaceState : GameStateBase
 
         m_BoostMeterUI.Bind(
             selectedKart.GetComponent<BoostMeter>(),
+            selectedKart.GetComponent<CoinCollector>(),
             selectedKart.GetComponent<KartCombatHandler>(),
             selectedKart.GetComponent<KartBoost>());
     }

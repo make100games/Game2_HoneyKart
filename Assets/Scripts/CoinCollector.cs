@@ -1,3 +1,4 @@
+using Action = System.Action;
 using UnityEngine;
 using KartGame.KartSystems;
 
@@ -23,6 +24,9 @@ public class CoinCollector : MonoBehaviour
     
     private ParticleSystem[] particleSystems;
     public ParticleSystem systemToManuallyEmit;
+
+    /// <summary>Fired when this kart accepts and collects a coin.</summary>
+    public event Action CoinCollected;
 
     private BoostMeter m_BoostMeter;
 
@@ -100,6 +104,8 @@ public class CoinCollector : MonoBehaviour
         {
             return;
         }
+
+        CoinCollected?.Invoke();
 
         if (m_BoostMeter != null)
         {
