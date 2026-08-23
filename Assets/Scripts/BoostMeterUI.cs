@@ -67,11 +67,21 @@ public sealed class BoostMeterUI : MonoBehaviour
         shadowImage.color = new Color(0f, 0f, 0f, 0.45f);
         shadowImage.raycastTarget = false;
 
+        GameObject meterBackground = CreateUiObject("MeterBackground", rootRect);
+        RectTransform meterBackgroundRect = meterBackground.GetComponent<RectTransform>();
+        SetRect(meterBackgroundRect, new Vector2(1f, 1f), new Vector2(-78f, -8f), new Vector2(300f, 38f));
+        Image meterBackgroundImage = meterBackground.AddComponent<Image>();
+        meterBackgroundImage.color = new Color(0.15f, 0.17f, 0.21f, 1f);
+        meterBackgroundImage.raycastTarget = false;
+        Outline meterOutline = meterBackground.AddComponent<Outline>();
+        meterOutline.effectColor = new Color(1f, 1f, 1f, 0.24f);
+        meterOutline.effectDistance = new Vector2(2f, -2f);
+
         GameObject meter = CreateUiObject("GradientFill", rootRect);
         RectTransform meterRect = meter.GetComponent<RectTransform>();
-        SetRect(meterRect, new Vector2(1f, 1f), new Vector2(-78f, -8f), new Vector2(300f, 38f));
+        SetRect(meterRect, new Vector2(1f, 1f), new Vector2(-81f, -11f), new Vector2(294f, 32f));
         controller.m_MeterGraphic = meter.AddComponent<BoostMeterGradientGraphic>();
-        controller.m_MeterGraphic.raycastTarget = false;
+        controller.m_MeterGraphic.Initialize();
 
         CreateFeedbackImage("CoinFeedback", rootRect, coinSprite, new Vector2(-8f, -3f), new Vector2(60f, 60f), out controller.m_CoinIconRect, out controller.m_CoinIconGroup);
         controller.m_CoinStartPosition = controller.m_CoinIconRect.anchoredPosition;
@@ -93,7 +103,6 @@ public sealed class BoostMeterUI : MonoBehaviour
 
         if (m_BoostMeter != null)
         {
-            m_BoostMeter.ChargeChanged += HandleChargeChanged;
             m_DisplayedCharge = m_BoostMeter.Charge01;
             m_MeterGraphic.SetFillAmount(m_DisplayedCharge);
         }
@@ -110,8 +119,6 @@ public sealed class BoostMeterUI : MonoBehaviour
     /// <summary>Removes subscriptions from the previously selected player kart.</summary>
     public void Unbind()
     {
-        if (m_BoostMeter != null)
-            m_BoostMeter.ChargeChanged -= HandleChargeChanged;
         if (m_CoinCollector != null)
             m_CoinCollector.CoinCollected -= HandleCoinCollected;
         if (m_CombatHandler != null)

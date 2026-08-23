@@ -2,93 +2,84 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// Draws the boost meter background, border, and a cool-to-hot segmented gradient fill.
+/// Displays boost charge with Unity's horizontal filled-image path and a generated cool-to-hot gradient.
 /// </summary>
-public sealed class BoostMeterGradientGraphic : MaskableGraphic
+public sealed class BoostMeterGradientGraphic : Image
 {
-    private const int GradientSegmentCount = 48;
-    private const float BorderThickness = 3f;
+    private const int GradientTextureWidth = 256;
 
-    [SerializeField, Range(0f, 1f)] private float fillAmount;
-    [SerializeField] private Color backgroundColor = new(0.15f, 0.17f, 0.21f, 1f);
-    [SerializeField] private Color borderColor = new(1f, 1f, 1f, 0.24f);
-    [SerializeField] private Color coolColor = new(0.21f, 0.78f, 1f, 1f);
-    [SerializeField] private Color coolMidColor = new(0.2f, 0.9f, 0.69f, 1f);
-    [SerializeField] private Color warmMidColor = new(1f, 0.88f, 0.35f, 1f);
-    [SerializeField] private Color hotColor = new(1f, 0.24f, 0.36f, 1f);
+    private static readonly Color CoolColor = new(0.21f, 0.78f, 1f, 1f);
+    private static readonly Color CoolMidColor = new(0.2f, 0.9f, 0.69f, 1f);
+    private static readonly Color WarmMidColor = new(1f, 0.88f, 0.35f, 1f);
+    private static readonly Color HotColor = new(1f, 0.24f, 0.36f, 1f);
 
-    /// <summary>Sets the normalized visible fill without rebuilding when the value is unchanged.</summary>
-    public void SetFillAmount(float value)
+    private Texture2D m_GradientTexture;
+    private Sprite m_GradientSprite;
+
+    /// <summary>Creates and assigns the runtime gradient used by the filled image.</summary>
+    public void Initialize()
     {
-        float clampedValue = Mathf.Clamp01(value);
-        if (Mathf.Approximately(fillAmount, clampedValue))
+        if (m_GradientSprite != null)
             return;
 
-        fillAmount = clampedValue;
-        SetVerticesDirty();
-    }
-
-    protected override void OnPopulateMesh(VertexHelper vertexHelper)
-    {
-        vertexHelper.Clear();
-        Rect rect = GetPixelAdjustedRect();
-        AddQuad(vertexHelper, rect.xMin, rect.yMin, rect.xMax, rect.yMax, backgroundColor);
-
-        float innerLeft = rect.xMin + BorderThickness;
-        float innerRight = rect.xMax - BorderThickness;
-        float innerBottom = rect.yMin + BorderThickness;
-        float innerTop = rect.yMax - BorderThickness;
-        float availableWidth = Mathf.Max(0f, innerRight - innerLeft);
-        float fillWidth = availableWidth * fillAmount;
-
-        if (fillWidth > 0f)
+        m_GradientTexture = new Texture2D(GradientTextureWidth, 1, TextureFormat.RGBA32, false)
         {
-            int visibleSegments = Mathf.Max(1, Mathf.CeilToInt(GradientSegmentCount * fillAmount));
-            for (int segmentIndex = 0; segmentIndex < visibleSegments; segmentIndex++)
-            {
-                float startT = segmentIndex / (float)GradientSegmentCount;
-                float endT = Mathf.Min(fillAmount, (segmentIndex + 1f) / GradientSegmentCount);
-                float startX = innerLeft + availableWidth * startT;
-                float endX = innerLeft + availableWidth * endT;
-                AddGradientQuad(vertexHelper, startX, innerBottom, endX, innerTop, EvaluateGradient(startT), EvaluateGradient(endT));
-            }
+            name = "BoostMeterGradientTexture",
+            filterMode = FilterMode.Bilinear,
+            wrapMode = TextureWrapMode.Clamp
+        };
+
+        Color[] pixels = new Color[GradientTextureWidth];
+        for (int pixelIndex = 0; pixelIndex < GradientTextureWidth; pixelIndex++)
+        {
+            float normalizedPosition = pixelIndex / (float)(GradientTextureWidth - 1);
+            pixels[pixelIndex] = EvaluateGradient(normalizedPosition);
         }
 
-        AddQuad(vertexHelper, rect.xMin, rect.yMax - BorderThickness, rect.xMax, rect.yMax, borderColor);
-        AddQuad(vertexHelper, rect.xMin, rect.yMin, rect.xMax, rect.yMin + BorderThickness, borderColor);
-        AddQuad(vertexHelper, rect.xMin, rect.yMin, rect.xMin + BorderThickness, rect.yMax, borderColor);
-        AddQuad(vertexHelper, rect.xMax - BorderThickness, rect.yMin, rect.xMax, rect.yMax, borderColor);
+        m_GradientTexture.SetPixels(pixels);
+        m_GradientTexture.Apply(false, true);
+        m_GradientSprite = Sprite.Create(
+            m_GradientTexture,
+            new Rect(0f, 0f, GradientTextureWidth, 1f),
+            new Vector2(0.5f, 0.5f),
+            1f);
+        m_GradientSprite.name = "BoostMeterGradientSprite";
+
+        sprite = m_GradientSprite;
+        type = Type.Filled;
+        fillMethod = FillMethod.Horizontal;
+        fillOrigin = (int)OriginHorizontal.Left;
+        fillClockwise = true;
+        fillAmount = 0f;
+        color = Color.white;
+        raycastTarget = false;
     }
 
-    private Color EvaluateGradient(float normalizedPosition)
+    /// <summary>Sets the normalized visible fill.</summary>
+    public void SetFillAmount(float value)
+    {
+        if (m_GradientSprite == null)
+            Initialize();
+
+        fillAmount = Mathf.Clamp01(value);
+    }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        if (m_GradientSprite != null)
+            Destroy(m_GradientSprite);
+        if (m_GradientTexture != null)
+            Destroy(m_GradientTexture);
+    }
+
+    private static Color EvaluateGradient(float normalizedPosition)
     {
         if (normalizedPosition < 0.34f)
-            return Color.Lerp(coolColor, coolMidColor, normalizedPosition / 0.34f);
+            return Color.Lerp(CoolColor, CoolMidColor, normalizedPosition / 0.34f);
         if (normalizedPosition < 0.68f)
-            return Color.Lerp(coolMidColor, warmMidColor, (normalizedPosition - 0.34f) / 0.34f);
+            return Color.Lerp(CoolMidColor, WarmMidColor, (normalizedPosition - 0.34f) / 0.34f);
 
-        return Color.Lerp(warmMidColor, hotColor, (normalizedPosition - 0.68f) / 0.32f);
-    }
-
-    private static void AddQuad(VertexHelper vertexHelper, float left, float bottom, float right, float top, Color color)
-    {
-        int startIndex = vertexHelper.currentVertCount;
-        vertexHelper.AddVert(new Vector3(left, bottom), color, Vector2.zero);
-        vertexHelper.AddVert(new Vector3(left, top), color, Vector2.up);
-        vertexHelper.AddVert(new Vector3(right, top), color, Vector2.one);
-        vertexHelper.AddVert(new Vector3(right, bottom), color, Vector2.right);
-        vertexHelper.AddTriangle(startIndex, startIndex + 1, startIndex + 2);
-        vertexHelper.AddTriangle(startIndex + 2, startIndex + 3, startIndex);
-    }
-
-    private static void AddGradientQuad(VertexHelper vertexHelper, float left, float bottom, float right, float top, Color leftColor, Color rightColor)
-    {
-        int startIndex = vertexHelper.currentVertCount;
-        vertexHelper.AddVert(new Vector3(left, bottom), leftColor, Vector2.zero);
-        vertexHelper.AddVert(new Vector3(left, top), leftColor, Vector2.up);
-        vertexHelper.AddVert(new Vector3(right, top), rightColor, Vector2.one);
-        vertexHelper.AddVert(new Vector3(right, bottom), rightColor, Vector2.right);
-        vertexHelper.AddTriangle(startIndex, startIndex + 1, startIndex + 2);
-        vertexHelper.AddTriangle(startIndex + 2, startIndex + 3, startIndex);
+        return Color.Lerp(WarmMidColor, HotColor, (normalizedPosition - 0.68f) / 0.32f);
     }
 }
