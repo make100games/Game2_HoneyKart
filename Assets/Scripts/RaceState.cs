@@ -39,6 +39,19 @@ public class RaceState : GameStateBase
     [Tooltip("Lap counter HUD component — playerTracker is assigned alongside racePositionUI on race entry.")]
     [SerializeField] private LapCounterUI lapCounterUI;
 
+    [Header("Boost Meter HUD")]
+    [Tooltip("Existing top HUD reveal group. The boost meter is created beneath it so it shares the fly-through reveal.")]
+    [SerializeField] private RectTransform topHudGroup;
+
+    [Tooltip("Coin feedback sprite shown when the player collects a coin.")]
+    [SerializeField] private Sprite boostCoinSprite;
+
+    [Tooltip("Bomb feedback sprite shown when the player is hit by an explosion.")]
+    [SerializeField] private Sprite boostBombSprite;
+
+    [Tooltip("Boost text sprite shown when a full meter fires.")]
+    [SerializeField] private Sprite boostTextSprite;
+
     [Tooltip("The spawn slot of the human player")]
     [SerializeField] private Transform spawnSlot;
 
@@ -53,6 +66,7 @@ public class RaceState : GameStateBase
     [SerializeField] private float raceFlyInMusicDelay = 0f;
 
     private ArcadeKart m_SelectedKart;
+    private BoostMeterUI m_BoostMeterUI;
 
     /// <summary>
     /// Activates the selected player kart, assigns it to GameFlowManager before Start() fires,
@@ -108,6 +122,8 @@ public class RaceState : GameStateBase
 
                 if (itemHUD != null)
                     itemHUD.playerLauncher = playerKartOptions[selectedIndex].GetComponent<BombLauncher>();
+
+                InitializeBoostMeterUI(playerKartOptions[selectedIndex]);
             }
         }
         opponentSpawnManager.PositionOpponentsAtSpawnSlots(m_SelectedKart.gameObject.name);
@@ -127,6 +143,10 @@ public class RaceState : GameStateBase
         //m_SelectedKart.gameObject.transform.rotation = spawnSlot.rotation;
 
         gameObject.SetActive(true);
+
+        if (m_SelectedKart != null)
+            InitializeBoostMeterUI(m_SelectedKart);
+
         PlayRaceFlyInMusic();
 
         if (RaceManager.Instance != null)
@@ -149,6 +169,41 @@ public class RaceState : GameStateBase
         // Unsubscribe immediately to prevent double-fire.
         GameFlowManager.OnRaceFinished -= HandleRaceFinished;
         StartCoroutine(TransitionToResultsRoutine(kart));
+    }
+
+    /// <summary>Creates the boost meter beneath TopHUDGroup once and binds it to the selected player kart.</summary>
+    private void InitializeBoostMeterUI(ArcadeKart selectedKart)
+    {
+        if (topHudGroup == null && itemHUD != null)
+            topHudGroup = itemHUD.transform.parent as RectTransform;
+
+        if (topHudGroup == null)
+        {
+            GameObject topHudObject = GameObject.Find("TopHUDGroup");
+            if (topHudObject != null)
+                topHudGroup = topHudObject.GetComponent<RectTransform>();
+        }
+
+        if (topHudGroup == null)
+        {
+            Debug.LogWarning("[RaceState] TopHUDGroup could not be found — boost meter UI cannot be created.", this);
+            return;
+        }
+
+        if (boostCoinSprite == null)
+            boostCoinSprite = Resources.Load<Sprite>("Textures/UI/Coin-UI-icon");
+        if (boostBombSprite == null)
+            boostBombSprite = Resources.Load<Sprite>("Textures/UI/BombItemUI");
+        if (boostTextSprite == null)
+            boostTextSprite = Resources.Load<Sprite>("Textures/UI/Boost-Text");
+
+        if (m_BoostMeterUI == null)
+            m_BoostMeterUI = BoostMeterUI.Create(topHudGroup, boostCoinSprite, boostBombSprite, boostTextSprite);
+
+        m_BoostMeterUI.Bind(
+            selectedKart.GetComponent<BoostMeter>(),
+            selectedKart.GetComponent<KartCombatHandler>(),
+            selectedKart.GetComponent<KartBoost>());
     }
 
     /// <summary>

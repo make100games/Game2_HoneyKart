@@ -41,6 +41,9 @@ public class BoostMeter : MonoBehaviour
     /// <summary>True once the meter has reached full charge.</summary>
     public bool IsFull => m_Charge >= 1f;
 
+    /// <summary>Fired when this kart accepts a coin pickup for boost charging.</summary>
+    public event Action CoinCollected;
+
     /// <summary>Fired only when the charge value actually changes.</summary>
     public event Action<float> ChargeChanged;
 

@@ -1,3 +1,4 @@
+using Action = System.Action;
 using UnityEngine;
 using KartGame.KartSystems;
 
@@ -63,6 +64,9 @@ public class KartCombatHandler : MonoBehaviour
     [Tooltip("Character-specific distress cue played when this kart is hit by an explosion, with its own volume and attenuation controls.")]
     [SerializeField] private SoundEffectSettings distressSound;
 
+    /// <summary>Fired when this kart accepts an explosion hit.</summary>
+    public event Action ExplosionHit;
+
     private Rigidbody kartRigidbody;
     private ArcadeKart kart;
     private BoostMeter boostMeter;
@@ -91,6 +95,8 @@ public class KartCombatHandler : MonoBehaviour
     {
         if (isKnockedBack)
             return;
+
+        ExplosionHit?.Invoke();
 
         // Cancel any in-flight boost before knockback so the raised speed ceiling
         // doesn't survive the hit, then wipe the meter so the boost cannot be re-fired.
