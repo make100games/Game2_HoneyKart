@@ -49,8 +49,11 @@ public class KartBoost : MonoBehaviour
     [Tooltip("Safety cap on the settle phase in case horizontal speed never reaches the base top speed.")]
     [SerializeField] private float settleTimeout = DefaultSettleTimeout;
 
-    /// <summary>True while the impulse/sustain phase is active (not during settle). Used by BoostMeter to suppress charging.</summary>
+    /// <summary>True while the impulse/sustain phase is active (not during settle).</summary>
     public bool IsBoosting => m_Phase == BoostPhase.Sustain;
+
+    /// <summary>True when the kart can immediately accept and start a new boost.</summary>
+    public bool CanFire => m_Phase == BoostPhase.Idle && m_Kart != null && m_Kart.CanMove && GameFlowManager.IsRaceActive;
 
     /// <summary>Fired the moment a boost begins (impulse applied, sustain starting).</summary>
     public event Action BoostStarted;
@@ -77,14 +80,14 @@ public class KartBoost : MonoBehaviour
     }
 
     /// <summary>
-    /// Begins a boost: an instant velocity impulse plus a raised-ceiling sustain window.
-    /// No-ops if already boosting, the kart can't move, or the race is not currently active.
+    /// Attempts to begin a boost with an instant velocity impulse and raised-ceiling sustain window.
     /// </summary>
-    public void Fire()
+    /// <returns>True when the boost started; otherwise false.</returns>
+    public bool Fire()
     {
-        if (m_Phase != BoostPhase.Idle) return;
-        if (m_Kart == null || !m_Kart.CanMove) return;
-        if (!GameFlowManager.IsRaceActive) return;
+        if (m_Phase != BoostPhase.Idle) return false;
+        if (m_Kart == null || !m_Kart.CanMove) return false;
+        if (!GameFlowManager.IsRaceActive) return false;
 
         Vector3 boostDirection = Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
         m_Rigidbody.linearVelocity += boostDirection * impulseSpeedGain;
@@ -113,6 +116,7 @@ public class KartBoost : MonoBehaviour
         m_Phase = BoostPhase.Sustain;
         m_PhaseTimer = 0f;
         BoostStarted?.Invoke();
+        return true;
     }
 
     /// <summary>

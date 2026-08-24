@@ -91,22 +91,17 @@ public class BoostMeter : MonoBehaviour
         SetCharge(m_Charge - drainPerSecond * Time.fixedDeltaTime);
     }
 
-    /// <summary>Called by CoinCollector when this kart picks up a coin. Ignored while a boost is active.</summary>
+    /// <summary>Called by CoinCollector when this kart picks up a coin. Ignored until a new boost can fire.</summary>
     public void AddChargeForCoin()
     {
         if (!GameFlowManager.IsRaceActive) return;
-        if (m_KartBoost != null && m_KartBoost.IsBoosting) return;
+        if (m_KartBoost != null && !m_KartBoost.CanFire) return;
 
         float chargePerCoin = Mathf.Lerp(chargePerCoinFirstPlace, chargePerCoinLastPlace, m_PositionBlendT);
         SetCharge(m_Charge + chargePerCoin);
 
-        if (m_Charge >= 1f)
-        {
-            if (m_KartBoost != null)
-                m_KartBoost.Fire();
-
+        if (m_Charge >= 1f && m_KartBoost != null && m_KartBoost.Fire())
             EmptyImmediately();
-        }
     }
 
     /// <summary>Empties the meter immediately. Called on bomb hit, and internally when a boost fires.</summary>

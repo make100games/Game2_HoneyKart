@@ -101,10 +101,17 @@ public sealed class BoostMeterUI : MonoBehaviour
         m_CombatHandler = combatHandler;
         m_KartBoost = kartBoost;
 
+        m_HoldFullUntilFillCompletes = false;
+        m_AnimateNextIncrease = false;
+        m_FillElapsed = FillAnimationDuration;
+
         if (m_BoostMeter != null)
         {
             m_DisplayedCharge = m_BoostMeter.Charge01;
+            m_FillStartCharge = m_DisplayedCharge;
+            m_FillTargetCharge = m_DisplayedCharge;
             m_MeterGraphic.SetFillAmount(m_DisplayedCharge);
+            m_BoostMeter.ChargeChanged += HandleChargeChanged;
         }
 
         if (m_CoinCollector != null)
@@ -119,6 +126,8 @@ public sealed class BoostMeterUI : MonoBehaviour
     /// <summary>Removes subscriptions from the previously selected player kart.</summary>
     public void Unbind()
     {
+        if (m_BoostMeter != null)
+            m_BoostMeter.ChargeChanged -= HandleChargeChanged;
         if (m_CoinCollector != null)
             m_CoinCollector.CoinCollected -= HandleCoinCollected;
         if (m_CombatHandler != null)
@@ -193,7 +202,14 @@ public sealed class BoostMeterUI : MonoBehaviour
         if (charge <= 0f && m_HoldFullUntilFillCompletes)
             return;
 
+        if (m_FillElapsed < FillAnimationDuration && charge > 0f)
+        {
+            m_FillTargetCharge = charge;
+            return;
+        }
+
         m_AnimateNextIncrease = false;
+        m_FillElapsed = FillAnimationDuration;
         m_DisplayedCharge = charge;
         m_MeterGraphic.SetFillAmount(m_DisplayedCharge);
     }
@@ -218,7 +234,11 @@ public sealed class BoostMeterUI : MonoBehaviour
     private void UpdateFillAnimation()
     {
         if (m_FillElapsed >= FillAnimationDuration)
+        {
+            if (m_HoldFullUntilFillCompletes)
+                ReleaseFullChargeHold();
             return;
+        }
 
         m_FillElapsed += Time.deltaTime;
         float normalizedTime = Mathf.Clamp01(m_FillElapsed / FillAnimationDuration);
@@ -227,11 +247,16 @@ public sealed class BoostMeterUI : MonoBehaviour
         m_MeterGraphic.SetFillAmount(m_DisplayedCharge);
 
         if (normalizedTime >= 1f && m_HoldFullUntilFillCompletes)
-        {
-            m_HoldFullUntilFillCompletes = false;
-            m_DisplayedCharge = m_BoostMeter != null ? m_BoostMeter.Charge01 : 0f;
-            m_MeterGraphic.SetFillAmount(m_DisplayedCharge);
-        }
+            ReleaseFullChargeHold();
+    }
+
+    private void ReleaseFullChargeHold()
+    {
+        m_HoldFullUntilFillCompletes = false;
+        m_DisplayedCharge = m_BoostMeter != null ? m_BoostMeter.Charge01 : 0f;
+        m_FillStartCharge = m_DisplayedCharge;
+        m_FillTargetCharge = m_DisplayedCharge;
+        m_MeterGraphic.SetFillAmount(m_DisplayedCharge);
     }
 
     private void UpdateFeedbackIcon()
