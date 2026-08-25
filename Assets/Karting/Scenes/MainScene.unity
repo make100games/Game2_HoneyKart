@@ -60545,6 +60545,10 @@ MonoBehaviour:
   racePositionUI: {fileID: 1179574009}
   itemHUD: {fileID: 1618763282}
   lapCounterUI: {fileID: 1076501431}
+  topHudGroup: {fileID: 0}
+  boostCoinSprite: {fileID: 0}
+  boostBombSprite: {fileID: 0}
+  boostTextSprite: {fileID: 0}
   spawnSlot: {fileID: 1152628711}
   musicSource: {fileID: 1518879847}
   raceFlyInMusicClip: {fileID: 8300000, guid: b06c4ce6abbd7483a85471f7c76bde64, type: 3}

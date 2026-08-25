@@ -720,6 +720,85 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2690740569999712149}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2850655948254202618
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3483693247462894694}
+    m_Modifications:
+    - target: {fileID: 799422405660123090, guid: 387ef9446cdeb433bbc7dfdf392637ea,
+        type: 3}
+      propertyPath: m_Name
+      value: BoostEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 799422405660123090, guid: 387ef9446cdeb433bbc7dfdf392637ea,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4568721303626783385, guid: 387ef9446cdeb433bbc7dfdf392637ea,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4568721303626783385, guid: 387ef9446cdeb433bbc7dfdf392637ea,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 4568721303626783385, guid: 387ef9446cdeb433bbc7dfdf392637ea,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 4568721303626783385, guid: 387ef9446cdeb433bbc7dfdf392637ea,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4568721303626783385, guid: 387ef9446cdeb433bbc7dfdf392637ea,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4568721303626783385, guid: 387ef9446cdeb433bbc7dfdf392637ea,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4568721303626783385, guid: 387ef9446cdeb433bbc7dfdf392637ea,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4568721303626783385, guid: 387ef9446cdeb433bbc7dfdf392637ea,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4568721303626783385, guid: 387ef9446cdeb433bbc7dfdf392637ea,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4568721303626783385, guid: 387ef9446cdeb433bbc7dfdf392637ea,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 387ef9446cdeb433bbc7dfdf392637ea, type: 3}
+--- !u!4 &1794908384808718435 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4568721303626783385, guid: 387ef9446cdeb433bbc7dfdf392637ea,
+    type: 3}
+  m_PrefabInstance: {fileID: 2850655948254202618}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3691917261872107253
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1609,6 +1688,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4895846115232909979, guid: cba6236a3ca88a54081cc989c4f0c08a,
         type: 3}
       insertIndex: 0
+      addedObject: {fileID: 1794908384808718435}
+    - targetCorrespondingSourceObject: {fileID: 4895846115232909979, guid: cba6236a3ca88a54081cc989c4f0c08a,
+        type: 3}
+      insertIndex: 1
       addedObject: {fileID: 50918334325418601}
     - targetCorrespondingSourceObject: {fileID: 4895846115232909979, guid: cba6236a3ca88a54081cc989c4f0c08a,
         type: 3}
@@ -1654,16 +1737,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4426a16b42f9a4cf6b6b5c7d0008af60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedBoostPerCoin: 2
-  boostDuration: 5
-  absoluteMaxSpeed: 30
   kart: {fileID: 3483693247462894692}
   sparklesObject: {fileID: 1162105158321649092}
   coinLayer:
     serializedVersion: 2
     m_Bits: 65536
   sfxSource: {fileID: 0}
-  coinCollectClip: {fileID: 0}
+  coinCollectSound:
+    clip: {fileID: 0}
+    volumeScale: 1.3
+    minDistance: 1
+    maxDistance: 10
+    rolloffMode: 0
   systemToManuallyEmit: {fileID: 2995975317718460864}
 --- !u!114 &2077207585071287776
 MonoBehaviour:
@@ -1705,8 +1790,18 @@ MonoBehaviour:
   minSpinDegreesPerSecond: 90
   maxSpinDegreesPerSecond: 720
   sfxSource: {fileID: 0}
-  itemCollectedClip: {fileID: 0}
-  bombFireClip: {fileID: 0}
+  itemCollectedSound:
+    clip: {fileID: 0}
+    volumeScale: 1.3
+    minDistance: 1
+    maxDistance: 10
+    rolloffMode: 0
+  bombFireSound:
+    clip: {fileID: 0}
+    volumeScale: 1.3
+    minDistance: 1
+    maxDistance: 10
+    rolloffMode: 0
 --- !u!114 &3483693247462894692 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4895846115232909977, guid: cba6236a3ca88a54081cc989c4f0c08a,
