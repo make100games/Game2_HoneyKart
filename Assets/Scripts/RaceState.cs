@@ -52,6 +52,9 @@ public class RaceState : GameStateBase
     [Tooltip("Boost text sprite shown when a full meter fires.")]
     [SerializeField] private Sprite boostTextSprite;
 
+    [Tooltip("Speed-line effect on Main Camera — bound to the selected kart's KartBoost on race entry, unbound on race exit. Falls back to Camera.main's component when unset.")]
+    [SerializeField] private PlayerSpeedEffect playerSpeedEffect;
+
     [Tooltip("The spawn slot of the human player")]
     [SerializeField] private Transform spawnSlot;
 
@@ -161,6 +164,11 @@ public class RaceState : GameStateBase
     public override void Exit()
     {
         GameFlowManager.OnRaceFinished -= HandleRaceFinished;
+
+        // Main Camera lives outside the race hierarchy this deactivates, so it must be
+        // unbound explicitly or the speed lines could keep running into the results screen.
+        playerSpeedEffect?.Unbind();
+
         gameObject.SetActive(false);
     }
 
@@ -174,6 +182,8 @@ public class RaceState : GameStateBase
     /// <summary>Creates the boost meter beneath TopHUDGroup once and binds it to the selected player kart.</summary>
     private void InitializeBoostMeterUI(ArcadeKart selectedKart)
     {
+        InitializePlayerSpeedEffect(selectedKart);
+
         if (topHudGroup == null && itemHUD != null)
             topHudGroup = itemHUD.transform.parent as RectTransform;
 
@@ -205,6 +215,25 @@ public class RaceState : GameStateBase
             selectedKart.GetComponent<CoinCollector>(),
             selectedKart.GetComponent<KartCombatHandler>(),
             selectedKart.GetComponent<KartBoost>());
+    }
+
+    /// <summary>
+    /// Binds the camera's speed-line effect to the selected kart's KartBoost. Called from the
+    /// same two sites as InitializeBoostMeterUI, so Bind()'s unsubscribe-first guard keeps this
+    /// idempotent despite the double call.
+    /// </summary>
+    private void InitializePlayerSpeedEffect(ArcadeKart selectedKart)
+    {
+        if (playerSpeedEffect == null)
+            playerSpeedEffect = Camera.main != null ? Camera.main.GetComponent<PlayerSpeedEffect>() : null;
+
+        if (playerSpeedEffect == null)
+        {
+            Debug.LogWarning("[RaceState] playerSpeedEffect could not be resolved — speed-line effect will not play.", this);
+            return;
+        }
+
+        playerSpeedEffect.Bind(selectedKart.GetComponent<KartBoost>());
     }
 
     /// <summary>

@@ -14802,6 +14802,22 @@ MonoBehaviour:
   drainPerSecondFirstPlace: 0.2
   drainPerSecondLastPlace: 0.05
   positionPollInterval: 0.1
+--- !u!114 &125827542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3840204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13fc7945bb41043c7a40ca4f4825ecb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boostEffectRoot: {fileID: 0}
+  loopDuration: 1
+  deactivateTimeout: 4
+  boostEffectChildName: BoostEffect
 --- !u!1 &126294303
 GameObject:
   m_ObjectHideFlags: 0
@@ -37098,6 +37114,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 478339358}
+    - targetCorrespondingSourceObject: {fileID: 691606637546363986, guid: eeee6358623a7456e9bd7419f3af644f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 478339360}
   m_SourcePrefab: {fileID: 100100000, guid: eeee6358623a7456e9bd7419f3af644f, type: 3}
 --- !u!4 &478339339 stripped
 Transform:
@@ -37288,6 +37308,22 @@ MonoBehaviour:
   drainPerSecondFirstPlace: 0.2
   drainPerSecondLastPlace: 0.05
   positionPollInterval: 0.1
+--- !u!114 &478339360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478339341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13fc7945bb41043c7a40ca4f4825ecb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boostEffectRoot: {fileID: 0}
+  loopDuration: 1
+  deactivateTimeout: 4
+  boostEffectChildName: BoostEffect
 --- !u!1 &478425667
 GameObject:
   m_ObjectHideFlags: 0
@@ -52748,6 +52784,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 765074606}
+    - targetCorrespondingSourceObject: {fileID: 5512546689472429204, guid: b15b4be8637964b32a8eae3afe616805,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 765074608}
   m_SourcePrefab: {fileID: 100100000, guid: b15b4be8637964b32a8eae3afe616805, type: 3}
 --- !u!4 &765074587 stripped
 Transform:
@@ -52938,6 +52978,22 @@ MonoBehaviour:
   drainPerSecondFirstPlace: 0.2
   drainPerSecondLastPlace: 0.05
   positionPollInterval: 0.1
+--- !u!114 &765074608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765074589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13fc7945bb41043c7a40ca4f4825ecb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boostEffectRoot: {fileID: 0}
+  loopDuration: 1
+  deactivateTimeout: 4
+  boostEffectChildName: BoostEffect
 --- !u!1001 &768195891
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -60549,6 +60605,7 @@ MonoBehaviour:
   boostCoinSprite: {fileID: 0}
   boostBombSprite: {fileID: 0}
   boostTextSprite: {fileID: 0}
+  playerSpeedEffect: {fileID: 1207105321}
   spawnSlot: {fileID: 1152628711}
   musicSource: {fileID: 1518879847}
   raceFlyInMusicClip: {fileID: 8300000, guid: b06c4ce6abbd7483a85471f7c76bde64, type: 3}
@@ -71297,6 +71354,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1135877179}
+    - targetCorrespondingSourceObject: {fileID: 3483693247462894689, guid: 435ff0a96b6894d20ba63520b8f9a4f6,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1135877181}
   m_SourcePrefab: {fileID: 100100000, guid: 435ff0a96b6894d20ba63520b8f9a4f6, type: 3}
 --- !u!4 &1135877160 stripped
 Transform:
@@ -71487,6 +71548,22 @@ MonoBehaviour:
   boostDuration: 1.25
   settleDeceleration: 10
   settleTimeout: 3
+--- !u!114 &1135877181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135877162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13fc7945bb41043c7a40ca4f4825ecb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boostEffectRoot: {fileID: 0}
+  loopDuration: 1
+  deactivateTimeout: 4
+  boostEffectChildName: BoostEffect
 --- !u!1 &1138542850
 GameObject:
   m_ObjectHideFlags: 0
@@ -74059,6 +74136,7 @@ GameObject:
   - component: {fileID: 1207105317}
   - component: {fileID: 1207105316}
   - component: {fileID: 1207105320}
+  - component: {fileID: 1207105321}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: Untagged
@@ -74221,6 +74299,22 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &1207105321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1207105314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e0600411ab01490d881609a17f15ee4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedEffectRoot: {fileID: 0}
+  loopDuration: 1
+  deactivateTimeout: 4
+  speedEffectChildName: SpeedEffect
 --- !u!1 &1211551299
 GameObject:
   m_ObjectHideFlags: 0
@@ -99171,6 +99265,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1626036207}
+    - targetCorrespondingSourceObject: {fileID: 9015355615857688319, guid: fcf82a01e83174de285c0824bbd37529,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1626036209}
   m_SourcePrefab: {fileID: 100100000, guid: fcf82a01e83174de285c0824bbd37529, type: 3}
 --- !u!4 &1626036188 stripped
 Transform:
@@ -99361,6 +99459,22 @@ MonoBehaviour:
   boostDuration: 1.25
   settleDeceleration: 10
   settleTimeout: 3
+--- !u!114 &1626036209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1626036190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13fc7945bb41043c7a40ca4f4825ecb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boostEffectRoot: {fileID: 0}
+  loopDuration: 1
+  deactivateTimeout: 4
+  boostEffectChildName: BoostEffect
 --- !u!1001 &1626366926
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -100324,6 +100438,22 @@ MonoBehaviour:
   boostDuration: 1.25
   settleDeceleration: 10
   settleTimeout: 3
+--- !u!114 &1644180250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1567468125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13fc7945bb41043c7a40ca4f4825ecb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boostEffectRoot: {fileID: 0}
+  loopDuration: 1
+  deactivateTimeout: 4
+  boostEffectChildName: BoostEffect
 --- !u!1 &1645101725
 GameObject:
   m_ObjectHideFlags: 0
@@ -111501,6 +111631,22 @@ MonoBehaviour:
   boostDuration: 1.25
   settleDeceleration: 10
   settleTimeout: 3
+--- !u!114 &1845626942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1845626914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13fc7945bb41043c7a40ca4f4825ecb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boostEffectRoot: {fileID: 0}
+  loopDuration: 1
+  deactivateTimeout: 4
+  boostEffectChildName: BoostEffect
 --- !u!1001 &1848360675
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -112628,6 +112774,22 @@ MonoBehaviour:
   drainPerSecondFirstPlace: 0.2
   drainPerSecondLastPlace: 0.05
   positionPollInterval: 0.1
+--- !u!114 &1880314104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163966159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13fc7945bb41043c7a40ca4f4825ecb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boostEffectRoot: {fileID: 0}
+  loopDuration: 1
+  deactivateTimeout: 4
+  boostEffectChildName: BoostEffect
 --- !u!1001 &1880478616
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -121494,6 +121656,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1880314102}
+    - targetCorrespondingSourceObject: {fileID: 2172650618388516011, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1880314104}
   m_SourcePrefab: {fileID: 100100000, guid: 107bdee8671f44bba805456dc720d2c3, type: 3}
 --- !u!1001 &1563311025468148798
 PrefabInstance:
@@ -121888,6 +122054,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 125827540}
+    - targetCorrespondingSourceObject: {fileID: 1439395471843396569, guid: 7e996ba2074e740a6954d841b0bb5125,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 125827542}
   m_SourcePrefab: {fileID: 100100000, guid: 7e996ba2074e740a6954d841b0bb5125, type: 3}
 --- !u!1001 &2789451292069016357
 PrefabInstance:
@@ -122214,6 +122384,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1845626940}
+    - targetCorrespondingSourceObject: {fileID: 3305684839085820075, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1845626942}
   m_SourcePrefab: {fileID: 100100000, guid: de2fbfc409b64499aaf1cae144d80e19, type: 3}
 --- !u!1001 &5005669530658710614
 PrefabInstance:
@@ -122540,6 +122714,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1644180248}
+    - targetCorrespondingSourceObject: {fileID: 9177158977135158181, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1644180250}
   m_SourcePrefab: {fileID: 100100000, guid: ca62c9e2da62a496386485954479e8dd, type: 3}
 --- !u!1001 &5919064628734658895
 PrefabInstance:

@@ -61,6 +61,9 @@ public class KartBoost : MonoBehaviour
     /// <summary>Fired when the sustain phase ends (boost powerup revoked, settle beginning or boost cancelled).</summary>
     public event Action BoostEnded;
 
+    /// <summary>Fired only when an in-progress boost is aborted early via <see cref="Cancel"/> (e.g. a bomb hit), never on natural sustain expiry.</summary>
+    public event Action BoostCancelled;
+
     private ArcadeKart m_Kart;
     private Rigidbody m_Rigidbody;
     private BoostPhase m_Phase = BoostPhase.Idle;
@@ -134,7 +137,10 @@ public class KartBoost : MonoBehaviour
         m_PhaseTimer = 0f;
 
         if (wasSustaining)
+        {
             BoostEnded?.Invoke();
+            BoostCancelled?.Invoke();
+        }
     }
 
     private void FixedUpdate()
