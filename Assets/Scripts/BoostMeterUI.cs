@@ -15,6 +15,19 @@ public sealed class BoostMeterUI : MonoBehaviour
     private const float InitialFeedbackScale = 0.75f;
     private const float BoostOvershootScale = 1.2f;
 
+    private const int BorderCornerRadius = 4;
+    private const int BackgroundCornerRadius = 4;
+    private const int FillCornerRadius = 4;
+
+    private static readonly Vector2 BorderAnchoredPosition = new(-75f, -5f);
+    private static readonly Vector2 BorderSize = new(306f, 44f);
+    private static readonly Vector2 BackgroundAnchoredPosition = new(-79f, -9f);
+    private static readonly Vector2 BackgroundSize = new(298f, 36f);
+    private static readonly Vector2 FillAnchoredPosition = new(-81f, -11f);
+    private static readonly Vector2 FillSize = new(294f, 32f);
+    private static readonly Color BorderColor = new(1f, 1f, 1f, 0.92f);
+    private static readonly Color BackgroundColor = new(0.15f, 0.17f, 0.21f, 1f);
+
     private BoostMeterGradientGraphic m_MeterGraphic;
     private RectTransform m_CoinIconRect;
     private CanvasGroup m_CoinIconGroup;
@@ -60,28 +73,31 @@ public sealed class BoostMeterUI : MonoBehaviour
         BoostMeterUI controller = root.AddComponent<BoostMeterUI>();
         controller.m_RootPosition = rootRect.anchoredPosition;
 
-        GameObject shadow = CreateUiObject("MeterShadow", rootRect);
-        RectTransform shadowRect = shadow.GetComponent<RectTransform>();
-        SetRect(shadowRect, new Vector2(1f, 1f), new Vector2(-74f, -12f), new Vector2(308f, 46f));
-        Image shadowImage = shadow.AddComponent<Image>();
-        shadowImage.color = new Color(0f, 0f, 0f, 0.45f);
-        shadowImage.raycastTarget = false;
+        GameObject meterBorder = CreateUiObject("MeterBorder", rootRect);
+        RectTransform meterBorderRect = meterBorder.GetComponent<RectTransform>();
+        SetRect(meterBorderRect, Vector2.one, BorderAnchoredPosition, BorderSize);
+        Image meterBorderImage = meterBorder.AddComponent<Image>();
+        meterBorderImage.sprite = RoundedRectSpriteFactory.GetSlicedRoundedRect(BorderCornerRadius);
+        meterBorderImage.type = Image.Type.Sliced;
+        meterBorderImage.pixelsPerUnitMultiplier = 1f;
+        meterBorderImage.color = BorderColor;
+        meterBorderImage.raycastTarget = false;
 
         GameObject meterBackground = CreateUiObject("MeterBackground", rootRect);
         RectTransform meterBackgroundRect = meterBackground.GetComponent<RectTransform>();
-        SetRect(meterBackgroundRect, new Vector2(1f, 1f), new Vector2(-78f, -8f), new Vector2(300f, 38f));
+        SetRect(meterBackgroundRect, Vector2.one, BackgroundAnchoredPosition, BackgroundSize);
         Image meterBackgroundImage = meterBackground.AddComponent<Image>();
-        meterBackgroundImage.color = new Color(0.15f, 0.17f, 0.21f, 1f);
+        meterBackgroundImage.sprite = RoundedRectSpriteFactory.GetSlicedRoundedRect(BackgroundCornerRadius);
+        meterBackgroundImage.type = Image.Type.Sliced;
+        meterBackgroundImage.pixelsPerUnitMultiplier = 1f;
+        meterBackgroundImage.color = BackgroundColor;
         meterBackgroundImage.raycastTarget = false;
-        Outline meterOutline = meterBackground.AddComponent<Outline>();
-        meterOutline.effectColor = new Color(1f, 1f, 1f, 0.24f);
-        meterOutline.effectDistance = new Vector2(2f, -2f);
 
         GameObject meter = CreateUiObject("GradientFill", rootRect);
         RectTransform meterRect = meter.GetComponent<RectTransform>();
-        SetRect(meterRect, new Vector2(1f, 1f), new Vector2(-81f, -11f), new Vector2(294f, 32f));
+        SetRect(meterRect, Vector2.one, FillAnchoredPosition, FillSize);
         controller.m_MeterGraphic = meter.AddComponent<BoostMeterGradientGraphic>();
-        controller.m_MeterGraphic.Initialize();
+        controller.m_MeterGraphic.Initialize(FillSize, FillCornerRadius);
 
         CreateFeedbackImage("CoinFeedback", rootRect, coinSprite, new Vector2(-8f, -3f), new Vector2(60f, 60f), out controller.m_CoinIconRect, out controller.m_CoinIconGroup);
         controller.m_CoinStartPosition = controller.m_CoinIconRect.anchoredPosition;
