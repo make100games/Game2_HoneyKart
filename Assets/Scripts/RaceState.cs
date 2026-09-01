@@ -55,6 +55,9 @@ public class RaceState : GameStateBase
     [Tooltip("Speed-line effect on Main Camera — bound to the selected kart's KartBoost on race entry, unbound on race exit. Falls back to Camera.main's component when unset.")]
     [SerializeField] private PlayerSpeedEffect playerSpeedEffect;
 
+    [Tooltip("FOV punch and camera-lag effect on raceCamera — bound to the selected kart's KartBoost on race entry, unbound on race exit. Added to raceCamera at runtime when unset.")]
+    [SerializeField] private BoostCameraEffect boostCameraEffect;
+
     [Tooltip("The spawn slot of the human player")]
     [SerializeField] private Transform spawnSlot;
 
@@ -169,6 +172,10 @@ public class RaceState : GameStateBase
         // unbound explicitly or the speed lines could keep running into the results screen.
         playerSpeedEffect?.Unbind();
 
+        // The race vcam is a scene-root object outside the deactivated hierarchy too, and
+        // RaceResultsState.Enter() reuses it — an un-restored FOV/offset would corrupt it.
+        boostCameraEffect?.Unbind();
+
         gameObject.SetActive(false);
     }
 
@@ -183,6 +190,7 @@ public class RaceState : GameStateBase
     private void InitializeBoostMeterUI(ArcadeKart selectedKart)
     {
         InitializePlayerSpeedEffect(selectedKart);
+        InitializeBoostCameraEffect(selectedKart);
 
         if (topHudGroup == null && itemHUD != null)
             topHudGroup = itemHUD.transform.parent as RectTransform;
@@ -234,6 +242,30 @@ public class RaceState : GameStateBase
         }
 
         playerSpeedEffect.Bind(selectedKart.GetComponent<KartBoost>());
+    }
+
+    /// <summary>
+    /// Binds the camera's FOV punch and lag effect to the selected kart's KartBoost. Resolves
+    /// or adds the component on raceCamera when unset. Called from the same two sites as
+    /// InitializeBoostMeterUI, so Bind()'s unsubscribe-first guard keeps this idempotent
+    /// despite the double call.
+    /// </summary>
+    private void InitializeBoostCameraEffect(ArcadeKart selectedKart)
+    {
+        if (boostCameraEffect == null && raceCamera != null)
+        {
+            boostCameraEffect = raceCamera.gameObject.GetComponent<BoostCameraEffect>();
+            if (boostCameraEffect == null)
+                boostCameraEffect = raceCamera.gameObject.AddComponent<BoostCameraEffect>();
+        }
+
+        if (boostCameraEffect == null)
+        {
+            Debug.LogWarning("[RaceState] boostCameraEffect could not be resolved — camera boost kick will not play.", this);
+            return;
+        }
+
+        boostCameraEffect.Bind(selectedKart.GetComponent<KartBoost>());
     }
 
     /// <summary>
