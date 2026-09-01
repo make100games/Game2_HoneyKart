@@ -56583,7 +56583,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6691645748356329554, guid: 4366ba6a4d5213d4f9fc7bba3e778799,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1273465549}
   m_SourcePrefab: {fileID: 100100000, guid: 4366ba6a4d5213d4f9fc7bba3e778799, type: 3}
 --- !u!114 &867987757 stripped
 MonoBehaviour:
@@ -56591,7 +56595,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 867987756}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1273465546}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
@@ -60606,6 +60610,7 @@ MonoBehaviour:
   boostBombSprite: {fileID: 0}
   boostTextSprite: {fileID: 0}
   playerSpeedEffect: {fileID: 1207105321}
+  boostCameraEffect: {fileID: 0}
   spawnSlot: {fileID: 1152628711}
   musicSource: {fileID: 1518879847}
   raceFlyInMusicClip: {fileID: 8300000, guid: b06c4ce6abbd7483a85471f7c76bde64, type: 3}
@@ -76696,6 +76701,33 @@ Transform:
   - {fileID: 56892276}
   m_Father: {fileID: 911094215}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1273465546 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6691645748356329554, guid: 4366ba6a4d5213d4f9fc7bba3e778799,
+    type: 3}
+  m_PrefabInstance: {fileID: 867987756}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1273465549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1273465546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3147954669674917a09a6d90bcc12ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fieldOfViewMultiplier: 1.15
+  fieldOfViewDuration: 1.5
+  fieldOfViewAttackDuration: 0.18
+  followPushBackDistance: 0.5
+  lagDuration: 1.2
+  lagAttackDuration: 0.1
+  zDampingMultiplier: 3
+  cancelReleaseDuration: 0.35
+  virtualCamera: {fileID: 0}
 --- !u!1001 &1275219693
 PrefabInstance:
   m_ObjectHideFlags: 0
