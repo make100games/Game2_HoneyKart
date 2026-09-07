@@ -17,6 +17,16 @@ public class BoostMeter : MonoBehaviour
     private const float DefaultPositionPollInterval = 0.1f;
     private const float MinRateEpsilon = 0.001f;
 
+    /// <summary>
+    /// Seconds the meter stays visibly full before the boost actually fires. Matches the HUD fill
+    /// animation length so the boost never triggers before the bar has finished filling.
+    /// <see cref="BoostMeterUI"/> derives its fill animation duration from this value.
+    /// </summary>
+    public const float FullMeterHoldSeconds = 0.68f;
+
+    // Small buffer so the fixed-step countdown never completes before the variable-step HUD animation.
+    private const float FireDelayBuffer = 0.06f;
+
     [Header("Charge Rates (per coin)")]
     [Tooltip("Charge added per coin when this kart is in first place.")]
     [SerializeField] private float chargePerCoinFirstPlace = DefaultChargePerCoinFirstPlace;
@@ -41,6 +51,9 @@ public class BoostMeter : MonoBehaviour
     /// <summary>True once the meter has reached full charge.</summary>
     public bool IsFull => m_Charge >= 1f;
 
+    /// <summary>True while the meter is full and waiting out the hold before the boost fires.</summary>
+    public bool IsWaitingToFire => m_IsWaitingToFire;
+
     /// <summary>Fired when this kart accepts a coin pickup for boost charging.</summary>
     public event Action CoinCollected;
 
@@ -54,6 +67,8 @@ public class BoostMeter : MonoBehaviour
     private float m_Charge;
     private float m_TimeSincePositionPoll;
     private float m_PositionBlendT = 0.5f;
+    private bool m_IsWaitingToFire;
+    private float m_FireDelayRemaining;
 
     private void Awake()
     {
@@ -74,11 +89,22 @@ public class BoostMeter : MonoBehaviour
         SetCharge(0f);
         m_TimeSincePositionPoll = 0f;
         m_PositionBlendT = 0.5f;
+        m_IsWaitingToFire = false;
+        m_FireDelayRemaining = 0f;
     }
 
     private void FixedUpdate()
     {
         if (!GameFlowManager.IsRaceActive) return;
+
+        // While the bar is visibly topping off, freeze the charge and count down to the actual boost.
+        if (m_IsWaitingToFire)
+        {
+            m_FireDelayRemaining -= Time.fixedDeltaTime;
+            if (m_FireDelayRemaining <= 0f)
+                FireHeldBoost();
+            return;
+        }
 
         m_TimeSincePositionPoll += Time.fixedDeltaTime;
         if (m_TimeSincePositionPoll >= positionPollInterval)
@@ -95,19 +121,37 @@ public class BoostMeter : MonoBehaviour
     public void AddChargeForCoin()
     {
         if (!GameFlowManager.IsRaceActive) return;
+        if (m_IsWaitingToFire) return;
         if (m_KartBoost != null && !m_KartBoost.CanFire) return;
 
         float chargePerCoin = Mathf.Lerp(chargePerCoinFirstPlace, chargePerCoinLastPlace, m_PositionBlendT);
         SetCharge(m_Charge + chargePerCoin);
 
-        if (m_Charge >= 1f && m_KartBoost != null && m_KartBoost.Fire())
-            EmptyImmediately();
+        if (m_Charge >= 1f)
+        {
+            m_IsWaitingToFire = true;
+            m_FireDelayRemaining = FullMeterHoldSeconds + FireDelayBuffer;
+        }
     }
 
     /// <summary>Empties the meter immediately. Called on bomb hit, and internally when a boost fires.</summary>
     public void EmptyImmediately()
     {
+        m_IsWaitingToFire = false;
+        m_FireDelayRemaining = 0f;
         SetCharge(0f);
+    }
+
+    // Fires the boost queued when the meter filled, retrying next step if the kart cannot boost yet.
+    private void FireHeldBoost()
+    {
+        if (m_KartBoost != null && !m_KartBoost.Fire())
+        {
+            m_FireDelayRemaining = 0f;
+            return;
+        }
+
+        EmptyImmediately();
     }
 
     private void RefreshPositionBlend()

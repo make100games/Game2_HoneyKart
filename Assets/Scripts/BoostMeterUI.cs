@@ -6,7 +6,8 @@ using UnityEngine.UI;
 /// </summary>
 public sealed class BoostMeterUI : MonoBehaviour
 {
-    private const float FillAnimationDuration = 0.68f;
+    // Kept in lockstep with the meter's full-charge hold so the boost never fires before the bar looks full.
+    private const float FillAnimationDuration = BoostMeter.FullMeterHoldSeconds;
     private const float EventIconDuration = 0.82f;
     private const float BombShakeDuration = 0.55f;
     private const float BoostTextDuration = 1.25f;
