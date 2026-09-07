@@ -10,16 +10,13 @@ public class RaceManager : MonoBehaviour
     [Tooltip("Total number of laps required to finish the race.")]
     public int TotalLaps = 3;
 
-    [Tooltip("Index into the checkpoints array that acts as the start/finish line. " +
-             "Set this to the first checkpoint the karts cross after the starting grid. " +
-             "A lap is counted each time a kart passes this checkpoint after completing a full circuit.")]
+    [Tooltip("Index into the ordered checkpoint ring that is the first checkpoint karts cross after " +
+             "leaving the starting grid. A lap is counted each time a kart crosses the finish line " +
+             "after hitting every checkpoint in the ring since its last valid lap.")]
     public int StartCheckpointIndex = 0;
 
-    [Tooltip("Transform of the halfway checkpoint trigger. Used for live position distance tiebreaking.")]
-    public Transform halfwayCheckpoint;
-
-    [Tooltip("Transform of the finish line checkpoint trigger. Used for live position distance tiebreaking.")]
-    public Transform finishLineCheckpoint;
+    [Tooltip("Ordered checkpoint ring used for live position ranking and distance tiebreaking.")]
+    [SerializeField] private TrackCheckpoints trackCheckpoints;
 
     /// <summary>Singleton accessor set in Awake.</summary>
     public static RaceManager Instance => s_Instance;
@@ -27,10 +24,14 @@ public class RaceManager : MonoBehaviour
     /// <summary>Number of racers currently registered for the race, used to normalize live position into a 0-1 blend factor.</summary>
     public int RacerCount => m_Racers?.Count ?? 0;
 
+    /// <summary>The ordered checkpoint ring, exposed so LapTracker instances can resolve it without a scene-wide search.</summary>
+    public TrackCheckpoints TrackCheckpoints => trackCheckpoints;
+
     private static RaceManager s_Instance;
 
     private List<LapTracker> m_Racers;
     private List<LapTracker> m_FinishOrder;
+    private bool m_LoggedMissingDistanceCheckpoint;
 
     void Awake()
     {
@@ -44,6 +45,11 @@ public class RaceManager : MonoBehaviour
         s_Instance = this;
         m_Racers = new List<LapTracker>();
         m_FinishOrder = new List<LapTracker>();
+
+        if (trackCheckpoints == null)
+        {
+            Debug.LogError("[RaceManager] No TrackCheckpoints assigned — live position ranking will fall back to ProgressScore only.", this);
+        }
     }
 
     void OnDestroy()
@@ -63,10 +69,16 @@ public class RaceManager : MonoBehaviour
     {
         m_Racers.Clear();
 
+        if (trackCheckpoints != null)
+        {
+            trackCheckpoints.EnsureInitialized();
+        }
+
         LapTracker[] activeTrackers = FindObjectsByType<LapTracker>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
         for (int i = 0; i < activeTrackers.Length; i++)
         {
             RegisterInternal(activeTrackers[i]);
+            activeTrackers[i].ResetProgress();
         }
 
         Debug.Log($"[RaceManager] Registered {m_Racers.Count} racers.");
@@ -168,13 +180,18 @@ public class RaceManager : MonoBehaviour
     /// </summary>
     private float DistanceToNextCheckpoint(LapTracker r)
     {
-        Transform checkpoint = r.NextCheckpointTag == Tags.CheckpointFinishLine
-            ? finishLineCheckpoint
-            : halfwayCheckpoint;
+        Transform checkpoint = trackCheckpoints != null
+            ? trackCheckpoints.GetCheckpointTransform(r.NextCheckpointIndex)
+            : null;
 
         if (checkpoint == null)
         {
-            Debug.LogWarning("[RaceManager] A checkpoint Transform reference is null — distance tiebreaking will be skipped for this racer.");
+            if (!m_LoggedMissingDistanceCheckpoint)
+            {
+                Debug.LogWarning("[RaceManager] A checkpoint Transform reference is null — distance tiebreaking will be skipped.");
+                m_LoggedMissingDistanceCheckpoint = true;
+            }
+
             return float.MaxValue;
         }
 

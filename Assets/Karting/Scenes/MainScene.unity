@@ -33256,6 +33256,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1582454291}
     m_Modifications:
+    - target: {fileID: 2077207585071287776, guid: 435ff0a96b6894d20ba63520b8f9a4f6,
+        type: 3}
+      propertyPath: checkpointMask.m_Bits
+      value: 278528
+      objectReference: {fileID: 0}
     - target: {fileID: 3483693247462894689, guid: 435ff0a96b6894d20ba63520b8f9a4f6,
         type: 3}
       propertyPath: m_Name
@@ -34041,6 +34046,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1582454291}
     m_Modifications:
+    - target: {fileID: 1657154507978188365, guid: fcf82a01e83174de285c0824bbd37529,
+        type: 3}
+      propertyPath: checkpointMask.m_Bits
+      value: 278528
+      objectReference: {fileID: 0}
     - target: {fileID: 4198513194659159921, guid: fcf82a01e83174de285c0824bbd37529,
         type: 3}
       propertyPath: m_IsActive
@@ -36146,6 +36156,11 @@ PrefabInstance:
       propertyPath: groundLayers.m_Bits
       value: 3584
       objectReference: {fileID: 0}
+    - target: {fileID: 78817034685098096, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
+      propertyPath: checkpointMask.m_Bits
+      value: 278528
+      objectReference: {fileID: 0}
     - target: {fileID: 427854029033695368, guid: 107bdee8671f44bba805456dc720d2c3,
         type: 3}
       propertyPath: m_Layer
@@ -37058,6 +37073,11 @@ PrefabInstance:
         type: 3}
       propertyPath: playFinishSound
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3794870785435076751, guid: eeee6358623a7456e9bd7419f3af644f,
+        type: 3}
+      propertyPath: checkpointMask.m_Bits
+      value: 278528
       objectReference: {fileID: 0}
     - target: {fileID: 9206974508071813441, guid: eeee6358623a7456e9bd7419f3af644f,
         type: 3}
@@ -52648,6 +52668,11 @@ PrefabInstance:
         type: 3}
       propertyPath: playFinishSound
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5487512481921825216, guid: b15b4be8637964b32a8eae3afe616805,
+        type: 3}
+      propertyPath: checkpointMask.m_Bits
+      value: 278528
       objectReference: {fileID: 0}
     - target: {fileID: 5512546689472429203, guid: b15b4be8637964b32a8eae3afe616805,
         type: 3}
@@ -70367,6 +70392,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -9.618
       objectReference: {fileID: 0}
+    - target: {fileID: 3794870785435076751, guid: eeee6358623a7456e9bd7419f3af644f,
+        type: 3}
+      propertyPath: checkpointMask.m_Bits
+      value: 278528
+      objectReference: {fileID: 0}
     - target: {fileID: 5675084435296812508, guid: eeee6358623a7456e9bd7419f3af644f,
         type: 3}
       propertyPath: m_IsActive
@@ -70887,6 +70917,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5854355080013598396, guid: 7e996ba2074e740a6954d841b0bb5125,
+        type: 3}
+      propertyPath: checkpointMask.m_Bits
+      value: 278528
+      objectReference: {fileID: 0}
     - target: {fileID: 6098196211944820729, guid: 7e996ba2074e740a6954d841b0bb5125,
         type: 3}
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
@@ -71208,6 +71243,11 @@ PrefabInstance:
         type: 3}
       propertyPath: playFinishSound
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2077207585071287776, guid: 435ff0a96b6894d20ba63520b8f9a4f6,
+        type: 3}
+      propertyPath: checkpointMask.m_Bits
+      value: 278528
       objectReference: {fileID: 0}
     - target: {fileID: 2518530333344880779, guid: 435ff0a96b6894d20ba63520b8f9a4f6,
         type: 3}
@@ -82304,8 +82344,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalLaps: 5
   StartCheckpointIndex: 12
-  halfwayCheckpoint: {fileID: 1140350300}
-  finishLineCheckpoint: {fileID: 499345139}
+  trackCheckpoints: {fileID: 1822671577}
 --- !u!1 &1440723706
 GameObject:
   m_ObjectHideFlags: 0
@@ -83867,6 +83906,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9212427164096249342, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
+      propertyPath: checkpointMask.m_Bits
+      value: 278528
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -99192,6 +99236,11 @@ PrefabInstance:
       propertyPath: playFinishSound
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1657154507978188365, guid: fcf82a01e83174de285c0824bbd37529,
+        type: 3}
+      propertyPath: checkpointMask.m_Bits
+      value: 278528
+      objectReference: {fileID: 0}
     - target: {fileID: 5877087838865929496, guid: fcf82a01e83174de285c0824bbd37529,
         type: 3}
       propertyPath: sfxSource
@@ -111092,6 +111141,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1822671576}
+  - component: {fileID: 1822671577}
   m_Layer: 0
   m_Name: Checkpoints
   m_TagString: Untagged
@@ -111139,6 +111189,20 @@ Transform:
   - {fileID: 1292885859}
   m_Father: {fileID: 1080333648}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1822671577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1822671575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8abfbfa40822a407b90271f6fc374aee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orderedCheckpoints: []
+  verboseLogging: 0
 --- !u!1 &1824069718
 GameObject:
   m_ObjectHideFlags: 0
@@ -115817,6 +115881,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5487512481921825216, guid: b15b4be8637964b32a8eae3afe616805,
+        type: 3}
+      propertyPath: checkpointMask.m_Bits
+      value: 278528
+      objectReference: {fileID: 0}
     - target: {fileID: 5512546689472429202, guid: b15b4be8637964b32a8eae3afe616805,
         type: 3}
       propertyPath: m_UseGravity
@@ -118283,6 +118352,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7756630240280120000, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
+      propertyPath: checkpointMask.m_Bits
+      value: 278528
       objectReference: {fileID: 0}
     - target: {fileID: 8683912622688117118, guid: ca62c9e2da62a496386485954479e8dd,
         type: 3}
@@ -121407,6 +121481,11 @@ PrefabInstance:
       propertyPath: distressSound.minDistance
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 78817034685098096, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
+      propertyPath: checkpointMask.m_Bits
+      value: 278528
+      objectReference: {fileID: 0}
     - target: {fileID: 427854029033695368, guid: 107bdee8671f44bba805456dc720d2c3,
         type: 3}
       propertyPath: m_Layer
@@ -122015,6 +122094,11 @@ PrefabInstance:
       propertyPath: coinCollectSound.clip
       value: 
       objectReference: {fileID: 8300000, guid: 75cc9f8d0011f462ebdc0694a714d9c6, type: 3}
+    - target: {fileID: 5854355080013598396, guid: 7e996ba2074e740a6954d841b0bb5125,
+        type: 3}
+      propertyPath: checkpointMask.m_Bits
+      value: 278528
+      objectReference: {fileID: 0}
     - target: {fileID: 6098196211944820729, guid: 7e996ba2074e740a6954d841b0bb5125,
         type: 3}
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
@@ -122400,6 +122484,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9212427164096249342, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
+      propertyPath: checkpointMask.m_Bits
+      value: 278528
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -122545,6 +122634,11 @@ PrefabInstance:
       propertyPath: coinCollectSound.clip
       value: 
       objectReference: {fileID: 8300000, guid: 75cc9f8d0011f462ebdc0694a714d9c6, type: 3}
+    - target: {fileID: 7756630240280120000, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
+      propertyPath: checkpointMask.m_Bits
+      value: 278528
+      objectReference: {fileID: 0}
     - target: {fileID: 8683912622688117118, guid: ca62c9e2da62a496386485954479e8dd,
         type: 3}
       propertyPath: 'Colliders.Array.data[0]'
