@@ -1206,7 +1206,7 @@ MonoBehaviour:
   sparklesObject: {fileID: 6190905189664204371}
   coinLayer:
     serializedVersion: 2
-    m_Bits: 65536
+    m_Bits: 589824
   sfxSource: {fileID: 0}
   coinCollectSound:
     clip: {fileID: 0}
@@ -1231,6 +1231,7 @@ MonoBehaviour:
   checkpointMask:
     serializedVersion: 2
     m_Bits: 262144
+  trackCheckpoints: {fileID: 0}
   playFinishSound: 0
   finishSfxSource: {fileID: 0}
   finishClip: {fileID: 0}

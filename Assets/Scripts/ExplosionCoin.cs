@@ -7,12 +7,19 @@ using UnityEngine;
 /// spawner coins: a kinematic trigger with gravity disabled that a kart can
 /// collect. While airborne the coin reports itself as non-collectable so karts
 /// can bump into it physically without picking it up.
+///
+/// The coin is moved off the shared "Coin" layer onto a dedicated hidden layer
+/// for its entire lifetime (airborne and landed) so that KartAgent's layer-based
+/// coin perception never targets it. CoinCollector still collects it on contact
+/// because its coinLayer mask includes both layers — this makes explosion coins
+/// an opportunistic pickup only, never something the AI seeks out or detours for.
 /// </summary>
 [RequireComponent(typeof(Rigidbody), typeof(Collider))]
 public class ExplosionCoin : MonoBehaviour
 {
     private const float GroundContactOffset = 0.05f;
     private const float GroundProbeDistance = 50f;
+    private const string HiddenFromAgentsLayerName = "ExplosionCoin";
 
     private Rigidbody coinRigidbody;
     private Collider coinCollider;
@@ -38,6 +45,16 @@ public class ExplosionCoin : MonoBehaviour
         coinCollider = GetComponent<Collider>();
         groundLayers = groundLayerMask;
         hoverDistance = surfaceHoverDistance;
+
+        // Move off the shared "Coin" layer so KartAgent's OverlapSphere-based coin
+        // perception never sees this coin, for its entire lifetime (not just while
+        // airborne). CoinCollector still picks it up on contact via its own mask.
+        int hiddenLayer = LayerMask.NameToLayer(HiddenFromAgentsLayerName);
+        if (hiddenLayer >= 0)
+            gameObject.layer = hiddenLayer;
+        else
+            Debug.LogWarning($"ExplosionCoin: layer \"{HiddenFromAgentsLayerName}\" does not exist — " +
+                "this coin will stay on the Coin layer and remain visible to agent coin-seeking.", this);
 
         // Collider half-height, used only to detect the landing (whether the coin
         // physically rests on the ground or falls through when the layer matrix

@@ -1336,7 +1336,7 @@ MonoBehaviour:
   sparklesObject: {fileID: 1237341429562410276}
   coinLayer:
     serializedVersion: 2
-    m_Bits: 65536
+    m_Bits: 589824
   sfxSource: {fileID: 0}
   coinCollectSound:
     clip: {fileID: 0}
