@@ -1220,7 +1220,7 @@ MonoBehaviour:
     m_Bits: 8192
   FireWithBombReward: 0.5
   FireWithoutBombPenalty: 0.1
-  UseCoinSeeking: 0
+  UseCoinSeeking: 1
   CoinMask:
     serializedVersion: 2
     m_Bits: 65536
@@ -1242,7 +1242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 12
+    VectorObservationSize: 16
     NumStackedVectorObservations: 4
     m_ActionSpec:
       m_NumContinuousActions: 0
