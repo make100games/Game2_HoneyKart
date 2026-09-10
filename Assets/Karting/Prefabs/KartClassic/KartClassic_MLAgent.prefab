@@ -632,6 +632,24 @@ MonoBehaviour:
     m_Bits: 2048
   GroundCastDistance: 1
   ShowRaycasts: 0
+  UseMLFiring: 0
+  FireTargetRange: 25
+  FireTargetHalfAngle: 30
+  FireCooldownSeconds: 2
+  KartMask:
+    serializedVersion: 2
+    m_Bits: 0
+  FireWithBombReward: 0.5
+  FireWithoutBombPenalty: 0.1
+  UseCoinSeeking: 0
+  CoinMask:
+    serializedVersion: 2
+    m_Bits: 65536
+  CoinDetectionRange: 25
+  CoinSeekHalfAngle: 70
+  CoinCollectReward: 0.3
+  TowardsCoinReward: 0.005
+  CoinCheckpointAlignmentThreshold: 0.6
 --- !u!114 &8760494638502963209
 MonoBehaviour:
   m_ObjectHideFlags: 0

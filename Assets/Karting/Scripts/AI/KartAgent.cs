@@ -104,11 +104,39 @@ namespace KartGame.AI
         public float FireWithoutBombPenalty = 0.1f;
 #endregion
 
+#region Coins
+        [Header("Coin Seeking")]
+        [Tooltip("When false (default), coin observations and the towards-coin reward are disabled, keeping the existing 12-observation model valid until retrain.")]
+        public bool UseCoinSeeking = false;
+        [Tooltip("Layers treated as collectible coins.")]
+        public LayerMask CoinMask;
+        [Tooltip("Radius of the OverlapSphere used to detect nearby coins.")]
+        public float CoinDetectionRange = 25f;
+        [Tooltip("Coins outside this forward half-angle (degrees) are ignored entirely.")]
+        [Range(0f, 180f)] public float CoinSeekHalfAngle = 70f;
+        [Tooltip("Terminal reward granted per coin actually collected. Deliberately less than PassCheckpointReward.")]
+        public float CoinCollectReward = 0.3f;
+        [Tooltip("Small per-step shaping reward for moving towards a detected coin. Deliberately much smaller than TowardsCheckpointReward.")]
+        public float TowardsCoinReward = 0.005f;
+        [Tooltip("Minimum dot product between the coin direction and the next-checkpoint direction before any coin shaping reward is granted. Guards against detours off the racing line.")]
+        public float CoinCheckpointAlignmentThreshold = 0.6f;
+#endregion
+
         /// <summary>Raised when the agent wants to fire; BombLauncher subscribes.</summary>
         public event Action FireRequested;
 
         /// <summary>Called by the kart's BombLauncher to keep the agent informed of its current bomb count.</summary>
         public void SetAvailableBombs(int count) => m_AvailableBombs = Mathf.Max(0, count);
+
+        /// <summary>Called by the kart's coin pickup logic to reward the agent for collecting a coin.</summary>
+        public void NotifyCoinCollected()
+        {
+            AddReward(CoinCollectReward);
+            m_CoinsCollectedThisEpisode++;
+        }
+
+        /// <summary>Number of coins collected by this agent during the current episode. Useful for training diagnostics.</summary>
+        public int CoinsCollectedThisEpisode => m_CoinsCollectedThisEpisode;
 
         ArcadeKart m_Kart;
         bool m_Acceleration;
@@ -121,6 +149,11 @@ namespace KartGame.AI
 
         int m_AvailableBombs;
         float m_LastFireTime = -999f;
+
+        bool m_HasCoinTarget;
+        Vector3 m_CoinDirection;
+        float m_CoinDistance;
+        int m_CoinsCollectedThisEpisode;
 
         DecisionRequester m_DecisionRequester;
 
@@ -233,14 +266,22 @@ namespace KartGame.AI
             // Add an observation for direction of the agent to the next checkpoint.
             var next = (m_CheckpointIndex + 1) % Colliders.Length;
             var nextCollider = Colliders[next];
+
+            // The next checkpoint collider should always be assigned, but guard against a
+            // missing reference by adding a neutral observation instead of returning early —
+            // the observation vector size must stay constant regardless of this state.
             if (nextCollider == null)
-                return;
+            {
+                sensor.AddObservation(0f);
+            }
+            else
+            {
+                var direction = (nextCollider.transform.position - m_Kart.transform.position).normalized;
+                sensor.AddObservation(Vector3.Dot(m_Kart.Rigidbody.linearVelocity.normalized, direction));
 
-            var direction = (nextCollider.transform.position - m_Kart.transform.position).normalized;
-            sensor.AddObservation(Vector3.Dot(m_Kart.Rigidbody.linearVelocity.normalized, direction));
-
-            if (ShowRaycasts)
-                Debug.DrawLine(AgentSensorTransform.position, nextCollider.transform.position, Color.magenta);
+                if (ShowRaycasts)
+                    Debug.DrawLine(AgentSensorTransform.position, nextCollider.transform.position, Color.magenta);
+            }
 
             m_LastAccumulatedReward = 0.0f;
             m_EndEpisode = false;
@@ -279,6 +320,15 @@ namespace KartGame.AI
 
             if (UseMLFiring)
                 sensor.AddObservation(m_AvailableBombs > 0 ? 1f : 0f);
+
+            if (UseCoinSeeking)
+            {
+                m_HasCoinTarget = TryFindCoinTarget(out m_CoinDirection, out m_CoinDistance);
+                sensor.AddObservation(m_HasCoinTarget ? 1f : 0f);
+                sensor.AddObservation(m_CoinDistance / CoinDetectionRange);
+                sensor.AddObservation(m_HasCoinTarget ? Vector3.Dot(transform.forward, m_CoinDirection) : 0f);
+                sensor.AddObservation(m_HasCoinTarget ? Vector3.Dot(transform.right, m_CoinDirection) : 0f);
+            }
         }
 
         public override void OnActionReceived(ActionBuffers actions)
@@ -315,10 +365,20 @@ namespace KartGame.AI
                     }
                 }
             }
+
+            if (UseCoinSeeking && m_HasCoinTarget)
+            {
+                var toCheckpoint = (nextCollider.transform.position - m_Kart.transform.position).normalized;
+                if (Vector3.Dot(m_CoinDirection, toCheckpoint) >= CoinCheckpointAlignmentThreshold)
+                    AddReward(Vector3.Dot(m_Kart.Rigidbody.linearVelocity.normalized, m_CoinDirection) * TowardsCoinReward);
+            }
         }
 
         public override void OnEpisodeBegin()
         {
+            m_CoinsCollectedThisEpisode = 0;
+            m_HasCoinTarget = false;
+
             switch (Mode)
             {
                 case AgentMode.Training:
@@ -365,6 +425,54 @@ namespace KartGame.AI
                 if (Vector3.Angle(transform.forward, direction) <= FireTargetHalfAngle)
                     return true;
             }
+            return false;
+        }
+
+        /// <summary>
+        /// Finds the closest coin within CoinDetectionRange and within the forward CoinSeekHalfAngle cone,
+        /// using only layer and transform position — the agent never learns what a coin type is.
+        /// </summary>
+        bool TryFindCoinTarget(out Vector3 direction, out float distance)
+        {
+            Collider[] hits = Physics.OverlapSphere(transform.position, CoinDetectionRange, CoinMask, QueryTriggerInteraction.Collide);
+
+            bool found = false;
+            float closestSqrDistance = float.MaxValue;
+            Vector3 closestDirection = Vector3.zero;
+
+            foreach (var hit in hits)
+            {
+                if (hit == null)
+                    continue;
+
+                Vector3 to = hit.transform.position - transform.position;
+                Vector3 toNormalized = to.normalized;
+
+                if (Vector3.Angle(transform.forward, toNormalized) > CoinSeekHalfAngle)
+                    continue;
+
+                float sqrDistance = to.sqrMagnitude;
+                if (sqrDistance < closestSqrDistance)
+                {
+                    closestSqrDistance = sqrDistance;
+                    closestDirection = toNormalized;
+                    found = true;
+                }
+            }
+
+            if (found)
+            {
+                direction = closestDirection;
+                distance = Mathf.Sqrt(closestSqrDistance);
+
+                if (ShowRaycasts)
+                    Debug.DrawLine(transform.position, transform.position + direction * distance, Color.yellow);
+
+                return true;
+            }
+
+            direction = Vector3.zero;
+            distance = CoinDetectionRange;
             return false;
         }
 
