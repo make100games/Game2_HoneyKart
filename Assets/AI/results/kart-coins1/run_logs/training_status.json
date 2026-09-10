@@ -1,0 +1,38 @@
+{
+    "ArcadeDriver": {
+        "checkpoints": [
+            {
+                "steps": 499882,
+                "file_path": "results/kart-coins1/ArcadeDriver/ArcadeDriver-499882.onnx",
+                "reward": 23.99019769827525,
+                "creation_time": 1789070648.356595,
+                "auxillary_file_paths": [
+                    "results/kart-coins1/ArcadeDriver/ArcadeDriver-499882.pt"
+                ]
+            },
+            {
+                "steps": 742939,
+                "file_path": "results/kart-coins1/ArcadeDriver/ArcadeDriver-742939.onnx",
+                "reward": -4.8557887452620045,
+                "creation_time": 1789071963.340992,
+                "auxillary_file_paths": [
+                    "results/kart-coins1/ArcadeDriver/ArcadeDriver-742939.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 742939,
+            "file_path": "results/kart-coins1/ArcadeDriver.onnx",
+            "reward": -4.8557887452620045,
+            "creation_time": 1789071963.340992,
+            "auxillary_file_paths": [
+                "results/kart-coins1/ArcadeDriver/ArcadeDriver-742939.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.30.0",
+        "torch_version": "1.11.0"
+    }
+}

@@ -36221,6 +36221,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2908673905267057163, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 5022602860645237092, guid: 1d07132cefb7d421e99c1fbb111817de,
+        type: 3}
     - target: {fileID: 6448637425832958826, guid: 107bdee8671f44bba805456dc720d2c3,
         type: 3}
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
@@ -70962,6 +70968,12 @@ PrefabInstance:
       propertyPath: m_Resource
       value: 
       objectReference: {fileID: 8300000, guid: 75120ab76ce794117ab552c60492e1b8, type: 3}
+    - target: {fileID: 8669155865529968413, guid: 7e996ba2074e740a6954d841b0bb5125,
+        type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 5022602860645237092, guid: 1d07132cefb7d421e99c1fbb111817de,
+        type: 3}
     - target: {fileID: 9089887726726217271, guid: 7e996ba2074e740a6954d841b0bb5125,
         type: 3}
       propertyPath: m_Volume
@@ -83907,6 +83919,12 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9182637554440676497, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 5022602860645237092, guid: 1d07132cefb7d421e99c1fbb111817de,
+        type: 3}
     - target: {fileID: 9212427164096249342, guid: de2fbfc409b64499aaf1cae144d80e19,
         type: 3}
       propertyPath: checkpointMask.m_Bits
@@ -118308,6 +118326,12 @@ PrefabInstance:
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1346860564019768526, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 5022602860645237092, guid: 1d07132cefb7d421e99c1fbb111817de,
+        type: 3}
     - target: {fileID: 1356676053662452805, guid: ca62c9e2da62a496386485954479e8dd,
         type: 3}
       propertyPath: m_Layer
@@ -121546,6 +121570,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2908673905267057163, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 5022602860645237092, guid: 1d07132cefb7d421e99c1fbb111817de,
+        type: 3}
     - target: {fileID: 4365330290932149921, guid: 107bdee8671f44bba805456dc720d2c3,
         type: 3}
       propertyPath: sfxSource
@@ -121606,6 +121636,11 @@ PrefabInstance:
       propertyPath: coinCollectSound.clip
       value: 
       objectReference: {fileID: 8300000, guid: 75cc9f8d0011f462ebdc0694a714d9c6, type: 3}
+    - target: {fileID: 6794427416097652480, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
+      propertyPath: Mode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6794427416097652480, guid: 107bdee8671f44bba805456dc720d2c3,
         type: 3}
       propertyPath: 'Colliders.Array.data[0]'
@@ -121886,6 +121921,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 349531164268695766, guid: 7e996ba2074e740a6954d841b0bb5125,
         type: 3}
+      propertyPath: Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 349531164268695766, guid: 7e996ba2074e740a6954d841b0bb5125,
+        type: 3}
       propertyPath: 'Colliders.Array.data[0]'
       value: 
       objectReference: {fileID: 1017992086}
@@ -122149,6 +122189,12 @@ PrefabInstance:
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8669155865529968413, guid: 7e996ba2074e740a6954d841b0bb5125,
+        type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 5022602860645237092, guid: 1d07132cefb7d421e99c1fbb111817de,
+        type: 3}
     - target: {fileID: 9089887726726217271, guid: 7e996ba2074e740a6954d841b0bb5125,
         type: 3}
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
@@ -122356,6 +122402,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8712033900726906776, guid: de2fbfc409b64499aaf1cae144d80e19,
         type: 3}
+      propertyPath: Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8712033900726906776, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
       propertyPath: 'Colliders.Array.data[0]'
       value: 
       objectReference: {fileID: 1017992086}
@@ -122484,6 +122535,12 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9182637554440676497, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 5022602860645237092, guid: 1d07132cefb7d421e99c1fbb111817de,
+        type: 3}
     - target: {fileID: 9212427164096249342, guid: de2fbfc409b64499aaf1cae144d80e19,
         type: 3}
       propertyPath: checkpointMask.m_Bits
@@ -122589,6 +122646,12 @@ PrefabInstance:
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1346860564019768526, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 5022602860645237092, guid: 1d07132cefb7d421e99c1fbb111817de,
+        type: 3}
     - target: {fileID: 1356676053662452805, guid: ca62c9e2da62a496386485954479e8dd,
         type: 3}
       propertyPath: m_Layer
@@ -122638,6 +122701,11 @@ PrefabInstance:
         type: 3}
       propertyPath: checkpointMask.m_Bits
       value: 278528
+      objectReference: {fileID: 0}
+    - target: {fileID: 8683912622688117118, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
+      propertyPath: Mode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8683912622688117118, guid: ca62c9e2da62a496386485954479e8dd,
         type: 3}
