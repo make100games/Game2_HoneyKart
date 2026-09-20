@@ -14350,7 +14350,7 @@ MonoBehaviour:
   terrainLayer:
     serializedVersion: 2
     m_Bits: 4294967295
-  respawnDelay: 3
+  respawnDelay: 1
 --- !u!1 &134081633
 GameObject:
   m_ObjectHideFlags: 0
@@ -73733,7 +73733,7 @@ MonoBehaviour:
   terrainLayer:
     serializedVersion: 2
     m_Bits: 4294967295
-  respawnDelay: 3
+  respawnDelay: 1
 --- !u!1001 &1217909986
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -109879,7 +109879,7 @@ MonoBehaviour:
   terrainLayer:
     serializedVersion: 2
     m_Bits: 4294967295
-  respawnDelay: 3
+  respawnDelay: 1
 --- !u!4 &1786463012
 Transform:
   m_ObjectHideFlags: 0
@@ -113596,7 +113596,7 @@ MonoBehaviour:
   terrainLayer:
     serializedVersion: 2
     m_Bits: 2048
-  respawnDelay: 3
+  respawnDelay: 1
 --- !u!4 &1892102495
 Transform:
   m_ObjectHideFlags: 0
@@ -115786,7 +115786,7 @@ MonoBehaviour:
   terrainLayer:
     serializedVersion: 2
     m_Bits: 4294967295
-  respawnDelay: 3
+  respawnDelay: 1
 --- !u!4 &1974297034
 Transform:
   m_ObjectHideFlags: 0
