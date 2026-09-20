@@ -72,6 +72,14 @@ namespace KartGame.AI
         public float SpeedReward;
         [Tooltip("Reward the agent when it keeps accelerating")]
         public float AccelerationReward;
+        [Tooltip("Penalty subtracted when a checkpoint is crossed in the backward direction.")]
+        public float WrongWayPenalty = 0.5f;
+        [Tooltip("When false (default), wall contact applies a per-step penalty instead of ending the episode.")]
+        public bool EndEpisodeOnHit = false;
+        [Tooltip("Per-step penalty scale while a sensor reads below its HitValidationDistance.")]
+        public float ContactPenaltyPerStep = 0.05f;
+        [Tooltip("When true, SpeedReward is multiplied by the sign of the checkpoint direction dot, so driving fast the wrong way no longer earns reward.")]
+        public bool DirectionGateSpeedReward = true;
         #endregion
 
         #region ResetParams
@@ -82,6 +90,8 @@ namespace KartGame.AI
         public LayerMask TrackMask;
         [Tooltip("How far should the ray be when casted? For larger karts - this value should be larger too.")]
         public float GroundCastDistance;
+        [Tooltip("Largest forward checkpoint skip accepted as valid progress; larger jumps are treated as a backward/wrong-way crossing. Matches LapTracker.MaxForwardCheckpointSkip.")]
+        public int MaxForwardCheckpointSkip = 12;
 #endregion
 
 #region Debugging
@@ -128,15 +138,60 @@ namespace KartGame.AI
         /// <summary>Called by the kart's BombLauncher to keep the agent informed of its current bomb count.</summary>
         public void SetAvailableBombs(int count) => m_AvailableBombs = Mathf.Max(0, count);
 
-        /// <summary>Called by the kart's coin pickup logic to reward the agent for collecting a coin.</summary>
+        /// <summary>Called by the kart's coin pickup logic to reward the agent for collecting a coin.
+        /// The terminal reward only applies when the kart is currently travelling towards the next
+        /// checkpoint, so drifting off the racing line to grab a coin while going backward is not
+        /// rewarded. The coin count is always incremented, regardless of direction, for diagnostics.</summary>
         public void NotifyCoinCollected()
         {
-            AddReward(CoinCollectReward);
             m_CoinsCollectedThisEpisode++;
+
+            if (Vector3.Dot(m_Kart.Rigidbody.linearVelocity.normalized, DirectionToNextCheckpoint) > 0f)
+                AddReward(CoinCollectReward);
         }
 
         /// <summary>Number of coins collected by this agent during the current episode. Useful for training diagnostics.</summary>
         public int CoinsCollectedThisEpisode => m_CoinsCollectedThisEpisode;
+
+        /// <summary>Normalised world direction from the kart to the next checkpoint. Zero if the collider is missing.</summary>
+        public Vector3 DirectionToNextCheckpoint
+        {
+            get
+            {
+                if (Colliders == null || Colliders.Length == 0) return Vector3.zero;
+                var next = (m_CheckpointIndex + 1) % Colliders.Length;
+                var nextCollider = Colliders[next];
+                if (nextCollider == null) return Vector3.zero;
+                return (nextCollider.transform.position - m_Kart.transform.position).normalized;
+            }
+        }
+
+        /// <summary>Index of the checkpoint the agent is currently targeting as "passed".</summary>
+        public int CurrentCheckpointIndex => m_CheckpointIndex;
+
+        /// <summary>True when any sensor read below its HitValidationDistance on the most recent CollectObservations call.</summary>
+        public bool IsInContact => m_IsInContact;
+
+        /// <summary>The last InputData the policy produced, cached before any override is applied. Lets an
+        /// external component read the agent's intent without re-entering GenerateInput.</summary>
+        public InputData LastPolicyInput { get; private set; }
+
+        /// <summary>Pushes an input override that GenerateInput will return instead of the policy's own input.
+        /// Used by external recovery behaviours; KartAgent never references the pushing component.</summary>
+        public void SetInputOverride(InputData input)
+        {
+            m_OverrideInput = input;
+            m_HasInputOverride = true;
+        }
+
+        /// <summary>Clears a previously pushed input override so GenerateInput resumes returning policy input.</summary>
+        public void ClearInputOverride()
+        {
+            m_HasInputOverride = false;
+        }
+
+        /// <summary>True while an external input override is active.</summary>
+        public bool HasInputOverride => m_HasInputOverride;
 
         ArcadeKart m_Kart;
         bool m_Acceleration;
@@ -146,6 +201,12 @@ namespace KartGame.AI
 
         bool m_EndEpisode;
         float m_LastAccumulatedReward;
+        bool m_IsInContact;
+
+        InputData m_OverrideInput;
+        bool m_HasInputOverride;
+
+        bool m_LoggedMissingColliders;
 
         int m_AvailableBombs;
         float m_LastFireTime = -999f;
@@ -202,34 +263,70 @@ namespace KartGame.AI
                         Debug.DrawRay(transform.position, Vector3.down * GroundCastDistance, Color.cyan);
 
                     // We want to place the agent back on the track if the agent happens to launch itself outside of the track.
-                    if (Physics.Raycast(transform.position + Vector3.up, Vector3.down, out var hit, GroundCastDistance, TrackMask)
+                    // Cast against the combined mask so the ray can hit either surface, then test the actual
+                    // hit layer against OutOfBoundsMask — TrackMask and OutOfBoundsMask are disjoint, so
+                    // filtering the cast to TrackMask alone (as before) could never satisfy the OutOfBoundsMask test.
+                    if (Physics.Raycast(transform.position + Vector3.up, Vector3.down, out var hit, GroundCastDistance, TrackMask | OutOfBoundsMask)
                         && ((1 << hit.collider.gameObject.layer) & OutOfBoundsMask) > 0)
                     {
-                        // Reset the agent back to its last known agent checkpoint
-                        var checkpoint = Colliders[m_CheckpointIndex].transform;
-                        transform.localRotation = checkpoint.rotation;
-                        transform.position = checkpoint.position;
-                        m_Kart.Rigidbody.linearVelocity = default;
-                        m_Steering = 0f;
-						m_Acceleration = m_Brake = false; 
+                        RepositionToCurrentCheckpoint();
                     }
 
                     break;
             }
         }
 
+        /// <summary>
+        /// Teleports the kart back onto its current checkpoint and clears its motion state.
+        /// Extracted so both the inference out-of-bounds recovery and an external recovery
+        /// component's failsafe can reuse the exact same reset behaviour.
+        /// </summary>
+        public void RepositionToCurrentCheckpoint()
+        {
+            if (Colliders == null || m_CheckpointIndex < 0 || m_CheckpointIndex >= Colliders.Length || Colliders[m_CheckpointIndex] == null)
+                return;
+
+            var checkpoint = Colliders[m_CheckpointIndex].transform;
+            transform.localRotation = checkpoint.rotation;
+            transform.position = checkpoint.position;
+            m_Kart.Rigidbody.linearVelocity = default;
+            m_Steering = 0f;
+            m_Acceleration = m_Brake = false;
+        }
+
         void OnTriggerEnter(Collider other)
         {
             var maskedValue = 1 << other.gameObject.layer;
             var triggered = maskedValue & CheckpointMask;
+            if (triggered == 0) return;
 
             FindCheckpointIndex(other, out var index);
+            if (index < 0) return;
 
-            // Ensure that the agent touched the checkpoint and the new index is greater than the m_CheckpointIndex.
-            if (triggered > 0 && index > m_CheckpointIndex || index == 0 && m_CheckpointIndex == Colliders.Length - 1)
+            int count = Colliders.Length;
+            if (count == 0) return;
+
+            // Ring-modulo forward-progress acceptance, mirroring LapTracker.HandleCheckpointCrossed:
+            // a checkpoint crossing is accepted as forward progress when it is within
+            // MaxForwardCheckpointSkip steps ahead on the ring. This self-heals a missed checkpoint
+            // trigger anywhere on the ring, including the 24 -> 0 wrap, instead of leaving
+            // m_CheckpointIndex stuck behind the kart.
+            int forwardSkip = ((index - m_CheckpointIndex) % count + count) % count;
+
+            if (forwardSkip == 0)
+            {
+                // Duplicate re-trigger (e.g. the recovery teleport re-touching its own checkpoint) — ignore silently.
+                return;
+            }
+
+            if (forwardSkip <= MaxForwardCheckpointSkip)
             {
                 AddReward(PassCheckpointReward);
                 m_CheckpointIndex = index;
+            }
+            else
+            {
+                AddReward(-WrongWayPenalty);
             }
         }
 
@@ -244,6 +341,57 @@ namespace KartGame.AI
                 }
             }
             index = -1;
+        }
+
+        /// <summary>
+        /// Snaps m_CheckpointIndex to the checkpoint the kart is currently sitting at, so a grid spawn
+        /// can never target a checkpoint behind it. Call after teleporting the kart to a spawn slot,
+        /// since Start() otherwise assigns m_CheckpointIndex = InitCheckpointIndex before positioning happens.
+        /// </summary>
+        public void SyncCheckpointIndexToPosition()
+        {
+            if (Colliders == null || Colliders.Length == 0)
+            {
+                if (!m_LoggedMissingColliders)
+                {
+                    Debug.LogWarning("[KartAgent] SyncCheckpointIndexToPosition: Colliders is empty — cannot resolve nearest checkpoint.", this);
+                    m_LoggedMissingColliders = true;
+                }
+                return;
+            }
+
+            int closestIndex = -1;
+            float closestSqrDistance = float.MaxValue;
+            for (int i = 0; i < Colliders.Length; i++)
+            {
+                if (Colliders[i] == null) continue;
+                float sqrDistance = (Colliders[i].transform.position - m_Kart.transform.position).sqrMagnitude;
+                if (sqrDistance < closestSqrDistance)
+                {
+                    closestSqrDistance = sqrDistance;
+                    closestIndex = i;
+                }
+            }
+
+            if (closestIndex < 0)
+            {
+                if (!m_LoggedMissingColliders)
+                {
+                    Debug.LogWarning("[KartAgent] SyncCheckpointIndexToPosition: every Colliders entry is null — cannot resolve nearest checkpoint.", this);
+                    m_LoggedMissingColliders = true;
+                }
+                return;
+            }
+
+            int count = Colliders.Length;
+            Vector3 toClosest = (Colliders[closestIndex].transform.position - m_Kart.transform.position).normalized;
+            if (Vector3.Dot(toClosest, m_Kart.transform.forward) > 0f)
+            {
+                // The nearest checkpoint is still ahead — step back one so "next" resolves to it.
+                closestIndex = ((closestIndex - 1) % count + count) % count;
+            }
+
+            m_CheckpointIndex = closestIndex;
         }
 
         float Sign(float value)
@@ -273,11 +421,19 @@ namespace KartGame.AI
             if (nextCollider == null)
             {
                 sensor.AddObservation(0f);
+                sensor.AddObservation(0f);
+                sensor.AddObservation(0f);
             }
             else
             {
                 var direction = (nextCollider.transform.position - m_Kart.transform.position).normalized;
                 sensor.AddObservation(Vector3.Dot(m_Kart.Rigidbody.linearVelocity.normalized, direction));
+
+                // Heading observations: a stationary kart has a zero velocity-dot observation regardless
+                // of which way it's facing, so these give the agent a direction signal even at a standstill
+                // (e.g. wedged against a fence).
+                sensor.AddObservation(Vector3.Dot(m_Kart.transform.forward, direction));
+                sensor.AddObservation(Vector3.Dot(m_Kart.transform.right, direction));
 
                 if (ShowRaycasts)
                     Debug.DrawLine(AgentSensorTransform.position, nextCollider.transform.position, Color.magenta);
@@ -285,6 +441,7 @@ namespace KartGame.AI
 
             m_LastAccumulatedReward = 0.0f;
             m_EndEpisode = false;
+            m_IsInContact = false;
             for (var i = 0; i < Sensors.Length; i++)
             {
                 var current = Sensors[i];
@@ -308,8 +465,17 @@ namespace KartGame.AI
                 {
                     if (hitInfo.distance < current.HitValidationDistance)
                     {
-                        m_LastAccumulatedReward += HitPenalty;
-                        m_EndEpisode = true;
+                        m_IsInContact = true;
+
+                        if (EndEpisodeOnHit)
+                        {
+                            m_LastAccumulatedReward += HitPenalty;
+                            m_EndEpisode = true;
+                        }
+                        else
+                        {
+                            AddReward(-ContactPenaltyPerStep * (1f - hitInfo.distance / current.HitValidationDistance));
+                        }
                     }
                 }
 
@@ -339,6 +505,8 @@ namespace KartGame.AI
             // Find the next checkpoint when registering the current checkpoint that the agent has passed.
             var next = (m_CheckpointIndex + 1) % Colliders.Length;
             var nextCollider = Colliders[next];
+            if (nextCollider == null) return;
+
             var direction = (nextCollider.transform.position - m_Kart.transform.position).normalized;
             var reward = Vector3.Dot(m_Kart.Rigidbody.linearVelocity.normalized, direction);
 
@@ -347,7 +515,12 @@ namespace KartGame.AI
             // Add rewards if the agent is heading in the right direction
             AddReward(reward * TowardsCheckpointReward);
             AddReward((m_Acceleration && !m_Brake ? 1.0f : 0.0f) * AccelerationReward);
-            AddReward(m_Kart.LocalSpeed() * SpeedReward);
+
+            // Direction-gate the speed reward so driving fast obliquely the wrong way no longer nets
+            // positive reward (Mathf.Sign(0f) == 0f, which already zeroes the term for a stationary kart).
+            float speedTerm = m_Kart.LocalSpeed() * SpeedReward;
+            if (DirectionGateSpeedReward) speedTerm *= Mathf.Sign(reward);
+            AddReward(speedTerm);
 
             if (UseMLFiring && actions.DiscreteActions.Length > 2)
             {
@@ -382,7 +555,7 @@ namespace KartGame.AI
             switch (Mode)
             {
                 case AgentMode.Training:
-                    m_CheckpointIndex = Random.Range(0, Colliders.Length - 1);
+                    m_CheckpointIndex = Random.Range(0, Colliders.Length);
                     var collider = Colliders[m_CheckpointIndex];
                     transform.localRotation = collider.transform.rotation;
                     transform.position = collider.transform.position;
@@ -479,15 +652,22 @@ namespace KartGame.AI
         public InputData GenerateInput()
         {
             // Report neutral input while the countdown is active so the kart cannot twitch or creep forward.
+            // Also drop any stale override so it cannot leak across the countdown freeze.
             if (m_Kart == null || !m_Kart.CanMove)
+            {
+                m_HasInputOverride = false;
                 return new InputData { Accelerate = false, Brake = false, TurnInput = 0f };
+            }
 
-            return new InputData
+            var policyInput = new InputData
             {
                 Accelerate = m_Acceleration,
                 Brake = m_Brake,
                 TurnInput = m_Steering
             };
+            LastPolicyInput = policyInput;
+
+            return m_HasInputOverride ? m_OverrideInput : policyInput;
         }
     }
 }

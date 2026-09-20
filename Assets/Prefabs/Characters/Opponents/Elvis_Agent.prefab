@@ -1006,6 +1006,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5016090408783855127}
+    - targetCorrespondingSourceObject: {fileID: 4810912518991602691, guid: 19954de30401f73428254541a9ad156e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5469963277448980625}
   m_SourcePrefab: {fileID: 100100000, guid: 19954de30401f73428254541a9ad156e, type: 3}
 --- !u!4 &59857502969303863 stripped
 Transform:
@@ -1053,7 +1057,7 @@ MonoBehaviour:
   InitCheckpointIndex: 0
   Mask:
     serializedVersion: 2
-    m_Bits: 3585
+    m_Bits: 36353
   Sensors:
   - Transform: {fileID: 8097483802159170762}
     RayDistance: 60
@@ -1117,6 +1121,10 @@ MonoBehaviour:
   TowardsCheckpointReward: 0.03
   SpeedReward: 0.02
   AccelerationReward: 0
+  WrongWayPenalty: 0.5
+  EndEpisodeOnHit: 0
+  ContactPenaltyPerStep: 0.05
+  DirectionGateSpeedReward: 1
   OutOfBoundsMask:
     serializedVersion: 2
     m_Bits: 32768
@@ -1124,6 +1132,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   GroundCastDistance: 1
+  MaxForwardCheckpointSkip: 12
   ShowRaycasts: 1
   UseMLFiring: 0
   FireTargetRange: 25
@@ -1156,7 +1165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 16
+    VectorObservationSize: 18
     NumStackedVectorObservations: 4
     m_ActionSpec:
       m_NumContinuousActions: 0
@@ -1333,6 +1342,26 @@ MonoBehaviour:
   coinCollector: {fileID: 0}
   kartAgent: {fileID: 0}
   verboseLogging: 0
+--- !u!114 &5469963277448980625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2172650618388516011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 966cd4f441bfe40dbbb820bef296250d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  kartAgent: {fileID: 6794427416097652480}
+  kart: {fileID: 2172650618388516014}
+  probeDistance: 6
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 36353
+  maxConsecutiveAttempts: 3
+  enableDuringTraining: 0
 --- !u!4 &2172650618388516012 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4810912518991602692, guid: 19954de30401f73428254541a9ad156e,

@@ -1,3 +1,4 @@
+using KartGame.AI;
 using KartGame.KartSystems;
 using UnityEngine;
 
@@ -69,6 +70,14 @@ public class OpponentSpawnManager : MonoBehaviour
             // undefined state and can cause suspension forces to fight the teleport on the next step.
             rb.position = spawnSlot.position;
             rb.rotation = spawnSlot.rotation;
+
+            // KartAgent.Start() assigns m_CheckpointIndex = InitCheckpointIndex (0 on all prefabs) before
+            // this method relocates the kart to its grid slot, so the agent's target checkpoint must be
+            // re-synced to wherever it actually ended up — otherwise it can start targeting a checkpoint
+            // behind it and immediately register as driving the wrong way.
+            KartAgent agent = kart.GetComponent<KartAgent>();
+            if (agent != null)
+                agent.SyncCheckpointIndexToPosition();
 
             // Freeze driving — GameFlowManager.Start() will unfreeze after its countdown.
             kart.SetCanMove(false);
