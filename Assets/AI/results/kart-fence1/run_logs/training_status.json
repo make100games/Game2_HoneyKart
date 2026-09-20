@@ -1,0 +1,29 @@
+{
+    "ArcadeDriver": {
+        "checkpoints": [
+            {
+                "steps": 411120,
+                "file_path": "results/kart-fence1/ArcadeDriver/ArcadeDriver-411120.onnx",
+                "reward": null,
+                "creation_time": 1789938970.4427478,
+                "auxillary_file_paths": [
+                    "results/kart-fence1/ArcadeDriver/ArcadeDriver-411120.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 411120,
+            "file_path": "results/kart-fence1/ArcadeDriver.onnx",
+            "reward": null,
+            "creation_time": 1789938970.4427478,
+            "auxillary_file_paths": [
+                "results/kart-fence1/ArcadeDriver/ArcadeDriver-411120.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.30.0",
+        "torch_version": "1.11.0"
+    }
+}
