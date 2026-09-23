@@ -230,7 +230,17 @@ namespace KartGame.AI
             // If the agent is training, then at the start of the simulation, pick a random checkpoint to train the agent.
             OnEpisodeBegin();
 
-            if (Mode == AgentMode.Inferencing) m_CheckpointIndex = InitCheckpointIndex;
+            if (Mode == AgentMode.Inferencing)
+            {
+                m_CheckpointIndex = InitCheckpointIndex;
+
+                // Start() runs at the end of the frame in which the kart's hierarchy was activated,
+                // i.e. AFTER whatever placed the kart (grid spawn slots, or the authored attract-mode
+                // positions). Seeding from InitCheckpointIndex alone would leave every agent aiming at
+                // checkpoint 1 regardless of where it actually stands, so resolve the real target from
+                // the kart's current position instead.
+                SyncCheckpointIndexToPosition();
+            }
 
             // Pause the ML decision loop until the race countdown finishes and the kart is allowed to move.
             if (m_DecisionRequester != null) m_DecisionRequester.enabled = false;
