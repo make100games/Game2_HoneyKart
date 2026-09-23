@@ -9,7 +9,7 @@ using UnityEngine;
 [System.Serializable]
 public class SoundEffectSettings
 {
-    private const float DefaultVolumeScale = 1.3f;
+    private const float DefaultVolumeScale = 1.0f;
     private const float DefaultMinDistance = 1f;
     private const float DefaultMaxDistance = 10f;
     private const float MinAllowedDistance = 0.01f;

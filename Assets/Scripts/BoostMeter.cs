@@ -60,6 +60,9 @@ public class BoostMeter : MonoBehaviour
     /// <summary>Fired only when the charge value actually changes.</summary>
     public event Action<float> ChargeChanged;
 
+    /// <summary>Fired once the moment the meter reaches full and starts the hold before the boost fires.</summary>
+    public event Action MeterFull;
+
     private LapTracker m_LapTracker;
     private KartBoost m_KartBoost;
     private ArcadeKart m_ArcadeKart;
@@ -131,6 +134,7 @@ public class BoostMeter : MonoBehaviour
         {
             m_IsWaitingToFire = true;
             m_FireDelayRemaining = FullMeterHoldSeconds + FireDelayBuffer;
+            MeterFull?.Invoke();
         }
     }
 

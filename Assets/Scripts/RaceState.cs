@@ -58,6 +58,9 @@ public class RaceState : GameStateBase
     [Tooltip("FOV punch and camera-lag effect on raceCamera — bound to the selected kart's KartBoost on race entry, unbound on race exit. Added to raceCamera at runtime when unset.")]
     [SerializeField] private BoostCameraEffect boostCameraEffect;
 
+    [Tooltip("Player-only 2D meter-full cue — bound to the selected kart's BoostMeter on race entry, unbound on race exit.")]
+    [SerializeField] private BoostMeterFullSound boostMeterFullSound;
+
     [Tooltip("The spawn slot of the human player")]
     [SerializeField] private Transform spawnSlot;
 
@@ -176,6 +179,10 @@ public class RaceState : GameStateBase
         // RaceResultsState.Enter() reuses it — an un-restored FOV/offset would corrupt it.
         boostCameraEffect?.Unbind();
 
+        // The sound object lives outside the hierarchy this Exit() deactivates, so it must be
+        // unbound explicitly or a dangling subscription could fire the cue after race exit.
+        boostMeterFullSound?.Unbind();
+
         gameObject.SetActive(false);
     }
 
@@ -191,6 +198,8 @@ public class RaceState : GameStateBase
     {
         InitializePlayerSpeedEffect(selectedKart);
         InitializeBoostCameraEffect(selectedKart);
+
+        boostMeterFullSound?.Bind(selectedKart.GetComponent<BoostMeter>());
 
         if (topHudGroup == null && itemHUD != null)
             topHudGroup = itemHUD.transform.parent as RectTransform;
