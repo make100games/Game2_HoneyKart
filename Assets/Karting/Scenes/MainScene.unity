@@ -11281,8 +11281,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 0
-  MinDistance: 10
-  MaxDistance: 60
+  MinDistance: 1
+  MaxDistance: 10
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -33343,8 +33343,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 0
-  MinDistance: 10
-  MaxDistance: 60
+  MinDistance: 1
+  MaxDistance: 10
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -63627,8 +63627,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 0
-  MinDistance: 10
-  MaxDistance: 60
+  MinDistance: 1
+  MaxDistance: 10
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -105001,7 +105001,7 @@ MonoBehaviour:
   sfxSource: {fileID: 1753373346}
   meterFullSound:
     clip: {fileID: 8300000, guid: 78921cbd228974b1eadb3b3341767d02, type: 3}
-    volumeScale: 1
+    volumeScale: 5
     minDistance: 1
     maxDistance: 10
     rolloffMode: 0
@@ -111439,8 +111439,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 0
-  MinDistance: 10
-  MaxDistance: 60
+  MinDistance: 1
+  MaxDistance: 10
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -125890,7 +125890,7 @@ PrefabInstance:
     - target: {fileID: -99864275615779752, guid: ca62c9e2da62a496386485954479e8dd,
         type: 3}
       propertyPath: distressSound.maxDistance
-      value: 60
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: -99864275615779752, guid: ca62c9e2da62a496386485954479e8dd,
         type: 3}
