@@ -180,7 +180,7 @@ MonoBehaviour:
     rolloffMode: 0
   explosionSound:
     clip: {fileID: 8300000, guid: 0447dd1757db848f1b55889123a33708, type: 3}
-    volumeScale: 5
+    volumeScale: 1
     minDistance: 1
     maxDistance: 10
     rolloffMode: 0
