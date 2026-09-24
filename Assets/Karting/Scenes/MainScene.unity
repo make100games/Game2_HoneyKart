@@ -14290,14 +14290,14 @@ MonoBehaviour:
   characterBoostSound:
     clip: {fileID: 8300000, guid: 6351c0a26178447789f04403912c10ba, type: 3}
     volumeScale: 1
-    minDistance: 10
-    maxDistance: 60
+    minDistance: 1
+    maxDistance: 10
     rolloffMode: 0
   boostBlastSound:
     clip: {fileID: 8300000, guid: 079171abbbabb4a5da86fdd2873b2029, type: 3}
     volumeScale: 1
-    minDistance: 10
-    maxDistance: 60
+    minDistance: 1
+    maxDistance: 10
     rolloffMode: 0
 --- !u!1001 &130201795
 PrefabInstance:
@@ -100028,14 +100028,14 @@ MonoBehaviour:
   characterBoostSound:
     clip: {fileID: 8300000, guid: 044fdf2149d224940a37c0aacc1e52b9, type: 3}
     volumeScale: 1
-    minDistance: 10
-    maxDistance: 60
+    minDistance: 1
+    maxDistance: 10
     rolloffMode: 0
   boostBlastSound:
     clip: {fileID: 8300000, guid: 079171abbbabb4a5da86fdd2873b2029, type: 3}
     volumeScale: 1
-    minDistance: 10
-    maxDistance: 60
+    minDistance: 1
+    maxDistance: 10
     rolloffMode: 0
 --- !u!1 &1645005710
 GameObject:
@@ -113095,14 +113095,14 @@ MonoBehaviour:
   characterBoostSound:
     clip: {fileID: 8300000, guid: 99307931e33a543a7870d1992a6d35ab, type: 3}
     volumeScale: 1
-    minDistance: 10
-    maxDistance: 60
+    minDistance: 1
+    maxDistance: 10
     rolloffMode: 0
   boostBlastSound:
     clip: {fileID: 8300000, guid: 079171abbbabb4a5da86fdd2873b2029, type: 3}
     volumeScale: 1
-    minDistance: 10
-    maxDistance: 60
+    minDistance: 1
+    maxDistance: 10
     rolloffMode: 0
 --- !u!1001 &1847250070
 PrefabInstance:
@@ -114789,14 +114789,14 @@ MonoBehaviour:
   characterBoostSound:
     clip: {fileID: 8300000, guid: c42122a526e5a4676b159620a02d673f, type: 3}
     volumeScale: 1
-    minDistance: 10
-    maxDistance: 60
+    minDistance: 1
+    maxDistance: 10
     rolloffMode: 0
   boostBlastSound:
     clip: {fileID: 8300000, guid: 079171abbbabb4a5da86fdd2873b2029, type: 3}
     volumeScale: 1
-    minDistance: 10
-    maxDistance: 60
+    minDistance: 1
+    maxDistance: 10
     rolloffMode: 0
 --- !u!1 &1885138922
 GameObject:
