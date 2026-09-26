@@ -180,7 +180,7 @@ MonoBehaviour:
     rolloffMode: 0
   explosionSound:
     clip: {fileID: 8300000, guid: 0447dd1757db848f1b55889123a33708, type: 3}
-    volumeScale: 1
+    volumeScale: 3
     minDistance: 1
     maxDistance: 10
     rolloffMode: 0
@@ -193,7 +193,7 @@ AudioSource:
   m_GameObject: {fileID: 3148144893927309548}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 948856422270811703, guid: fcc71635aab95ff4fbdf1880bf2afa2f,
+  OutputAudioMixerGroup: {fileID: 757706877305819952, guid: fcc71635aab95ff4fbdf1880bf2afa2f,
     type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
