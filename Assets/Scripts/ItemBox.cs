@@ -3,9 +3,10 @@ using UnityEngine;
 
 /// <summary>
 /// Self-contained collection behaviour placed on the ItemBox prefab root.
-/// When a bomb-capable kart drives through the box's trigger it grants bombs,
-/// plays the collect effect, hides the box, notifies the respawner, and then
-/// destroys itself after a short delay so the particle effect can finish.
+/// When a bomb-capable kart drives through the box's trigger it plays the
+/// collect effect, hides the box, notifies the respawner, and then destroys
+/// itself after a short delay so the particle effect can finish. Bombs are
+/// only granted to the collecting kart outside of attract mode.
 /// </summary>
 [RequireComponent(typeof(MeshRenderer))]
 public class ItemBox : MonoBehaviour
@@ -55,7 +56,11 @@ public class ItemBox : MonoBehaviour
         if (boxCollider != null)
             boxCollider.enabled = false;
 
-        launcher.AddBombs(bombsGranted);
+        // Withhold the bomb reward during attract mode so AI karts can never fire
+        // and scatter coins, while the box still reacts visually and audibly.
+        if (!GameModeState.IsAttractMode)
+            launcher.AddBombs(bombsGranted);
+
         launcher.PlayItemCollectedSound();
 
         if (collectEffect != null)

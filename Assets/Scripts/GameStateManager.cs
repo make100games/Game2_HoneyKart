@@ -26,6 +26,10 @@ public class GameStateManager : MonoBehaviour
 
     void Start()
     {
+        // GameModeState.IsAttractMode is a static field, so it survives the scene
+        // reload triggered by RestartGame(). Reset it here so attract mode always
+        // starts with the flag true, even after a previous race set it to false.
+        GameModeState.IsAttractMode = true;
         TransitionTo(attractModeState);
     }
 

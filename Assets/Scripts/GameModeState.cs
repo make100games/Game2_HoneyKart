@@ -1,6 +1,8 @@
 /// <summary>
 /// Static flag that tracks whether the game is currently in attract mode.
-/// Set to false by AttractModeManager.StartGame() when the player begins a race.
+/// Set to false by GameStateManager.StartGame() when the player begins a race.
+/// Reset back to true by GameStateManager.Start(), since this static field would
+/// otherwise keep its value across the scene reload done by RestartGame().
 /// </summary>
 public static class GameModeState
 {
