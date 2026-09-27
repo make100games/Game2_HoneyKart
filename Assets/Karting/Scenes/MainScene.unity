@@ -31401,8 +31401,8 @@ MonoBehaviour:
   finishPositionOverlay: {fileID: 568476553}
   finishPositionUI: {fileID: 568476558}
   staticCameraDelay: 7
-  coastingLinearDamping: 3
-  coastingAngularDamping: 5
+  coastingLinearDamping: 1
+  coastingAngularDamping: 2
   orbitCameraPriority: 20
   musicSource: {fileID: 1518879847}
   firstPlaceMusicClip: {fileID: 8300000, guid: d3d6f33442e9442a9bf2e76fb0e4dd6f, type: 3}
