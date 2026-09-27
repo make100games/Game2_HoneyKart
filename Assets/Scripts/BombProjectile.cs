@@ -116,6 +116,12 @@ public class BombProjectile : MonoBehaviour
             rb.isKinematic = true;
         }
 
+        // The frozen, kinematic bomb body would otherwise act as an invisible wall for
+        // karts driving through the explosion smoke. Nothing needs its colliders after
+        // detonation, since blast damage is applied via Physics.OverlapSphere above.
+        foreach (Collider bombCollider in GetComponentsInChildren<Collider>())
+            bombCollider.enabled = false;
+
         // Stop fuse visuals.
         if (fuseEffects != null)
         {
