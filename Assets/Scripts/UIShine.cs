@@ -7,9 +7,20 @@ public class UIShine : MonoBehaviour
     public float duration = 20f;
     public float waitTime = 3f;
 
-    void Start()
+    private Coroutine shineLoopCoroutine;
+
+    void OnEnable()
     {
-        StartCoroutine(ShineLoop());
+        shineLoopCoroutine = StartCoroutine(ShineLoop());
+    }
+
+    void OnDisable()
+    {
+        if (shineLoopCoroutine != null)
+        {
+            StopCoroutine(shineLoopCoroutine);
+            shineLoopCoroutine = null;
+        }
     }
 
     private IEnumerator ShineLoop() {
