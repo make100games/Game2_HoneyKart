@@ -35890,8 +35890,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 784ab286ddc2c47e2b3c7a4476e82988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockbackVelocity: 8
-  flipCount: 1
+  knockbackVelocity: 15
+  flipCount: 3
   maxAirborneSeconds: 3
   coinPrefab: {fileID: 9034766387885013105, guid: f07b644ca58ca42d5963f242a0d00871,
     type: 3}
@@ -51322,8 +51322,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 784ab286ddc2c47e2b3c7a4476e82988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockbackVelocity: 8
-  flipCount: 1
+  knockbackVelocity: 15
+  flipCount: 3
   maxAirborneSeconds: 3
   coinPrefab: {fileID: 9034766387885013105, guid: f07b644ca58ca42d5963f242a0d00871,
     type: 3}
@@ -71518,8 +71518,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 784ab286ddc2c47e2b3c7a4476e82988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockbackVelocity: 8
-  flipCount: 1
+  knockbackVelocity: 15
+  flipCount: 3
   maxAirborneSeconds: 3
   coinPrefab: {fileID: 9034766387885013105, guid: f07b644ca58ca42d5963f242a0d00871,
     type: 3}
@@ -99099,8 +99099,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 784ab286ddc2c47e2b3c7a4476e82988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockbackVelocity: 8
-  flipCount: 1
+  knockbackVelocity: 15
+  flipCount: 3
   maxAirborneSeconds: 3
   coinPrefab: {fileID: 9034766387885013105, guid: f07b644ca58ca42d5963f242a0d00871,
     type: 3}
@@ -125047,6 +125047,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -3871717492896771540, guid: 107bdee8671f44bba805456dc720d2c3,
         type: 3}
+      propertyPath: flipCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -3871717492896771540, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
       propertyPath: sfxSource
       value: 
       objectReference: {fileID: 1880314089}
@@ -125061,6 +125066,11 @@ PrefabInstance:
       propertyPath: distressClip
       value: 
       objectReference: {fileID: 8300000, guid: 98a996adb8b1347b69f0900b03b3336c, type: 3}
+    - target: {fileID: -3871717492896771540, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
+      propertyPath: knockbackVelocity
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: -3871717492896771540, guid: 107bdee8671f44bba805456dc720d2c3,
         type: 3}
       propertyPath: distressSound.clip
@@ -125481,6 +125491,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -4633733646640369909, guid: 7e996ba2074e740a6954d841b0bb5125,
         type: 3}
+      propertyPath: flipCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -4633733646640369909, guid: 7e996ba2074e740a6954d841b0bb5125,
+        type: 3}
       propertyPath: sfxSource
       value: 
       objectReference: {fileID: 125827527}
@@ -125495,6 +125510,11 @@ PrefabInstance:
       propertyPath: distressClip
       value: 
       objectReference: {fileID: 8300000, guid: 06b1ae37af5504dc48545d7bfae03fc9, type: 3}
+    - target: {fileID: -4633733646640369909, guid: 7e996ba2074e740a6954d841b0bb5125,
+        type: 3}
+      propertyPath: knockbackVelocity
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: -4633733646640369909, guid: 7e996ba2074e740a6954d841b0bb5125,
         type: 3}
       propertyPath: distressSound.clip
@@ -125882,6 +125902,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2887302532712413785, guid: de2fbfc409b64499aaf1cae144d80e19,
         type: 3}
+      propertyPath: flipCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2887302532712413785, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
       propertyPath: sfxSource
       value: 
       objectReference: {fileID: 1845626927}
@@ -125896,6 +125921,11 @@ PrefabInstance:
       propertyPath: distressClip
       value: 
       objectReference: {fileID: 8300000, guid: eed170fe941d2461686510db9e3f770a, type: 3}
+    - target: {fileID: 2887302532712413785, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
+      propertyPath: knockbackVelocity
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 2887302532712413785, guid: de2fbfc409b64499aaf1cae144d80e19,
         type: 3}
       propertyPath: distressSound.clip
@@ -126213,6 +126243,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -99864275615779752, guid: ca62c9e2da62a496386485954479e8dd,
         type: 3}
+      propertyPath: flipCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -99864275615779752, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
       propertyPath: sfxSource
       value: 
       objectReference: {fileID: 1644180235}
@@ -126227,6 +126262,11 @@ PrefabInstance:
       propertyPath: distressClip
       value: 
       objectReference: {fileID: 8300000, guid: 1bd31dd941d29473d9b9ce9fa30fe4e3, type: 3}
+    - target: {fileID: -99864275615779752, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
+      propertyPath: knockbackVelocity
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: -99864275615779752, guid: ca62c9e2da62a496386485954479e8dd,
         type: 3}
       propertyPath: distressSound.clip
