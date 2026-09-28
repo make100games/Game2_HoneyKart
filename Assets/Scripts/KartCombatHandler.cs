@@ -154,16 +154,26 @@ public class KartCombatHandler : MonoBehaviour
         return Mathf.Min((2f * knockbackVelocity) / gravity, maxAirborneSeconds);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (!isKnockedBack)
             return;
 
-        airborneTimer += Time.deltaTime;
+        airborneTimer += Time.fixedDeltaTime;
 
-        // Drive the flip programmatically rather than through physics.
-        if (flipDegreesPerSecond > 0f)
-            transform.Rotate(flipAxis * (flipDegreesPerSecond * Time.deltaTime), Space.World);
+        // Drive the flip on the physics step through the Rigidbody so it stays in sync
+        // with interpolation, and clear any spin picked up from contacts so collisions
+        // can't fight the programmatic rotation.
+        if (kartRigidbody != null)
+        {
+            kartRigidbody.angularVelocity = Vector3.zero;
+
+            if (flipDegreesPerSecond > 0f)
+            {
+                Quaternion flipStep = Quaternion.AngleAxis(flipDegreesPerSecond * Time.fixedDeltaTime, flipAxis);
+                kartRigidbody.MoveRotation(flipStep * kartRigidbody.rotation);
+            }
+        }
 
         bool grounded = kart != null && kart.GroundPercent > 0f;
 
@@ -180,12 +190,22 @@ public class KartCombatHandler : MonoBehaviour
     {
         isKnockedBack = false;
 
-        // Snap upright, preserving heading, so the kart always ends right-side
-        // up even if the flip didn't complete before touching down.
-        Vector3 euler = transform.eulerAngles;
-        euler.x = 0f;
-        euler.z = 0f;
-        transform.eulerAngles = euler;
+        // Safety measure: snap upright, preserving heading, so the kart always ends
+        // right-side up even if it lands on its side or roof before the flip completes.
+        // Applied through the Rigidbody so the physics state matches the Transform.
+        if (kartRigidbody != null)
+        {
+            float heading = kartRigidbody.rotation.eulerAngles.y;
+            kartRigidbody.angularVelocity = Vector3.zero;
+            kartRigidbody.rotation = Quaternion.Euler(0f, heading, 0f);
+        }
+        else
+        {
+            Vector3 euler = transform.eulerAngles;
+            euler.x = 0f;
+            euler.z = 0f;
+            transform.eulerAngles = euler;
+        }
 
         if (kart != null)
             kart.SetCanMove(true);
