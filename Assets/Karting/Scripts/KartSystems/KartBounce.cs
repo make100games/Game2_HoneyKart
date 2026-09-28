@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace KartGame.KartSystems
 {
@@ -53,6 +53,14 @@ namespace KartGame.KartSystems
             {
                 BounceFlag = false;
             }
+
+            // An explosion knockback owns the kart's rotation and movement; cancel any bounce in progress.
+            if (kart.IsKnockedBack)
+            {
+                resumeTime = 0f;
+                return;
+            }
+
             Vector3 origin = transform.position;
             origin.y += HeightOffset;
 
@@ -106,7 +114,9 @@ namespace KartGame.KartSystems
         {
             if (Time.time > resumeTime && hasCollided) 
             {
-                kart.SetCanMove(true);
+                // Don't hand control back while the knockback flip is still running.
+                if (!kart.IsKnockedBack)
+                    kart.SetCanMove(true);
                 hasCollided = false;
             }
         }

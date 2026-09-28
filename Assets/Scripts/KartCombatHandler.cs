@@ -67,6 +67,9 @@ public class KartCombatHandler : MonoBehaviour
     /// <summary>Fired when this kart accepts an explosion hit.</summary>
     public event Action ExplosionHit;
 
+    /// <summary>True while the kart is airborne from an explosion and its flip is in control.</summary>
+    public bool IsKnockedBack => isKnockedBack;
+
     private Rigidbody kartRigidbody;
     private ArcadeKart kart;
     private BoostMeter boostMeter;
@@ -120,7 +123,10 @@ public class KartCombatHandler : MonoBehaviour
         // Stop the kart driving itself so it doesn't fight the flip or trigger
         // its built-in airborne self-righting.
         if (kart != null)
+        {
+            kart.IsKnockedBack = true;
             kart.SetCanMove(false);
+        }
 
         if (kartRigidbody != null)
         {
@@ -161,6 +167,11 @@ public class KartCombatHandler : MonoBehaviour
 
         airborneTimer += Time.fixedDeltaTime;
 
+        // Keep driving disabled for the whole flip in case another system re-enabled it,
+        // so player/AI input and ArcadeKart's airborne self-righting can't fight the rotation.
+        if (kart != null && kart.CanMove)
+            kart.SetCanMove(false);
+
         // Drive the flip on the physics step through the Rigidbody so it stays in sync
         // with interpolation, and clear any spin picked up from contacts so collisions
         // can't fight the programmatic rotation.
@@ -186,6 +197,13 @@ public class KartCombatHandler : MonoBehaviour
             FinishKnockback();
     }
 
+    private void OnDisable()
+    {
+        // Never leave the kart locked out of driving if this handler is disabled mid-flip.
+        if (isKnockedBack)
+            FinishKnockback();
+    }
+
     private void FinishKnockback()
     {
         isKnockedBack = false;
@@ -208,7 +226,10 @@ public class KartCombatHandler : MonoBehaviour
         }
 
         if (kart != null)
+        {
+            kart.IsKnockedBack = false;
             kart.SetCanMove(true);
+        }
     }
 
     private void SpawnCoins()

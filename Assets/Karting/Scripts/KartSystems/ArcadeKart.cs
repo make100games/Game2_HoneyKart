@@ -194,6 +194,14 @@ namespace KartGame.KartSystems
 
         /// <summary>True once the race has started and the kart is allowed to drive.</summary>
         public bool CanMove => m_CanMove;
+
+        /// <summary>
+        /// True while an external system (e.g. an explosion knockback) owns this kart's
+        /// movement and rotation. Other kart systems such as <see cref="KartBounce"/> must
+        /// not move, rotate, or re-enable driving on the kart while this is set.
+        /// </summary>
+        public bool IsKnockedBack { get; set; }
+
         public float GetMaxSpeed() => Mathf.Max(m_FinalStats.TopSpeed, m_FinalStats.ReverseSpeed);
 
         private void ActivateDriftVFX(bool active)
