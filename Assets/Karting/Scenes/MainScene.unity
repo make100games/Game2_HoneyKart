@@ -35793,6 +35793,11 @@ PrefabInstance:
       objectReference: {fileID: 478339350}
     - target: {fileID: 9206974508071813441, guid: eeee6358623a7456e9bd7419f3af644f,
         type: 3}
+      propertyPath: launchAngle
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 9206974508071813441, guid: eeee6358623a7456e9bd7419f3af644f,
+        type: 3}
       propertyPath: bombFireClip
       value: 
       objectReference: {fileID: 8300000, guid: 5a951214e2331471590391fa4f3bf01e, type: 3}
@@ -51223,6 +51228,11 @@ PrefabInstance:
       propertyPath: sfxSource
       value: 
       objectReference: {fileID: 765074598}
+    - target: {fileID: 7493709995150537067, guid: b15b4be8637964b32a8eae3afe616805,
+        type: 3}
+      propertyPath: launchAngle
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 7493709995150537067, guid: b15b4be8637964b32a8eae3afe616805,
         type: 3}
       propertyPath: bombFireClip
@@ -71399,6 +71409,11 @@ PrefabInstance:
       propertyPath: sfxSource
       value: 
       objectReference: {fileID: 1135877171}
+    - target: {fileID: 4690043489379902299, guid: 435ff0a96b6894d20ba63520b8f9a4f6,
+        type: 3}
+      propertyPath: launchAngle
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 4690043489379902299, guid: 435ff0a96b6894d20ba63520b8f9a4f6,
         type: 3}
       propertyPath: bombFireClip
@@ -98897,6 +98912,11 @@ PrefabInstance:
       objectReference: {fileID: 1626036199}
     - target: {fileID: 556197059625714132, guid: fcf82a01e83174de285c0824bbd37529,
         type: 3}
+      propertyPath: launchAngle
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 556197059625714132, guid: fcf82a01e83174de285c0824bbd37529,
+        type: 3}
       propertyPath: bombFireClip
       value: 
       objectReference: {fileID: 8300000, guid: 5a951214e2331471590391fa4f3bf01e, type: 3}
@@ -125174,6 +125194,11 @@ PrefabInstance:
       objectReference: {fileID: 1880314089}
     - target: {fileID: 4365330290932149921, guid: 107bdee8671f44bba805456dc720d2c3,
         type: 3}
+      propertyPath: launchAngle
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4365330290932149921, guid: 107bdee8671f44bba805456dc720d2c3,
+        type: 3}
       propertyPath: bombFireClip
       value: 
       objectReference: {fileID: 8300000, guid: 5a951214e2331471590391fa4f3bf01e, type: 3}
@@ -125787,6 +125812,11 @@ PrefabInstance:
       objectReference: {fileID: 125827527}
     - target: {fileID: 7043586338733838311, guid: 7e996ba2074e740a6954d841b0bb5125,
         type: 3}
+      propertyPath: launchAngle
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7043586338733838311, guid: 7e996ba2074e740a6954d841b0bb5125,
+        type: 3}
       propertyPath: bombFireClip
       value: 
       objectReference: {fileID: 8300000, guid: 5a951214e2331471590391fa4f3bf01e, type: 3}
@@ -126016,6 +126046,11 @@ PrefabInstance:
       propertyPath: sfxSource
       value: 
       objectReference: {fileID: 1845626927}
+    - target: {fileID: 5416290988218709184, guid: de2fbfc409b64499aaf1cae144d80e19,
+        type: 3}
+      propertyPath: launchAngle
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 5416290988218709184, guid: de2fbfc409b64499aaf1cae144d80e19,
         type: 3}
       propertyPath: bombFireClip
@@ -126297,6 +126332,11 @@ PrefabInstance:
       propertyPath: sfxSource
       value: 
       objectReference: {fileID: 1644180235}
+    - target: {fileID: 58486953117289320, guid: ca62c9e2da62a496386485954479e8dd,
+        type: 3}
+      propertyPath: launchAngle
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 58486953117289320, guid: ca62c9e2da62a496386485954479e8dd,
         type: 3}
       propertyPath: bombFireClip
