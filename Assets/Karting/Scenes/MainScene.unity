@@ -33083,6 +33083,11 @@ PrefabInstance:
       propertyPath: m_UseGravity
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9015355615857688315, guid: fcf82a01e83174de285c0824bbd37529,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9015355615857688319, guid: fcf82a01e83174de285c0824bbd37529,
         type: 3}
       propertyPath: m_Name
@@ -99039,6 +99044,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9015355615857688315, guid: fcf82a01e83174de285c0824bbd37529,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9015355615857688319, guid: fcf82a01e83174de285c0824bbd37529,
         type: 3}
