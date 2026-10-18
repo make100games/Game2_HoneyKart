@@ -130,17 +130,21 @@ public class CharacterSelectState : GameStateBase
                 continue;
 
             kart.SetCanMove(false);
+            kart.InputEnabled = false;
             SetParkingBrake(kart, ParkingBrakeTorque);
         }
     }
 
-    /// <summary>Releases the wheel brakes on all display karts.</summary>
+    /// <summary>Releases the wheel brakes and re-enables input on all display karts.</summary>
     private void ReleaseCharacterBrakes()
     {
         foreach (ArcadeKart kart in selectableCharacters)
         {
-            if (kart != null)
-                SetParkingBrake(kart, ReleasedBrakeTorque);
+            if (kart == null)
+                continue;
+
+            SetParkingBrake(kart, ReleasedBrakeTorque);
+            kart.InputEnabled = true;
         }
     }
 

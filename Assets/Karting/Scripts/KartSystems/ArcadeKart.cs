@@ -196,6 +196,12 @@ namespace KartGame.KartSystems
         public bool CanMove => m_CanMove;
 
         /// <summary>
+        /// When false, all input sources are ignored and the kart receives neutral input.
+        /// Used by menu states (e.g. character select) where display karts must not react to the player.
+        /// </summary>
+        public bool InputEnabled { get; set; } = true;
+
+        /// <summary>
         /// True while an external system (e.g. an explosion knockback) owns this kart's
         /// movement and rotation. Other kart systems such as <see cref="KartBounce"/> must
         /// not move, rotate, or re-enable driving on the kart while this is set.
@@ -345,6 +351,9 @@ namespace KartGame.KartSystems
             // reset input
             Input = new InputData();
             WantsToDrift = false;
+
+            if (!InputEnabled)
+                return;
 
             // gather nonzero input from our sources
             for (int i = 0; i < m_Inputs.Length; i++)
