@@ -98,7 +98,7 @@ public class CharacterSelectState : GameStateBase
         previousSelectedIndex = index;
     }
 
-    /// <summary>Activates this state, moves UI panels offscreen, and resets selection state.</summary>
+    /// <summary>Activates this state, moves UI panels offscreen, resets selection state, and locks the display karts.</summary>
     public override void Enter()
     {
         gameObject.SetActive(true);
@@ -112,6 +112,18 @@ public class CharacterSelectState : GameStateBase
 
         foreach (ParticleSystem ps in selectedEffects)
             ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+
+        DisableCharacterDriving();
+    }
+
+    /// <summary>Prevents the display karts from responding to player input while on the selection screen.</summary>
+    private void DisableCharacterDriving()
+    {
+        foreach (ArcadeKart kart in selectableCharacters)
+        {
+            if (kart != null)
+                kart.SetCanMove(false);
+        }
     }
 
     /// <summary>Stops all coroutines and deactivates this state and all its children.</summary>
