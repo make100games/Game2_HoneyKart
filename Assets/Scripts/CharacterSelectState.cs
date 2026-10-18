@@ -42,6 +42,8 @@ public class CharacterSelectState : GameStateBase
     private const int CharacterSelectVCamPriority = 50;
     private const float SlideInDuration = 0.4f;
     private const float SlideInOffscreenOffset = 300f;
+    private const float ParkingBrakeTorque = 5000f;
+    private const float ReleasedBrakeTorque = 0f;
 
     private Vector2 bottomPanelTargetPos;
     private Vector2 characterNameTargetPos;
@@ -116,19 +118,47 @@ public class CharacterSelectState : GameStateBase
         DisableCharacterDriving();
     }
 
-    /// <summary>Prevents the display karts from responding to player input while on the selection screen.</summary>
+    /// <summary>
+    /// Prevents the display karts from responding to player input and holds them in place
+    /// with wheel brakes so they rest naturally on the terrain without rolling.
+    /// </summary>
     private void DisableCharacterDriving()
     {
         foreach (ArcadeKart kart in selectableCharacters)
         {
-            if (kart != null)
-                kart.SetCanMove(false);
+            if (kart == null)
+                continue;
+
+            kart.SetCanMove(false);
+            SetParkingBrake(kart, ParkingBrakeTorque);
         }
     }
 
-    /// <summary>Stops all coroutines and deactivates this state and all its children.</summary>
+    /// <summary>Releases the wheel brakes on all display karts.</summary>
+    private void ReleaseCharacterBrakes()
+    {
+        foreach (ArcadeKart kart in selectableCharacters)
+        {
+            if (kart != null)
+                SetParkingBrake(kart, ReleasedBrakeTorque);
+        }
+    }
+
+    /// <summary>Applies the given brake torque to all four wheels of the kart.</summary>
+    private static void SetParkingBrake(ArcadeKart kart, float brakeTorque)
+    {
+        WheelCollider[] wheels = { kart.FrontLeftWheel, kart.FrontRightWheel, kart.RearLeftWheel, kart.RearRightWheel };
+        foreach (WheelCollider wheel in wheels)
+        {
+            if (wheel != null)
+                wheel.brakeTorque = brakeTorque;
+        }
+    }
+
+    /// <summary>Releases kart brakes, stops all coroutines, and deactivates this state and all its children.</summary>
     public override void Exit()
     {
+        ReleaseCharacterBrakes();
         StopAllCoroutines();
         gameObject.SetActive(false);
     }
